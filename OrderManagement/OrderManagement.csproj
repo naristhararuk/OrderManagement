@@ -78,6 +78,24 @@
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\DailyOrder.cs">
+      <DependentUpon>DailyOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DailyOrderModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyOrderModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DailyOrderModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyOrderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DailyOrderModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Login.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -196,6 +214,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Entity\DailyOrderModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DailyOrderModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entity\DailyOrderModel.edmx.diagram">
+      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+    </None>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </None>
@@ -219,7 +244,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Class\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\add48.png" />
   </ItemGroup>
@@ -308,6 +335,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Entity\DailyOrderModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+      <LastGenOutput>DailyOrderModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\DailyOrderModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+      <LastGenOutput>DailyOrderModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Entity\OrderEN.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OrderEN.edmx</DependentUpon>

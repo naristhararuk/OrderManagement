@@ -88,9 +88,9 @@ namespace OrderManagement
             }
             else if (username == "Account")
             {
-                LoginUC login = new LoginUC();
+                ProductUC product = new ProductUC();
                 pnlMain.Controls.Clear();
-                pnlMain.Controls.Add(login);
+                pnlMain.Controls.Add(product);
             }
             else
             {

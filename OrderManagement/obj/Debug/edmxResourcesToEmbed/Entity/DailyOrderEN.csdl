@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DailyOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DailyOrderEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetDailyOrder" ReturnType="Collection(DailyOrderModel.GetDailyOrder_Result)">
+      <Parameter Name="day" Mode="In" Type="String" />
+      <Parameter Name="customer" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetDailyOrder_Result">
+    <Property Type="Int32" Name="OrderID" Nullable="false" />
+    <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CustomerID" Nullable="true" />
+    <Property Type="Int32" Name="ProductID" Nullable="true" />
+    <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
+    <Property Type="Int32" Name="ProductAmount" Nullable="true" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
+    <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+  </ComplexType>
+</Schema>
