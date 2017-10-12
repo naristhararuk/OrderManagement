@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +46,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>OrderManagement.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -69,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\HelperCS.cs" />
     <Compile Include="CustomerManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,23 +97,23 @@
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\DailyOrder.cs">
-      <DependentUpon>DailyOrderModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\DailyOrderModel.Context.cs">
+    <Compile Include="Entity\DailyOrderEN.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderModel.Context.tt</DependentUpon>
+      <DependentUpon>DailyOrderEN.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\DailyOrderModel.cs">
+    <Compile Include="Entity\DailyOrderEN.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderModel.tt</DependentUpon>
+      <DependentUpon>DailyOrderEN.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\DailyOrderModel.Designer.cs">
+    <Compile Include="Entity\DailyOrderEN.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetDailyOrder_Result.cs">
+      <DependentUpon>DailyOrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Login.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
@@ -119,6 +138,21 @@
     </Compile>
     <Compile Include="Entity\Product.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vwOrder.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginModelCS.cs" />
     <Compile Include="Model\DataInfo.cs" />
@@ -178,6 +212,12 @@
     <EmbeddedResource Include="CustomerManagement.resx">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -214,12 +254,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Entity\DailyOrderModel.edmx">
+    <EntityDeploy Include="Entity\DailyOrderEN.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DailyOrderModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DailyOrderEN.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Entity\DailyOrderModel.edmx.diagram">
-      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
+    <None Include="Entity\DailyOrderEN.edmx.diagram">
+      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
     </None>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
@@ -242,10 +282,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Class\" />
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\add48.png" />
@@ -335,15 +386,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entity\DailyOrderModel.Context.tt">
+    <Content Include="Entity\DailyOrderEN.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
-      <LastGenOutput>DailyOrderModel.Context.cs</LastGenOutput>
+      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
+      <LastGenOutput>DailyOrderEN.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entity\DailyOrderModel.tt">
+    <Content Include="Entity\DailyOrderEN.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailyOrderModel.edmx</DependentUpon>
-      <LastGenOutput>DailyOrderModel.cs</LastGenOutput>
+      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
+      <LastGenOutput>DailyOrderEN.cs</LastGenOutput>
     </Content>
     <Content Include="Entity\OrderEN.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -24,20 +24,6 @@
     <Property Name="UserGroup" Type="Int32" />
     <Property Name="Status" Type="Boolean" />
   </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="OrderID" />
-    </Key>
-    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="OrderDay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="OrderDate" Type="DateTime" Precision="3" />
-    <Property Name="CustomerID" Type="Int32" />
-    <Property Name="ProductID" Type="Int32" />
-    <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
-    <Property Name="ProductAmount" Type="Int32" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="OrderStatus" Type="Boolean" />
-  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -57,7 +43,35 @@
   <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Customer" EntityType="Self.Customer" />
     <EntitySet Name="Login" EntityType="Self.Login" />
-    <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="vwOrder" EntityType="OrderModel.vwOrder" />
+    <EntitySet Name="Order" EntityType="OrderModel.Order" />
   </EntityContainer>
+  <EntityType Name="vwOrder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
+    <Property Name="ProductAmount" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="Boolean" />
+    <Property Name="OrderDay" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
+    <Property Name="ProductAmount" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="Boolean" />
+  </EntityType>
 </Schema>

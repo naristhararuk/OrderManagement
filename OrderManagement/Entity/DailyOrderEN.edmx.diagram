@@ -4,9 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="deeea72518cd4f079b784d9fb833b143" Name="Diagram1" >
-        <EntityTypeShape EntityType="DailyOrderModel.DailyOrder" Width="1.5" PointX="5.5" PointY="1.875" />
-      </Diagram>
+      <Diagram DiagramId="76cfc37d69c543f9914e5ac9095b5058" Name="Diagram1" />
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

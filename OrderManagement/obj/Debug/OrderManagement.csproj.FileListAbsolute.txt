@@ -23,3 +23,5 @@ D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.xml
 D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.SqlServer.xml
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.OrderUC.resources
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ReportUC.resources
+D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form2.resources
+D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form3.resources

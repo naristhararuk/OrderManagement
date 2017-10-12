@@ -29,7 +29,6 @@
       <PropertyRef Name="OrderID" />
     </Key>
     <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OrderDay" Type="nvarchar" MaxLength="10" />
     <Property Name="OrderDate" Type="datetime" />
     <Property Name="CustomerID" Type="int" />
     <Property Name="ProductID" Type="int" />
@@ -54,10 +53,39 @@
     <Property Name="Descripiton" Type="nvarchar(max)" />
     <Property Name="Status" Type="bit" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vwOrder">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="ProductAmount" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="OrderStatus" Type="bit" />
+    <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
+  </EntityType>
   <EntityContainer Name="OrderModelStoreContainer">
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vwOrder].[OrderID] AS [OrderID], 
+    [vwOrder].[OrderDate] AS [OrderDate], 
+    [vwOrder].[CustomerID] AS [CustomerID], 
+    [vwOrder].[ProductID] AS [ProductID], 
+    [vwOrder].[ProductPrice] AS [ProductPrice], 
+    [vwOrder].[ProductAmount] AS [ProductAmount], 
+    [vwOrder].[Description] AS [Description], 
+    [vwOrder].[OrderStatus] AS [OrderStatus], 
+    [vwOrder].[OrderDay] AS [OrderDay]
+    FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

@@ -12,6 +12,8 @@ namespace OrderManagement
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
+        private static Font fontstyle;
+
         public static string UserLoginName { get; set; }
         #region Inititial
         public Form1()
@@ -21,7 +23,7 @@ namespace OrderManagement
         private void Form1_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.None;
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -97,6 +99,14 @@ namespace OrderManagement
 
             }
             
+        }
+        public void ChangeFont()
+        {
+            fontstyle = new Font("Tahoma", 12, FontStyle.Bold);
+            foreach (Control c in this.Controls)
+            {
+                c.Font = fontstyle;
+            }
         }
         #endregion Method
 

@@ -10,9 +10,8 @@
 namespace OrderManagement.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Order
+    public partial class GetDailyOrder_Result
     {
         public int OrderID { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
@@ -22,5 +21,7 @@ namespace OrderManagement.Entity
         public Nullable<int> ProductAmount { get; set; }
         public string Description { get; set; }
         public Nullable<bool> OrderStatus { get; set; }
+        public string WeekDay { get; set; }
+        public string ProductName { get; set; }
     }
 }
