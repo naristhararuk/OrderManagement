@@ -25,3 +25,4 @@ D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Contro
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ReportUC.resources
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form2.resources
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form3.resources
+D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form4.resources

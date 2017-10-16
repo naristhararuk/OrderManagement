@@ -23,5 +23,6 @@ namespace OrderManagement.Entity
         public Nullable<bool> OrderStatus { get; set; }
         public string WeekDay { get; set; }
         public string ProductName { get; set; }
+        public Nullable<int> Unit { get; set; }
     }
 }

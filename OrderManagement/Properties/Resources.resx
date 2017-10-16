@@ -124,6 +124,9 @@
   <data name="search48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="chart-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart-481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="setting-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\setting-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,6 +157,9 @@
   <data name="invoice-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\invoice-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="add-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="add48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,6 +172,9 @@
   <data name="documentNew481" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\documentNew481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="remove2-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="close20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,6 +186,9 @@
   </data>
   <data name="chart3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remove-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,7 +217,7 @@
   <data name="right48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="chart-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chart-481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="remove2-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

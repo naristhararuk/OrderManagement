@@ -17,5 +17,6 @@
     <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
     <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="Unit" Nullable="true" />
   </ComplexType>
 </Schema>

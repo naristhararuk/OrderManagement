@@ -154,6 +154,12 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form4.Designer.cs">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginModelCS.cs" />
     <Compile Include="Model\DataInfo.cs" />
     <Compile Include="User_Control\CustomerUC.cs">
@@ -217,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form4.resx">
+      <DependentUpon>Form4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
@@ -406,6 +415,9 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\remove2-16.png" />
+    <None Include="Resources\remove-16.png" />
+    <None Include="Resources\add-16.png" />
     <None Include="Resources\chart-481.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

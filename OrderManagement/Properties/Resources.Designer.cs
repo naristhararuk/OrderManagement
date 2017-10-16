@@ -63,6 +63,16 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_16 {
+            get {
+                object obj = ResourceManager.GetObject("add-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add48 {
             get {
                 object obj = ResourceManager.GetObject("add48", resourceCulture);
@@ -286,6 +296,36 @@ namespace OrderManagement.Properties {
         internal static System.Drawing.Bitmap recycleBin48 {
             get {
                 object obj = ResourceManager.GetObject("recycleBin48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap remove_16 {
+            get {
+                object obj = ResourceManager.GetObject("remove-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap remove2_16 {
+            get {
+                object obj = ResourceManager.GetObject("remove2-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap remove2_161 {
+            get {
+                object obj = ResourceManager.GetObject("remove2-161", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
