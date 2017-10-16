@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 using OrderManagement.Class;
 using OrderManagement.Entity;
 namespace OrderManagement
 {
-    public partial class Form4 : Form
+    public partial class Form4 : MetroFramework.Forms.MetroForm
     {
         private int customerid = 0;
         public Form4()
@@ -19,8 +20,10 @@ namespace OrderManagement
             InitializeComponent();
             
             HelperCS.AutoCompleteLoadValues(MondayCustomerCombo, "Customer");
+         
             //BindTable();
         }
+
         /*
         private void BindTable()
         {
@@ -73,12 +76,12 @@ namespace OrderManagement
         }*/
 
 
-        private void AutoCompleteCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox combo = (ComboBox)sender;
-            string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
-            string value = ((KeyValuePair<string, string>)combo.SelectedItem).Value;
-        }
+        //private void AutoCompleteCombo_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    ComboBox combo = (ComboBox)sender;
+        //    string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
+        //    string value = ((KeyValuePair<string, string>)combo.SelectedItem).Value;
+        //}
 
         private void MondayCustomerCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -94,7 +97,13 @@ namespace OrderManagement
 
         private void BindTable(int cusid)
         {
-            HelperCS.CreatePanelTable(SundaytbPanel, "Monday", cusid);
+            HelperCS.dt = null;
+            HelperCS.CreatePanelTable(SundaytbHeadPanel,SundaytbPanel, "Monday", cusid);
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+            //MetroMessageBox.Show(this, "Your message here.", "Title Here", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
         }
     }
 }

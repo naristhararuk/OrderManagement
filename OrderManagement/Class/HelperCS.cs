@@ -9,14 +9,18 @@ using System.Windows.Forms;
 using OrderManagement.Entity;
 using System.Drawing;
 using MetroFramework.Controls;
-
+using MetroFramework;
+using MetroFramework.Forms;
 namespace OrderManagement.Class
 {
     class HelperCS
     {
         public static Font SegoeUIFont12 = new Font("Segoe UI", 12, FontStyle.Regular);
-        private static DataTable dt;
+        public static DataTable dt;
         private static Panel pnl = new Panel();
+        private static MetroPanel metropanel;
+        private static MetroPanel metroHeadpanel;
+        private static int Customerid;
         #region DataTable
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -89,13 +93,51 @@ namespace OrderManagement.Class
         #endregion Datatable
 
         #region PanelTable   
-        public static void CreatePanelTable(MetroPanel MainPanel, string day, int customerid)
+        public static void CreatePanelTable(MetroPanel MainHeadPanel, MetroPanel MainPanel, string day, int customerid)
         {
+            Customerid = customerid;
+            metropanel = MainPanel;
+            metroHeadpanel = MainHeadPanel;
+            TableLayoutPanel tableheadpanel = new TableLayoutPanel();
+            tableheadpanel.ColumnCount = 7;
+            tableheadpanel.RowCount = 1;
+            tableheadpanel.Width = 1000 ;
+            tableheadpanel.Dock = DockStyle.Fill;
+            //set column width
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tableheadpanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
+
+            //set Style
+            tableheadpanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableheadpanel.Font = HelperCS.SegoeUIFont12;
+
+            //set column Header
+            tableheadpanel.Controls.Add(new Label() { Text = "#" }, 0, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "OrderID" }, 1, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "ชื่อสินค้า" }, 2, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "ราคา" }, 3, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "หน่วยยก" }, 4, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "จำนวน" }, 5, 0);
+            tableheadpanel.Controls.Add(new Label() { Text = "ราคาทั้งหมด" }, 6, 0);
+
+            MainHeadPanel.Controls.Clear();
+            MainHeadPanel.Controls.Add(tableheadpanel);
+            //add dynamic
+            //Table.Controls.Add(new Label() { Text = "Type:", Anchor = AnchorStyles.Left, AutoSize = true }, 0, 0);
+            //Table.Controls.Add(new ComboBox() { Dock = DockStyle.Fill }, 0, 1);
             TableLayoutPanel tablepanel = new TableLayoutPanel();
             tablepanel.ColumnCount = 7;
             tablepanel.RowCount = 1;
-            tablepanel.Width = 1000 ;
-            //set column width
+            tablepanel.Width = 1000;
+            tablepanel.Dock = DockStyle.Fill;
+            //tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tablepanel.Font = HelperCS.SegoeUIFont12;
+
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
@@ -104,57 +146,70 @@ namespace OrderManagement.Class
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
 
-            //set Style
-            tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tablepanel.Font = HelperCS.SegoeUIFont12;
-
-            //set column Header
-            tablepanel.Controls.Add(new Label() { Text = "#" }, 0, 0);
-            tablepanel.Controls.Add(new Label() { Text = "OrderID" }, 1, 0);
-            tablepanel.Controls.Add(new Label() { Text = "ชื่อสินค้า" }, 2, 0);
-            tablepanel.Controls.Add(new Label() { Text = "ราคา" }, 3, 0);
-            tablepanel.Controls.Add(new Label() { Text = "หน่วยยก" }, 4, 0);
-            tablepanel.Controls.Add(new Label() { Text = "จำนวน" }, 5, 0);
-            tablepanel.Controls.Add(new Label() { Text = "ราคาทั้งหมด" }, 6, 0);
-
-            //add dynamic
-            //Table.Controls.Add(new Label() { Text = "Type:", Anchor = AnchorStyles.Left, AutoSize = true }, 0, 0);
-            //Table.Controls.Add(new ComboBox() { Dock = DockStyle.Fill }, 0, 1);
-
-            int rowcount = 0;
+            int rowcount = 20;
             //DataTable dt = GetDailyOrderTable(day, customerid);
-            dt = GetDailyOrderTable(day, customerid);
+            if(dt == null) {
+                dt = GetDailyOrderTable(day, customerid);
+            }
+
+            
             if (dt.Rows.Count > 0)
             {
                 //tablepanel.RowCount = dt.Rows.Count;
                 //tablepanel.RowCount = tablepanel.RowCount + 1;
-                for (int i = 0; i < dt.Rows.Count; i++)
+                for (int i = 0; i <= dt.Rows.Count; i++)
                 {
                     tablepanel.RowCount = tablepanel.RowCount + 1;
-                    tablepanel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
-                    DataRow dr = dt.Rows[i];
-                    
-                    //Add Remove button
-                    MetroTile bt = new MetroTile();
-                    bt.UseCustomBackColor = true;
-                    bt.BackColor = Color.Transparent;
-                    bt.BackgroundImage = OrderManagement.Properties.Resources.remove2_16;
-                    bt.Size = new Size(20, 20);
-                    bt.Click += new System.EventHandler(ButtonTileRemove_Click);
-                    bt.Name = dr["OrderID"].ToString();
-                    bt.BackgroundImageLayout = ImageLayout.Center;
+                    tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+
+                    if (i != dt.Rows.Count)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        //Add Remove button
+                        MetroTile bt = new MetroTile();
+                        bt.UseCustomBackColor = true;
+                        bt.BackColor = Color.Transparent;
+                        bt.BackgroundImage = OrderManagement.Properties.Resources.remove2_16;
+                        bt.Size = new Size(20, 20);
+                        bt.Click += new System.EventHandler(ButtonTileRemove_Click);
+                        bt.Name = dr["OrderID"].ToString();
+                        bt.BackgroundImageLayout = ImageLayout.Center;
 
 
-                    //Add Control to cell table
-                    tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = dr["OrderID"].ToString() }, 1, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = dr["ProductName"].ToString() }, 2, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = dr["ProductPrice"].ToString() }, 3, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = dr["ProductAmount"].ToString() }, 5, tablepanel.RowCount - 1);
+                        //Add Control to cell table
+                        tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = dr["OrderID"].ToString() }, 1, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = dr["ProductName"].ToString() }, 2, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = dr["ProductPrice"].ToString() }, 3, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = dr["ProductAmount"].ToString() }, 5, tablepanel.RowCount - 1);
 
-                    decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["ProductAmount"].ToString());
-                    tablepanel.Controls.Add(new Label() { Text = total.ToString("0.00") }, 6, tablepanel.RowCount - 1);
+                        decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["ProductAmount"].ToString());
+                        tablepanel.Controls.Add(new Label() { Text = total.ToString("0.00") }, 6, tablepanel.RowCount - 1);
+                    }
+                    else
+                    {
+                        //tablepanel.RowCount = tablepanel.RowCount + 1;
+                        //tablepanel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+
+                        MetroTile btAdd = new MetroTile();
+                        btAdd.UseCustomBackColor = true;
+                        btAdd.BackColor = Color.Transparent;
+                        btAdd.BackgroundImage = OrderManagement.Properties.Resources.add_16;
+                        btAdd.Size = new Size(20, 20);
+                        btAdd.Click += new System.EventHandler(ButtonTileAdd_Click);
+                        btAdd.BackgroundImageLayout = ImageLayout.Center;
+
+                        //tablepanel.Controls.Add(btAdd, 0, tablepanel.RowCount - 1);
+                        //tablepanel.Controls.Add(pnl, 1, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 0, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 1, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(AutoCompleteProductNotExist(), 2, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(btAdd, 3, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 4, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 5, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 6, tablepanel.RowCount - 1);
+                    }
                 }
                 
             }
@@ -162,7 +217,8 @@ namespace OrderManagement.Class
             {
                 for (int i = 0; i <= rowcount; i++)
                 {
-                    tablepanel.RowCount = rowcount + 1;
+                    tablepanel.RowCount = tablepanel.RowCount + 1;
+                    tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
                     //tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
                     ComboBox comboProduct = new ComboBox();
 
@@ -170,7 +226,8 @@ namespace OrderManagement.Class
                     HelperCS.AutoCompleteLoadValues(comboProduct, "Product");
                     comboProduct.SelectedIndexChanged += new System.EventHandler(AutoComplete_SelectedIndexChanged);
 
-                    tablepanel.Controls.Add(comboProduct);
+                    //tablepanel.Controls.Add(comboProduct);
+                    tablepanel.Controls.Add(new Label() { Text = "888" }, 0, tablepanel.RowCount - 1);
                     tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 1, tablepanel.RowCount - 1);
                     tablepanel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, tablepanel.RowCount - 1);
                     tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 3, tablepanel.RowCount - 1);
@@ -180,28 +237,12 @@ namespace OrderManagement.Class
                     
                 }
             }
-            tablepanel.RowCount = tablepanel.RowCount + 1;
-            tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-
-            MetroTile btAdd = new MetroTile();
-            btAdd.UseCustomBackColor = true;
-            btAdd.BackColor = Color.Transparent;
-            btAdd.BackgroundImage = OrderManagement.Properties.Resources.add_16;
-            btAdd.Size = new Size(20, 20);
-            btAdd.Click += new System.EventHandler(ButtonTileAdd_Click);
-            btAdd.BackgroundImageLayout = ImageLayout.Center;
-
-            //tablepanel.Controls.Add(btAdd, 0, tablepanel.RowCount - 1);
-            //tablepanel.Controls.Add(pnl, 1, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "dfs" }, 0, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "sdf" }, 1, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "sfad" }, 2, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "sf" }, 3, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "fs" }, 4, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "fsd" }, 5, tablepanel.RowCount - 1);
-            tablepanel.Controls.Add(new Label() { Text = "sf" }, 6, tablepanel.RowCount - 1);
 
 
+            MainPanel.Controls.Clear();
+            MainPanel.AutoScroll = true;
+            MainPanel.VerticalScrollbar = true;
+            MainPanel.VerticalScroll.Visible = true;
             MainPanel.Controls.Add(tablepanel);
         }
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)
@@ -246,12 +287,12 @@ namespace OrderManagement.Class
             autoCompleteCombo.DisplayMember = "Value";
             autoCompleteCombo.ValueMember = "Key";
         }
-        public class Productobj
-        {
-            public int ProductID { get; set; }
-            public string ProductName { get; set; }
-        }
-        public static void AutoCompleteProductNotExist()
+        //public class Productobj
+        //{
+        //    public int ProductID { get; set; }
+        //    public string ProductName { get; set; }
+        //}
+        public static ComboBox AutoCompleteProductNotExist()
         {
             ComboBox autoCompleteCombo = new ComboBox();
             autoCompleteCombo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -275,13 +316,13 @@ namespace OrderManagement.Class
             //Add First Row
             DataRow firstrow = dtresult.NewRow();
             firstrow[1] = "--โปรดเลือกสินค้า--";
-            dt.Rows.InsertAt(firstrow, 0);
+            dtresult.Rows.InsertAt(firstrow, 0);
             Source.Add(firstrow[0].ToString(), firstrow[1].ToString());
 
-            for (int i = 1; i < dt.Rows.Count; i++)
+            for (int i = 1; i < dtresult.Rows.Count; i++)
             {
                 //For query Data and add to combobox
-                DataRow dr = dt.Rows[i];
+                DataRow dr = dtresult.Rows[i];
                 /* 0 = ID, 1 = Name (From Select Query) */
                 Source.Add(dr[0].ToString(), dr[1].ToString());
                 comboSource.Add(dr[1].ToString());
@@ -293,14 +334,33 @@ namespace OrderManagement.Class
             autoCompleteCombo.Size = new System.Drawing.Size(250, 200);
             autoCompleteCombo.DisplayMember = "Value";
             autoCompleteCombo.ValueMember = "Key";
-            pnl.Controls.Add(autoCompleteCombo);
+            //pnl.Controls.Add(autoCompleteCombo);
+            return autoCompleteCombo;
         }
         #endregion ComboBox
 
         private static void ButtonTileRemove_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
-               MessageBox.Show(btn.Name.ToString());
+            // MessageBox.Show(btn.Name.ToString());
+            //MetroMessageBox.Show(this, "Your message here.", "Title Here", MessageBoxButtons.OKCancel, MessageBoxIcon.Hand);
+            Form frm = btn.FindForm();
+            DialogResult result = MetroMessageBox.Show(frm, "Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (result.Equals(DialogResult.OK))
+            {
+                 for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                {
+                    DataRow dr = dt.Rows[i];
+                    if (dr["OrderID"].ToString() == btn.Name.ToString())
+                        dr.Delete();
+                }
+                CreatePanelTable(metroHeadpanel,metropanel, "Monday", Customerid);
+            }
+            else
+            {
+            }
+
+           
         }
         private static void ButtonTileAdd_Click(object sender, EventArgs e)
         {
@@ -310,7 +370,7 @@ namespace OrderManagement.Class
 
         private static void CheckProductIDCanOrder()
         {
-            AutoCompleteProductNotExist();
+            //AutoCompleteProductNotExist();
         }
     }
 }
