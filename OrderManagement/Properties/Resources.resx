@@ -118,29 +118,50 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pencil48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pencil48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Admin128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Admin128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="search48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="close48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\close48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remove2-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="documentNew48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\documentNew48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="chart-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart-481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="setting-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\setting-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="setting-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\setting-481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="back2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\back2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cancel48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addUser48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addUser48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="group-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\group-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="edit48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\edit48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="setting-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\setting-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cancel48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cancel48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="remove2-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remove-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="if_Minus_131959" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\if_Minus_131959.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,8 +169,26 @@
   <data name="recycleBin48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\recycleBin48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="close20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\close20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="documentNew481" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\documentNew481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cart2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cart2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="find48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\find48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,67 +196,31 @@
   <data name="invoice-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\invoice-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="add-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addFlolder48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addFlolder48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="setting-481" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\setting-481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="documentNew481" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\documentNew481.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="remove2-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="close20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="right48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\right48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="print48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\print48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="documentNew48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\documentNew48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="search48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="chart3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chart3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="remove-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\remove-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="save4-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save4-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chart-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chart-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="edit48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="left48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\left48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pencil48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pencil48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="addUser48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addUser48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="back2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cart2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cart2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="addFlolder48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addFlolder48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Admin128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Admin128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="close48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="right48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\right48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="remove2-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="add_22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add_22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

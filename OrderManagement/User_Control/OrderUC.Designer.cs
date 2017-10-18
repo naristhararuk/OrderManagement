@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.ComboOrderCustomer = new System.Windows.Forms.ComboBox();
@@ -42,8 +42,8 @@
             this.MondayTab = new MetroFramework.Controls.MetroTabPage();
             this.pnlMainMondayBody = new MetroFramework.Controls.MetroPanel();
             this.pnlMondayBody = new MetroFramework.Controls.MetroPanel();
-            this.pnlMondayHead = new MetroFramework.Controls.MetroPanel();
             this.MondayToggle = new MetroFramework.Controls.MetroToggle();
+            this.pnlMondayHead = new MetroFramework.Controls.MetroPanel();
             this.TuesdayTab = new MetroFramework.Controls.MetroTabPage();
             this.lbltest = new MetroFramework.Controls.MetroLabel();
             this.TuesdayToggle = new MetroFramework.Controls.MetroToggle();
@@ -120,7 +120,7 @@
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel1.Location = new System.Drawing.Point(16, 10);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(80, 25);
+            this.metroLabel1.Size = new System.Drawing.Size(74, 25);
             this.metroLabel1.TabIndex = 10;
             this.metroLabel1.Text = "ชื่อลูกค้า";
             // 
@@ -137,7 +137,7 @@
             this.OrderTab.ItemSize = new System.Drawing.Size(100, 30);
             this.OrderTab.Location = new System.Drawing.Point(16, 87);
             this.OrderTab.Name = "OrderTab";
-            this.OrderTab.SelectedIndex = 1;
+            this.OrderTab.SelectedIndex = 6;
             this.OrderTab.Size = new System.Drawing.Size(1438, 683);
             this.OrderTab.TabIndex = 8;
             this.OrderTab.UseSelectable = true;
@@ -152,7 +152,7 @@
             this.SundayTab.HorizontalScrollbarSize = 10;
             this.SundayTab.Location = new System.Drawing.Point(4, 34);
             this.SundayTab.Name = "SundayTab";
-            this.SundayTab.Size = new System.Drawing.Size(1331, 671);
+            this.SundayTab.Size = new System.Drawing.Size(1430, 645);
             this.SundayTab.TabIndex = 0;
             this.SundayTab.Text = "    Sunday    ";
             this.SundayTab.VerticalScrollbarBarColor = true;
@@ -178,37 +178,37 @@
             this.SundayGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SundayGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.SundayGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.SundayGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SundayGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.SundayGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.SundayGrid.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SundayGrid.DefaultCellStyle = dataGridViewCellStyle8;
             this.SundayGrid.EnableHeadersVisualStyles = false;
             this.SundayGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.SundayGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.SundayGrid.Location = new System.Drawing.Point(-4, 60);
             this.SundayGrid.Name = "SundayGrid";
             this.SundayGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.SundayGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SundayGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.SundayGrid.RowHeadersVisible = false;
             this.SundayGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.SundayGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -273,6 +273,17 @@
             this.pnlMondayBody.VerticalScrollbarHighlightOnWheel = false;
             this.pnlMondayBody.VerticalScrollbarSize = 10;
             // 
+            // MondayToggle
+            // 
+            this.MondayToggle.AutoSize = true;
+            this.MondayToggle.Location = new System.Drawing.Point(1247, 11);
+            this.MondayToggle.Name = "MondayToggle";
+            this.MondayToggle.Size = new System.Drawing.Size(80, 17);
+            this.MondayToggle.Style = MetroFramework.MetroColorStyle.White;
+            this.MondayToggle.TabIndex = 3;
+            this.MondayToggle.Text = "Off";
+            this.MondayToggle.UseSelectable = true;
+            // 
             // pnlMondayHead
             // 
             this.pnlMondayHead.HorizontalScrollbarBarColor = true;
@@ -285,17 +296,6 @@
             this.pnlMondayHead.VerticalScrollbarBarColor = true;
             this.pnlMondayHead.VerticalScrollbarHighlightOnWheel = false;
             this.pnlMondayHead.VerticalScrollbarSize = 10;
-            // 
-            // MondayToggle
-            // 
-            this.MondayToggle.AutoSize = true;
-            this.MondayToggle.Location = new System.Drawing.Point(1247, 11);
-            this.MondayToggle.Name = "MondayToggle";
-            this.MondayToggle.Size = new System.Drawing.Size(80, 17);
-            this.MondayToggle.Style = MetroFramework.MetroColorStyle.White;
-            this.MondayToggle.TabIndex = 3;
-            this.MondayToggle.Text = "Off";
-            this.MondayToggle.UseSelectable = true;
             // 
             // TuesdayTab
             // 
@@ -345,9 +345,9 @@
             this.WednesdayTab.HorizontalScrollbarSize = 10;
             this.WednesdayTab.Location = new System.Drawing.Point(4, 34);
             this.WednesdayTab.Name = "WednesdayTab";
-            this.WednesdayTab.Size = new System.Drawing.Size(1331, 671);
+            this.WednesdayTab.Size = new System.Drawing.Size(1430, 645);
             this.WednesdayTab.TabIndex = 3;
-            this.WednesdayTab.Text = "   Wednesday  ";
+            this.WednesdayTab.Text = "   Wednesday    ";
             this.WednesdayTab.VerticalScrollbarBarColor = true;
             this.WednesdayTab.VerticalScrollbarHighlightOnWheel = false;
             this.WednesdayTab.VerticalScrollbarSize = 10;
@@ -371,9 +371,9 @@
             this.ThursdayTab.HorizontalScrollbarSize = 10;
             this.ThursdayTab.Location = new System.Drawing.Point(4, 34);
             this.ThursdayTab.Name = "ThursdayTab";
-            this.ThursdayTab.Size = new System.Drawing.Size(1331, 671);
+            this.ThursdayTab.Size = new System.Drawing.Size(1430, 645);
             this.ThursdayTab.TabIndex = 4;
-            this.ThursdayTab.Text = "   Thursday  ";
+            this.ThursdayTab.Text = "   Thursday   ";
             this.ThursdayTab.VerticalScrollbarBarColor = true;
             this.ThursdayTab.VerticalScrollbarHighlightOnWheel = false;
             this.ThursdayTab.VerticalScrollbarSize = 10;
@@ -397,7 +397,7 @@
             this.FridayTab.HorizontalScrollbarSize = 10;
             this.FridayTab.Location = new System.Drawing.Point(4, 34);
             this.FridayTab.Name = "FridayTab";
-            this.FridayTab.Size = new System.Drawing.Size(1331, 671);
+            this.FridayTab.Size = new System.Drawing.Size(1430, 645);
             this.FridayTab.TabIndex = 5;
             this.FridayTab.Text = "    Friday    ";
             this.FridayTab.VerticalScrollbarBarColor = true;
@@ -425,9 +425,9 @@
             this.SaturdayTab.HorizontalScrollbarSize = 10;
             this.SaturdayTab.Location = new System.Drawing.Point(4, 34);
             this.SaturdayTab.Name = "SaturdayTab";
-            this.SaturdayTab.Size = new System.Drawing.Size(1331, 671);
+            this.SaturdayTab.Size = new System.Drawing.Size(1430, 645);
             this.SaturdayTab.TabIndex = 6;
-            this.SaturdayTab.Text = "   Saturday   ";
+            this.SaturdayTab.Text = "   Saturday  ";
             this.SaturdayTab.VerticalScrollbarBarColor = true;
             this.SaturdayTab.VerticalScrollbarHighlightOnWheel = false;
             this.SaturdayTab.VerticalScrollbarSize = 10;
