@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.pnlMenu = new MetroFramework.Controls.MetroPanel();
-            this.pnlMain = new MetroFramework.Controls.MetroPanel();
             this.SettingMenuTile = new MetroFramework.Controls.MetroTile();
             this.OrderMenuTile = new MetroFramework.Controls.MetroTile();
             this.ProductMenuTile = new MetroFramework.Controls.MetroTile();
             this.ReportMenuTile = new MetroFramework.Controls.MetroTile();
             this.CustomerMenuTile = new MetroFramework.Controls.MetroTile();
+            this.pnlMain = new MetroFramework.Controls.MetroPanel();
             this.pnlMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,26 +51,11 @@
             this.pnlMenu.HorizontalScrollbarSize = 10;
             this.pnlMenu.Location = new System.Drawing.Point(20, 60);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(1339, 53);
+            this.pnlMenu.Size = new System.Drawing.Size(1463, 53);
             this.pnlMenu.TabIndex = 40;
             this.pnlMenu.VerticalScrollbarBarColor = true;
             this.pnlMenu.VerticalScrollbarHighlightOnWheel = false;
             this.pnlMenu.VerticalScrollbarSize = 10;
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.HorizontalScrollbarBarColor = true;
-            this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
-            this.pnlMain.HorizontalScrollbarSize = 10;
-            this.pnlMain.Location = new System.Drawing.Point(20, 113);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1339, 685);
-            this.pnlMain.TabIndex = 41;
-            this.pnlMain.VerticalScrollbarBarColor = true;
-            this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
-            this.pnlMain.VerticalScrollbarSize = 10;
             // 
             // SettingMenuTile
             // 
@@ -165,14 +150,32 @@
             this.CustomerMenuTile.UseTileImage = true;
             this.CustomerMenuTile.Click += new System.EventHandler(this.CustomerMenuTile_Click);
             // 
+            // pnlMain
+            // 
+            this.pnlMain.AutoScroll = true;
+            this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.HorizontalScrollbar = true;
+            this.pnlMain.HorizontalScrollbarBarColor = true;
+            this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
+            this.pnlMain.HorizontalScrollbarSize = 10;
+            this.pnlMain.Location = new System.Drawing.Point(20, 113);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1463, 795);
+            this.pnlMain.TabIndex = 41;
+            this.pnlMain.VerticalScrollbar = true;
+            this.pnlMain.VerticalScrollbarBarColor = true;
+            this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
+            this.pnlMain.VerticalScrollbarSize = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1379, 818);
+            this.ClientSize = new System.Drawing.Size(1503, 928);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlMenu);
+            this.MaximumSize = new System.Drawing.Size(1800, 1200);
             this.Name = "Form1";
             this.Text = "Order Management";
             this.Load += new System.EventHandler(this.Form1_Load);

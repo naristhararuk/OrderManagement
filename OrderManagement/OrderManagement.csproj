@@ -191,6 +191,12 @@
     <Compile Include="User_Control\LoginUC.Designer.cs">
       <DependentUpon>LoginUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Control\OrderMondayUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Control\OrderMondayUC.Designer.cs">
+      <DependentUpon>OrderMondayUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="User_Control\OrderUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -247,6 +253,9 @@
     <EmbeddedResource Include="User_Control\LoginUC.resx">
       <DependentUpon>LoginUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="User_Control\OrderMondayUC.resx">
+      <DependentUpon>OrderMondayUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="User_Control\OrderUC.resx">
       <DependentUpon>OrderUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -259,10 +268,6 @@
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Entity\OrderEN.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="Entity\DailyOrderEN.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DailyOrderEN.Designer.cs</LastGenOutput>
@@ -270,6 +275,10 @@
     <None Include="Entity\DailyOrderEN.edmx.diagram">
       <DependentUpon>DailyOrderEN.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Entity\OrderEN.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </None>

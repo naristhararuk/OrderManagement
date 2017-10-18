@@ -21,6 +21,7 @@ namespace OrderManagement.Class
         private static MetroPanel metropanel;
         private static MetroPanel metroHeadpanel;
         private static int Customerid;
+        private static ComboBox productNew;
         #region DataTable
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -49,7 +50,26 @@ namespace OrderManagement.Class
             return dataTable;
         }
 
-      
+        private static DataTable QueryAllResult(string tableName)
+        {
+            OrderEntities db = new OrderEntities();
+
+            if (tableName == "Product")
+            {
+                //Select only ID and Name
+                var query = from x in db.Product select x;
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else if (tableName == "Customer")
+            {
+                var query = from x in db.Customer select x;
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else
+            {
+                return new DataTable();
+            }
+        }
 
         private static DataTable QueryResult(string tableName)
         {
@@ -96,6 +116,7 @@ namespace OrderManagement.Class
         public static void CreatePanelTable(MetroPanel MainHeadPanel, MetroPanel MainPanel, string day, int customerid)
         {
             Customerid = customerid;
+            MainPanel.BackColor = Color.Transparent;
             metropanel = MainPanel;
             metroHeadpanel = MainHeadPanel;
             TableLayoutPanel tableheadpanel = new TableLayoutPanel();
@@ -133,7 +154,7 @@ namespace OrderManagement.Class
             TableLayoutPanel tablepanel = new TableLayoutPanel();
             tablepanel.ColumnCount = 7;
             tablepanel.RowCount = 1;
-            tablepanel.Width = 1000;
+            tablepanel.Width = 1200;
             tablepanel.Dock = DockStyle.Fill;
             //tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tablepanel.Font = HelperCS.SegoeUIFont12;
@@ -190,8 +211,6 @@ namespace OrderManagement.Class
                     else
                     {
                         //tablepanel.RowCount = tablepanel.RowCount + 1;
-                        //tablepanel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
-
                         MetroTile btAdd = new MetroTile();
                         btAdd.UseCustomBackColor = true;
                         btAdd.BackColor = Color.Transparent;
@@ -199,13 +218,21 @@ namespace OrderManagement.Class
                         btAdd.Size = new Size(20, 20);
                         btAdd.Click += new System.EventHandler(ButtonTileAdd_Click);
                         btAdd.BackgroundImageLayout = ImageLayout.Center;
+                        btAdd.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
 
-                        //tablepanel.Controls.Add(btAdd, 0, tablepanel.RowCount - 1);
-                        //tablepanel.Controls.Add(pnl, 1, tablepanel.RowCount - 1);
+
+                        productNew = AutoCompleteProductNotExist();
+                        productNew.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
+                        Panel pnl = new Panel();
+                        pnl.Dock = DockStyle.Fill;
+                        pnl.Margin = new Padding(0);
+                        pnl.Controls.Add(productNew);
+                        pnl.Controls.Add(btAdd);
+
                         tablepanel.Controls.Add(new Label() { Text = "" }, 0, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "" }, 1, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(AutoCompleteProductNotExist(), 2, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(btAdd, 3, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(pnl, 2, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(new Label() { Text = "" }, 3, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "" }, 4, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "" }, 5, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "" }, 6, tablepanel.RowCount - 1);
@@ -245,6 +272,7 @@ namespace OrderManagement.Class
             MainPanel.VerticalScroll.Visible = true;
             MainPanel.Controls.Add(tablepanel);
         }
+
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox combo = (ComboBox)sender;
@@ -366,11 +394,45 @@ namespace OrderManagement.Class
         {
             MetroTile btn = (MetroTile)sender;
             CheckProductIDCanOrder();
+            string key = ((KeyValuePair<string, string>)productNew.SelectedItem).Key;
+            string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
+            Form frm = btn.FindForm();
+            if (key != "")
+            {
+                NewrowProductOrder(int.Parse(key),value);
+                //MetroMessageBox.Show(frm, "select :" + value);
+                //Hand = red, Exclamation = yellow, (Asterisk,Information = blue)
+                //MetroMessageBox.Show(frm, "Please select Product:" + value, "Add New Product", MessageBoxButtons.OK, MessageBoxIcon.Question);
+
+            }
+            else
+            {
+                MetroMessageBox.Show(frm, "Please select Product Before","Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+      
         }
 
         private static void CheckProductIDCanOrder()
         {
-            //AutoCompleteProductNotExist();
+            
         }
+
+        private static void NewrowProductOrder(int productid,string productname)
+        {
+            //where All product get price
+            DataTable pd = QueryAllResult("Product");
+            decimal price = (from DataRow dr in pd.Rows
+                      where (int)dr["ProductID"] == productid
+                      select (decimal)dr["ProductPrice"]).FirstOrDefault();
+            
+            //add new row to display
+            DataRow row = dt.NewRow();
+            row["ProductID"] = productid;
+            row["ProductName"] = productname;
+            row["ProductPrice"] = price.ToString("0.00");
+            dt.Rows.Add(row);
+            CreatePanelTable(metroHeadpanel, metropanel, "Monday", Customerid);
+        }
+
     }
 }

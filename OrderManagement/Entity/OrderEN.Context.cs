@@ -27,8 +27,8 @@ namespace OrderManagement.Entity
     
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Login> Login { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<vwOrder> vwOrder { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
     }
 }
