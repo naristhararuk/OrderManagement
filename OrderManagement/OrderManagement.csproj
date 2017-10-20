@@ -433,6 +433,7 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\add_22.png" />
     <None Include="Resources\remove2-16.png" />
     <None Include="Resources\remove-16.png" />
     <None Include="Resources\add-16.png" />

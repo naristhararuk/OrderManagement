@@ -55,4 +55,8 @@ D:\N-Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Cont
 D:\N-Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ReportUC.resources
 D:\N-Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.csproj.GenerateResource.Cache
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.OrderMondayUC.resources
+<<<<<<< HEAD
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.Form5.resources
+=======
+D:\N-Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.OrderMondayUC.resources
+>>>>>>> bbc41e100339a78d7d77f4b75dbc16077926a5a0

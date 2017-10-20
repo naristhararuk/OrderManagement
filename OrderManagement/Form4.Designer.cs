@@ -32,6 +32,7 @@
             this.MondayCustomerCombo = new System.Windows.Forms.ComboBox();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.SundaytbHeadPanel = new MetroFramework.Controls.MetroPanel();
+            this.metroTile1 = new MetroFramework.Controls.MetroTile();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@
             this.SundaytbPanel.Name = "SundaytbPanel";
             this.SundaytbPanel.Size = new System.Drawing.Size(1400, 527);
             this.SundaytbPanel.TabIndex = 0;
+            this.SundaytbPanel.UseCustomBackColor = true;
             this.SundaytbPanel.VerticalScrollbar = true;
             this.SundaytbPanel.VerticalScrollbarBarColor = true;
             this.SundaytbPanel.VerticalScrollbarHighlightOnWheel = false;
@@ -99,14 +101,31 @@
             this.SundaytbHeadPanel.VerticalScrollbarHighlightOnWheel = false;
             this.SundaytbHeadPanel.VerticalScrollbarSize = 10;
             // 
+            // metroTile1
+            // 
+            this.metroTile1.ActiveControl = null;
+            this.metroTile1.BackColor = System.Drawing.Color.Honeydew;
+            this.metroTile1.Location = new System.Drawing.Point(509, 18);
+            this.metroTile1.Name = "metroTile1";
+            this.metroTile1.Size = new System.Drawing.Size(84, 24);
+            this.metroTile1.TabIndex = 4;
+            this.metroTile1.Text = "metroTile1";
+            this.metroTile1.TileImage = global::OrderManagement.Properties.Resources.add_22;
+            this.metroTile1.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTile1.UseCustomBackColor = true;
+            this.metroTile1.UseSelectable = true;
+            this.metroTile1.UseTileImage = true;
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1451, 686);
+            this.Controls.Add(this.metroTile1);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.MondayCustomerCombo);
             this.Name = "Form4";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form4";
             this.Load += new System.EventHandler(this.Form4_Load);
             this.metroPanel1.ResumeLayout(false);
@@ -120,5 +139,6 @@
         private System.Windows.Forms.ComboBox MondayCustomerCombo;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroPanel SundaytbHeadPanel;
+        private MetroFramework.Controls.MetroTile metroTile1;
     }
 }
