@@ -181,7 +181,7 @@ namespace OrderManagement.Class
                 for (int i = 0; i <= dt.Rows.Count; i++)
                 {
                     tablepanel.RowCount = tablepanel.RowCount + 1;
-                    tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+                    
 
                     if (i != dt.Rows.Count)
                     {
@@ -195,18 +195,25 @@ namespace OrderManagement.Class
                         bt.Click += new System.EventHandler(ButtonTileRemove_Click);
                         bt.Name = dr["OrderID"].ToString();
                         bt.BackgroundImageLayout = ImageLayout.Center;
-
-
+                        NumericTextBox txtamount = new NumericTextBox();
+                        //MetroTextBox txtamount = new MetroTextBox();
+                        txtamount.Text = dr["ProductAmount"].ToString();
+                        txtamount.Width = 50;
+                        txtamount.Height = 20;
+                        
+                        
                         //Add Control to cell table
+                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
                         tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["OrderID"].ToString() }, 1, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["ProductName"].ToString() }, 2, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["ProductPrice"].ToString() }, 3, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(new Label() { Text = dr["ProductAmount"].ToString() }, 5, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(txtamount, 5, tablepanel.RowCount - 1);
 
                         decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["ProductAmount"].ToString());
                         tablepanel.Controls.Add(new Label() { Text = total.ToString("0.00") }, 6, tablepanel.RowCount - 1);
+
                     }
                     else
                     {
@@ -228,7 +235,7 @@ namespace OrderManagement.Class
                         pnl.Margin = new Padding(0);
                         pnl.Controls.Add(productNew);
                         pnl.Controls.Add(btAdd);
-
+                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
                         tablepanel.Controls.Add(new Label() { Text = "" }, 0, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "" }, 1, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(pnl, 2, tablepanel.RowCount - 1);
@@ -271,6 +278,31 @@ namespace OrderManagement.Class
             MainPanel.VerticalScrollbar = true;
             MainPanel.VerticalScroll.Visible = true;
             MainPanel.Controls.Add(tablepanel);
+        }
+        class NumericTextBox : System.Windows.Forms.TextBox
+        {
+            protected override void OnKeyPress(System.Windows.Forms.KeyPressEventArgs e)
+            {
+                base.OnKeyPress(e);
+
+                //if ((e.KeyChar < '0' || e.KeyChar > '9' || e.KeyChar == '\b') && e.KeyChar != '.' )
+                if (!(Char.IsNumber(e.KeyChar) || e.KeyChar == 8 || e.KeyChar == 11 || e.KeyChar == 40))
+                {
+                    if (e.KeyChar == 40) { }
+                        //System.Windows.Forms.Control.SelectNextControl(NumericTextBox, true,true,true);
+                    e.Handled = true;
+                }
+                   
+            }
+            //protected override void OnKeyDown(System.Windows.Forms.KeyEventArgs e)
+            //{
+            //    // Determine whether the key entered is the F1 key. If it is, display Help.
+            //    if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Tab)
+            //    {
+            //        e.Handled = false;
+
+            //    }
+            //}
         }
 
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)

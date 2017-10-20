@@ -15,13 +15,16 @@ namespace OrderManagement.User_Control
 {
     public partial class OrderUC : UserControl
     {
-        private DataTable dt ;
         private int customerid = 0;
+        private DateTime sundate, mondate, tuedate, weddate, thrdate, fridate, satdate;
         public OrderUC()
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ComboOrderCustomer, "Customer");
+            CheckDate();
         }
+
+      
 
         private void OrderUC_Load(object sender, EventArgs e)
         {
@@ -290,6 +293,8 @@ namespace OrderManagement.User_Control
                 {
                     //OrderTab.TabPages[1].AutoSize = true;
                     //pnlMainMondayBody.AutoScroll = true;
+                    DateTime dt = DatePicker.Value;
+                    txtbDateMonday.Text = dt.DayOfWeek.ToString() + dt.ToString("dd MM yyyy");
                     HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["TuesdayTab"])
@@ -322,6 +327,103 @@ namespace OrderManagement.User_Control
             else
             {
                 MetroMessageBox.Show(this, "Please Select Customer Before");
+            }
+        }
+        private void CheckDate()
+        {
+            if (DatePicker.Value != null)
+            {
+                DateTime date = DatePicker.Value;
+                string formatdate = "dddd dd MMMM yyyy";
+                switch (date.DayOfWeek)
+                {
+                    case DayOfWeek.Sunday:
+                        {
+                            sundate = date;
+                            mondate = date.AddDays(1);
+                            tuedate = date.AddDays(2);
+                            weddate = date.AddDays(3);
+                            thrdate = date.AddDays(4);
+                            fridate = date.AddDays(5);
+                            satdate = date.AddDays(6);
+                            break;
+                        }
+                    case DayOfWeek.Monday:
+                        {
+                            sundate = date.AddDays(-1);
+                            mondate = date;
+                            tuedate = date.AddDays(1);
+                            weddate = date.AddDays(2);
+                            thrdate = date.AddDays(3);
+                            fridate = date.AddDays(4);
+                            satdate = date.AddDays(5);
+                            break;
+                        }
+                    case DayOfWeek.Tuesday:
+                        {
+                            sundate = date.AddDays(-2);
+                            mondate = date.AddDays(-1);
+                            tuedate = date;
+                            weddate = date.AddDays(1);
+                            thrdate = date.AddDays(2);
+                            fridate = date.AddDays(3);
+                            satdate = date.AddDays(4);
+                            break;
+                        }
+                    case DayOfWeek.Wednesday:
+                        {
+                            sundate = date.AddDays(-3);
+                            mondate = date.AddDays(-2);
+                            tuedate = date.AddDays(-1);
+                            weddate = date;
+                            thrdate = date.AddDays(1);
+                            fridate = date.AddDays(2);
+                            satdate = date.AddDays(3);
+                            break;
+                        }
+                    case DayOfWeek.Thursday:
+                        {
+                            sundate = date.AddDays(-4);
+                            mondate = date.AddDays(-3);
+                            tuedate = date.AddDays(-2);
+                            weddate = date.AddDays(-1);
+                            thrdate = date;
+                            fridate = date.AddDays(1);
+                            satdate = date.AddDays(2);
+                            break;
+                        }
+                    case DayOfWeek.Friday:
+                        {
+                            sundate = date.AddDays(-5);
+                            mondate = date.AddDays(-4);
+                            tuedate = date.AddDays(-3);
+                            weddate = date.AddDays(-2);
+                            thrdate = date.AddDays(-1);
+                            fridate = date;
+                            satdate = date.AddDays(1);
+                            break;
+                        }
+                    case DayOfWeek.Saturday:
+                        {
+                            sundate = date.AddDays(-6);
+                            mondate = date.AddDays(-5);
+                            tuedate = date.AddDays(-4);
+                            weddate = date.AddDays(-3);
+                            thrdate = date.AddDays(-2);
+                            fridate = date.AddDays(-1);
+                            satdate = date;
+                            break;
+                        }
+                }
+
+                txtbDateSunday.Text = sundate.ToString(formatdate);
+                txtbDateMonday.Text = mondate.ToString(formatdate);
+                txtbDateTuesday.Text = tuedate.ToString(formatdate);
+                txtbDateWednesday.Text = weddate.ToString(formatdate);
+                txtbDateThursday.Text = thrdate.ToString(formatdate);
+                txtbDateFriday.Text = fridate.ToString(formatdate);
+                txtbDateSaturday.Text = satdate.ToString(formatdate);
+
             }
         }
         #endregion Method
@@ -357,6 +459,11 @@ namespace OrderManagement.User_Control
         private void TuesdayTab_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            CheckDate();
         }
 
         #endregion IndexChanged
