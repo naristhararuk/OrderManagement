@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DailyOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DailyOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="day" Type="varchar" Mode="In" />
           <Parameter Name="customer" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="DailyOrderModelStoreContainer" />
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DailyOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -26,12 +27,15 @@
           <Property Type="Int32" Name="CustomerID" Nullable="true" />
           <Property Type="Int32" Name="ProductID" Nullable="true" />
           <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
-          <Property Type="Int32" Name="ProductAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
           <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -47,12 +51,15 @@
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
-                <ScalarProperty Name="ProductAmount" ColumnName="ProductAmount" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

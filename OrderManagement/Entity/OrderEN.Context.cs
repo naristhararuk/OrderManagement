@@ -25,10 +25,13 @@ namespace OrderManagement.Entity
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Config> Config { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<vwOrder> vwOrder { get; set; }
+        public virtual DbSet<vwOrderDetail> vwOrderDetail { get; set; }
     }
 }

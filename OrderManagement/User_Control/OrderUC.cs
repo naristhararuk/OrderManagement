@@ -16,20 +16,41 @@ namespace OrderManagement.User_Control
     public partial class OrderUC : UserControl
     {
         private int customerid = 0;
-        private DateTime sundate, mondate, tuedate, weddate, thrdate, fridate, satdate;
+        private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
+        
         public OrderUC()
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ComboOrderCustomer, "Customer");
             CheckDate();
+            
         }
 
       
 
         private void OrderUC_Load(object sender, EventArgs e)
         {
+            //HelperCS.FormMain = new Form1();
+
+            
             //CreateTemplateTable();
             //CheckTabBindGrid();
+        }
+
+        private void checkfrm1(Form1 form1)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void metroLabel6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOrderSave_Click(object sender, EventArgs e)
+        {
+            MetroTile btn = (MetroTile)sender;
+            HelperCS.SaveAllOrder(btn);
         }
 
         //private void BindGrid()
@@ -41,220 +62,203 @@ namespace OrderManagement.User_Control
         //        SetGridData(OrderTab.SelectedTab, query.ToList());
         //        //SundayGrid.DataSource = query.ToList();
         //        //SundayGrid.Font = new Font("Segoe UI", 11f, FontStyle.Regular, GraphicsUnit.Pixel);
-                
+
         //    }
         //}
- /*       
-        private void BindGrid(DataGridView grid, string day)
-        {
-            try
-            {
-                if (comboBox1.SelectedIndex >= 0)
-                {
-                    //int customerid = ddlCustomerOrder.SelectedIndex;
-                    using (var dailydb = new DailyOrderEntities())
-                    {
-                        // Get result from Stored Procedure
+        /*       
+               private void BindGrid(DataGridView grid, string day)
+               {
+                   try
+                   {
+                       if (comboBox1.SelectedIndex >= 0)
+                       {
+                           //int customerid = ddlCustomerOrder.SelectedIndex;
+                           using (var dailydb = new DailyOrderEntities())
+                           {
+                               // Get result from Stored Procedure
 
-                        var ds = dailydb.GetDailyOrder(day, customerid).ToList();
+                               var ds = dailydb.GetDailyOrder(day, customerid).ToList();
 
-                        // if found item rows
-                        if (ds.Count() > 0)
-                        {
-                            grid.DataSource = ds;
-                            CreateProductComboBox(grid);
-                        }
-                        else
-                        {
+                               // if found item rows
+                               if (ds.Count() > 0)
+                               {
+                                   grid.DataSource = ds;
+                                   CreateProductComboBox(grid);
+                               }
+                               else
+                               {
 
-                            //SetControlTemplateTable(Grid);
-                        }
-                    }
-                }
+                                   //SetControlTemplateTable(Grid);
+                               }
+                           }
+                       }
 
-            }
-            catch (Exception ex)
-            {
+                   }
+                   catch (Exception ex)
+                   {
 
-            }
-        }
+                   }
+               }
 
-        private void CreateProductComboBox(DataGridView grid)
-        {
-            DataGridViewComboBoxColumn comboboxColumn = new DataGridViewComboBoxColumn();
-            comboboxColumn = CreateProductComboBoxColumn();
-            SetAlternateChoicesUsingDataSource(comboboxColumn);
-            comboboxColumn.HeaderText = "Product Combo";
-            grid.Columns.Insert(0, comboboxColumn);
-        }
+               private void CreateProductComboBox(DataGridView grid)
+               {
+                   DataGridViewComboBoxColumn comboboxColumn = new DataGridViewComboBoxColumn();
+                   comboboxColumn = CreateProductComboBoxColumn();
+                   SetAlternateChoicesUsingDataSource(comboboxColumn);
+                   comboboxColumn.HeaderText = "Product Combo";
+                   grid.Columns.Insert(0, comboboxColumn);
+               }
 
 
-        enum ColumnName
-        {
-            OrderId,
-            OrderDate,
-            CustomerID,
-            ProductID,
-            ProductPrice,
-            ProductAmount,
-            Description,
-            OrderStatus,
-            WeekDay,
-            ProductName
-        };
-        private void SetAlternateChoicesUsingDataSource(DataGridViewComboBoxColumn comboboxColumn)
-        {
-            {
-                comboboxColumn.DataSource = DataEntityProduct();
-                comboboxColumn.ValueMember = "Id";
-                comboboxColumn.DisplayMember = "Text";
-                //comboboxColumn.ValueMember = ColumnName.ProductName.ToString();
-                //comboboxColumn.DisplayMember = comboboxColumn.ValueMember;
-            }
-        }
+               enum ColumnName
+               {
+                   OrderId,
+                   OrderDate,
+                   CustomerID,
+                   ProductID,
+                   ProductPrice,
+                   ProductAmount,
+                   Description,
+                   OrderStatus,
+                   WeekDay,
+                   ProductName
+               };
+               private void SetAlternateChoicesUsingDataSource(DataGridViewComboBoxColumn comboboxColumn)
+               {
+                   {
+                       comboboxColumn.DataSource = DataEntityProduct();
+                       comboboxColumn.ValueMember = "Id";
+                       comboboxColumn.DisplayMember = "Text";
+                       //comboboxColumn.ValueMember = ColumnName.ProductName.ToString();
+                       //comboboxColumn.DisplayMember = comboboxColumn.ValueMember;
+                   }
+               }
 
-        private object DataEntityProduct()
-        {
-            using (var db = new OrderEntities())
-            {
-                var ds = db.Product.Select(x => new
-                {
-                    Id = x.ProductID,
-                    Text = x.ProductName + " / " + x.ProductID
-                }).ToList();
+               private object DataEntityProduct()
+               {
+                   using (var db = new OrderEntities())
+                   {
+                       var ds = db.Product.Select(x => new
+                       {
+                           Id = x.ProductID,
+                           Text = x.ProductName + " / " + x.ProductID
+                       }).ToList();
 
-                // if found item rows
-                if (ds.Count() > 0)
-                {
-                    return HelperCS.ToDataTable(ds);
-                }
-                else
-                {
-                    return new DataTable();
-                }
-                //var query = from x in db.Product select x;
-                //// customerGroup is an IGrouping<string, Customer>
-                //foreach (var item in query)
-                //{
-                //    string id = item.ProductID.ToString();
-                //    string Name = item.ProductName.ToString();
-                //}
-            }
-        }
+                       // if found item rows
+                       if (ds.Count() > 0)
+                       {
+                           return HelperCS.ToDataTable(ds);
+                       }
+                       else
+                       {
+                           return new DataTable();
+                       }
+                       //var query = from x in db.Product select x;
+                       //// customerGroup is an IGrouping<string, Customer>
+                       //foreach (var item in query)
+                       //{
+                       //    string id = item.ProductID.ToString();
+                       //    string Name = item.ProductName.ToString();
+                       //}
+                   }
+               }
 
-        private DataGridViewComboBoxColumn CreateProductComboBoxColumn()
-        {
-            DataGridViewComboBoxColumn column =
-                new DataGridViewComboBoxColumn();
-            {
-                
-                column.DataPropertyName = ColumnName.ProductName.ToString();
-                column.HeaderText = ColumnName.ProductName.ToString();
-                column.DropDownWidth = 160;
-                column.Width = 90;
-                column.MaxDropDownItems = 3;
-                column.FlatStyle = FlatStyle.Flat;
-            }
-            return column;
-        }
+               private DataGridViewComboBoxColumn CreateProductComboBoxColumn()
+               {
+                   DataGridViewComboBoxColumn column =
+                       new DataGridViewComboBoxColumn();
+                   {
 
-        private void BindGrid(MetroGrid Grid,string day)
-        {
-            
-            try {
-                if (ddlCustomerOrder.SelectedIndex >= 0)
-                {
-                    int customerid = ddlCustomerOrder.SelectedIndex;
-                    //using (OrderEntities db = new OrderEntities())
-                    //{
-                    //    var result_id = (from d in db.vwOrder
-                    //                    where d.CustomerID == customerid
-                    //                    select d);
-                    //    var result = from x in result_id
-                    //                 where x.OrderDay.Contains(day)
-                    //                 select x;
+                       column.DataPropertyName = ColumnName.ProductName.ToString();
+                       column.HeaderText = ColumnName.ProductName.ToString();
+                       column.DropDownWidth = 160;
+                       column.Width = 90;
+                       column.MaxDropDownItems = 3;
+                       column.FlatStyle = FlatStyle.Flat;
+                   }
+                   return column;
+               }
 
-                    //    Grid.DataSource = result.ToList();
-                    //    Grid.Font = new Font("Segoe UI", 14f, FontStyle.Regular, GraphicsUnit.Pixel);
-                    //}
-                    //using (DailyOrderEntities store = new DailyOrderEntities()) { }
-                    using (var dailydb = new DailyOrderEntities())
-                    {
-                        // Get result from Stored Procedure
+               private void BindGrid(MetroGrid Grid,string day)
+               {
 
-                        var ds = dailydb.GetDailyOrder(day, customerid).ToList();
+                   try {
+                       if (ddlCustomerOrder.SelectedIndex >= 0)
+                       {
+                           int customerid = ddlCustomerOrder.SelectedIndex;
+                           //using (OrderEntities db = new OrderEntities())
+                           //{
+                           //    var result_id = (from d in db.vwOrder
+                           //                    where d.CustomerID == customerid
+                           //                    select d);
+                           //    var result = from x in result_id
+                           //                 where x.OrderDay.Contains(day)
+                           //                 select x;
 
-                        // if found item rows
-                        if (ds.Count() > 0)
-                        {
-                            Grid.DataSource = ds;
-                            Grid.Font = new Font("Segoe UI", 14f, FontStyle.Regular, GraphicsUnit.Pixel);
-                            DataGridTextBoxColumn txtPrice = new DataGridTextBoxColumn();
-                        }
-                        else
-                        {
-                            
-                            SetControlTemplateTable(Grid);
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
+                           //    Grid.DataSource = result.ToList();
+                           //    Grid.Font = new Font("Segoe UI", 14f, FontStyle.Regular, GraphicsUnit.Pixel);
+                           //}
+                           //using (DailyOrderEntities store = new DailyOrderEntities()) { }
+                           using (var dailydb = new DailyOrderEntities())
+                           {
+                               // Get result from Stored Procedure
 
-            }
-        }
+                               var ds = dailydb.GetDailyOrder(day, customerid).ToList();
 
-        private void SetControlTemplateTable(MetroGrid Grid)
-        {
-            DataRow dr = dt.NewRow();
-            dr["#"] = "";
-            dr["run"] = 1;
-            dr["ProductName"] = 1;
-            DataGridTextBoxColumn txtPrice = new DataGridTextBoxColumn();
-            DataGridTextBoxColumn txtAmount = new DataGridTextBoxColumn();
-            
-            dr["ProductUnit"] = "1";
-            dr["Price"] = txtPrice;
-            dr["ProductAmount"] = txtAmount;
-            dr["SumPrice"] = "2221";
-            
-        }
+                               // if found item rows
+                               if (ds.Count() > 0)
+                               {
+                                   Grid.DataSource = ds;
+                                   Grid.Font = new Font("Segoe UI", 14f, FontStyle.Regular, GraphicsUnit.Pixel);
+                                   DataGridTextBoxColumn txtPrice = new DataGridTextBoxColumn();
+                               }
+                               else
+                               {
 
-        private void CreateTemplateTable()
-        {
-            dt = new DataTable();
-            dt.Columns.Add("#", Type.GetType("System.String"));
-            dt.Columns.Add("run", Type.GetType("Int32"));
-            dt.Columns.Add("ProductName", Type.GetType("System.String"));
-            dt.Columns.Add("ProductUnit", Type.GetType("System.String"));
-            dt.Columns.Add("Price", Type.GetType("System.Decimal"));
-            dt.Columns.Add("ProductAmount", Type.GetType("Int32"));
-            dt.Columns.Add("SumPrice", Type.GetType("System.Decimal"));//String.Format("0.00", dtTable.Columns["TestQuantity"]);
-            dt.PrimaryKey = new DataColumn[] { dt.Columns["run"] };
-        }
+                                   SetControlTemplateTable(Grid);
+                               }
+                           }
+                       }
+                   }
+                   catch(Exception ex)
+                   {
 
-*/
+                   }
+               }
+
+               private void SetControlTemplateTable(MetroGrid Grid)
+               {
+                   DataRow dr = dt.NewRow();
+                   dr["#"] = "";
+                   dr["run"] = 1;
+                   dr["ProductName"] = 1;
+                   DataGridTextBoxColumn txtPrice = new DataGridTextBoxColumn();
+                   DataGridTextBoxColumn txtAmount = new DataGridTextBoxColumn();
+
+                   dr["ProductUnit"] = "1";
+                   dr["Price"] = txtPrice;
+                   dr["ProductAmount"] = txtAmount;
+                   dr["SumPrice"] = "2221";
+
+               }
+
+               private void CreateTemplateTable()
+               {
+                   dt = new DataTable();
+                   dt.Columns.Add("#", Type.GetType("System.String"));
+                   dt.Columns.Add("run", Type.GetType("Int32"));
+                   dt.Columns.Add("ProductName", Type.GetType("System.String"));
+                   dt.Columns.Add("ProductUnit", Type.GetType("System.String"));
+                   dt.Columns.Add("Price", Type.GetType("System.Decimal"));
+                   dt.Columns.Add("ProductAmount", Type.GetType("Int32"));
+                   dt.Columns.Add("SumPrice", Type.GetType("System.Decimal"));//String.Format("0.00", dtTable.Columns["TestQuantity"]);
+                   dt.PrimaryKey = new DataColumn[] { dt.Columns["run"] };
+               }
+
+       */
 
         #region Sunday
 
-        private void SundayToggle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (SundayToggle.Checked == true)
-            {
-                SundayToggle.Text = "สั่ง";
-
-            }
-            else
-            {
-                SundayToggle.Text = "ไม่สั่ง";
-            }
-        }
-
-        private void SundayGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         #endregion Sunday
 
@@ -291,11 +295,14 @@ namespace OrderManagement.User_Control
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["MondayTab"])
                 {
-                    //OrderTab.TabPages[1].AutoSize = true;
-                    //pnlMainMondayBody.AutoScroll = true;
-                    DateTime dt = DatePicker.Value;
-                    txtbDateMonday.Text = dt.DayOfWeek.ToString() + dt.ToString("dd MM yyyy");
-                    HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
+                    if (MondayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Monday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["TuesdayTab"])
                 {
@@ -303,7 +310,7 @@ namespace OrderManagement.User_Control
                     OrderTab.TabPages[2].AutoSize = true;
                     for (int i=0; i < 45; i++)
                     {
-                        lbltest.Text += "\r\n sfdsafdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaf";
+                        //lbltest.Text += "\r\n sfdsafdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaf";
                     }
 
                 }
@@ -329,6 +336,60 @@ namespace OrderManagement.User_Control
                 MetroMessageBox.Show(this, "Please Select Customer Before");
             }
         }
+
+        private void ClearPanel(string day)
+        {
+            if (day == "Sunday")
+            {
+                HelperCS.dtSun = null;
+                HelperCS.dayOrder[0] = "false";
+                //pnlSundayHead.Controls.Clear();
+                //pnlMainSundayBody.Controls.Clear();
+            }
+            else if (day == "Monday")
+            {
+                HelperCS.dtMon = null;
+                HelperCS.dayOrder[1] = "false";
+                pnlMondayHead.Controls.Clear();
+                pnlMainMondayBody.Controls.Clear();
+            }
+            else if (day == "Tuesday")
+            {
+                HelperCS.dtTue = null;
+                HelperCS.dayOrder[2] = "false";
+                //pnlTuesdayHead.Controls.Clear();
+                //pnlMainTuesdayBody.Controls.Clear();
+            }
+            else if (day == "Wednesday")
+            {
+                HelperCS.dtWed = null;
+                HelperCS.dayOrder[3] = "false";
+                //pnlWednesdayHead.Controls.Clear();
+                //pnlMainWednesdayBody.Controls.Clear();
+            }
+            else if (day == "Thursday")
+            {
+                HelperCS.dtThu = null;
+                HelperCS.dayOrder[4] = "false";
+                //pnlThursdayHead.Controls.Clear();
+                //pnlMainThursdayBody.Controls.Clear();
+            }
+            else if (day == "Friday")
+            {
+                HelperCS.dtFri = null;
+                HelperCS.dayOrder[5] = "false";
+                //pnlFridayHead.Controls.Clear();
+                //pnlMainFridayBody.Controls.Clear();
+            }
+            else if (day == "Saturday")
+            {
+                HelperCS.dtSat = null;
+                HelperCS.dayOrder[6] = "false";
+                //pnlSaturdayHead.Controls.Clear();
+                //pnlMainSaturdayBody.Controls.Clear();
+            }
+        }
+
         private void CheckDate()
         {
             if (DatePicker.Value != null)
@@ -343,7 +404,7 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(1);
                             tuedate = date.AddDays(2);
                             weddate = date.AddDays(3);
-                            thrdate = date.AddDays(4);
+                            thudate = date.AddDays(4);
                             fridate = date.AddDays(5);
                             satdate = date.AddDays(6);
                             break;
@@ -354,7 +415,7 @@ namespace OrderManagement.User_Control
                             mondate = date;
                             tuedate = date.AddDays(1);
                             weddate = date.AddDays(2);
-                            thrdate = date.AddDays(3);
+                            thudate = date.AddDays(3);
                             fridate = date.AddDays(4);
                             satdate = date.AddDays(5);
                             break;
@@ -365,7 +426,7 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(-1);
                             tuedate = date;
                             weddate = date.AddDays(1);
-                            thrdate = date.AddDays(2);
+                            thudate = date.AddDays(2);
                             fridate = date.AddDays(3);
                             satdate = date.AddDays(4);
                             break;
@@ -376,7 +437,7 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(-2);
                             tuedate = date.AddDays(-1);
                             weddate = date;
-                            thrdate = date.AddDays(1);
+                            thudate = date.AddDays(1);
                             fridate = date.AddDays(2);
                             satdate = date.AddDays(3);
                             break;
@@ -387,7 +448,7 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(-3);
                             tuedate = date.AddDays(-2);
                             weddate = date.AddDays(-1);
-                            thrdate = date;
+                            thudate = date;
                             fridate = date.AddDays(1);
                             satdate = date.AddDays(2);
                             break;
@@ -398,7 +459,7 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(-4);
                             tuedate = date.AddDays(-3);
                             weddate = date.AddDays(-2);
-                            thrdate = date.AddDays(-1);
+                            thudate = date.AddDays(-1);
                             fridate = date;
                             satdate = date.AddDays(1);
                             break;
@@ -409,21 +470,20 @@ namespace OrderManagement.User_Control
                             mondate = date.AddDays(-5);
                             tuedate = date.AddDays(-4);
                             weddate = date.AddDays(-3);
-                            thrdate = date.AddDays(-2);
+                            thudate = date.AddDays(-2);
                             fridate = date.AddDays(-1);
                             satdate = date;
                             break;
                         }
                 }
 
-                txtbDateSunday.Text = sundate.ToString(formatdate);
-                txtbDateMonday.Text = mondate.ToString(formatdate);
-                txtbDateTuesday.Text = tuedate.ToString(formatdate);
-                txtbDateWednesday.Text = weddate.ToString(formatdate);
-                txtbDateThursday.Text = thrdate.ToString(formatdate);
-                txtbDateFriday.Text = fridate.ToString(formatdate);
-                txtbDateSaturday.Text = satdate.ToString(formatdate);
-
+                lblDateSunday.Text = sundate.ToString(formatdate);
+                lblDateMonday.Text = mondate.ToString(formatdate);
+                lblDateTuesday.Text = tuedate.ToString(formatdate);
+                lblDateWednesday.Text = weddate.ToString(formatdate);
+                lblDateThursday.Text = thudate.ToString(formatdate);
+                lblDateFriday.Text = fridate.ToString(formatdate);
+                lblDateSaturday.Text = satdate.ToString(formatdate);
             }
         }
         #endregion Method
@@ -456,16 +516,16 @@ namespace OrderManagement.User_Control
             }
         }
 
-        private void TuesdayTab_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
             CheckDate();
         }
 
+        //TOGGLE DAY
+        private void DayToggle_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckTabActive();
+        }
         #endregion IndexChanged
 
         /*

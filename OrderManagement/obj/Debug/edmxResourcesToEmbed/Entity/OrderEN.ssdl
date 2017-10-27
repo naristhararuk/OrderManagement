@@ -1,10 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="run" />
+    </Key>
+    <Property Name="run" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Module" Type="nvarchar" MaxLength="200" />
+    <Property Name="Type" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Value" Type="nvarchar" MaxLength="200" />
+  </EntityType>
   <EntityType Name="Customer">
     <Key>
       <PropertyRef Name="CustomerID" />
     </Key>
     <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
     <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
     <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
     <Property Name="Zone" Type="tinyint" />
@@ -12,6 +23,7 @@
     <Property Name="Address2" Type="nvarchar(max)" />
     <Property Name="Phone" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ShowPrice" Type="bit" />
     <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="Login">
@@ -33,7 +45,9 @@
     <Property Name="CustomerID" Type="int" />
     <Property Name="ProductID" Type="int" />
     <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
-    <Property Name="ProductAmount" Type="int" />
+    <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="OrderAmount" Type="int" />
+    <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="OrderStatus" Type="bit" />
   </EntityType>
@@ -53,6 +67,16 @@
     <Property Name="Descripiton" Type="nvarchar(max)" />
     <Property Name="Status" Type="bit" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vwOrder">
@@ -64,16 +88,52 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
     <Property Name="CustomerID" Type="int" />
     <Property Name="ProductID" Type="int" />
     <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
-    <Property Name="ProductAmount" Type="int" />
+    <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
+    <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="OrderAmount" Type="int" />
+    <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="OrderStatus" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vwOrderDetail">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="OrderAmount" Type="int" />
+    <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="OrderStatus" Type="bit" />
     <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
+    <Property Name="Category" Type="tinyint" />
+    <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="Unit" Type="int" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+    <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
+    <Property Name="Zone" Type="tinyint" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShowPrice" Type="bit" />
   </EntityType>
   <EntityContainer Name="OrderModelStoreContainer">
+    <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 
@@ -81,11 +141,42 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
     [vwOrder].[CustomerID] AS [CustomerID], 
     [vwOrder].[ProductID] AS [ProductID], 
     [vwOrder].[ProductPrice] AS [ProductPrice], 
-    [vwOrder].[ProductAmount] AS [ProductAmount], 
+    [vwOrder].[OrderDay] AS [OrderDay], 
+    [vwOrder].[OrderPrice] AS [OrderPrice], 
+    [vwOrder].[OrderAmount] AS [OrderAmount], 
+    [vwOrder].[OrderTotal] AS [OrderTotal], 
     [vwOrder].[Description] AS [Description], 
-    [vwOrder].[OrderStatus] AS [OrderStatus], 
-    [vwOrder].[OrderDay] AS [OrderDay]
+    [vwOrder].[OrderStatus] AS [OrderStatus]
     FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vwOrderDetail].[OrderID] AS [OrderID], 
+    [vwOrderDetail].[OrderDate] AS [OrderDate], 
+    [vwOrderDetail].[CustomerID] AS [CustomerID], 
+    [vwOrderDetail].[ProductID] AS [ProductID], 
+    [vwOrderDetail].[ProductPrice] AS [ProductPrice], 
+    [vwOrderDetail].[OrderPrice] AS [OrderPrice], 
+    [vwOrderDetail].[OrderAmount] AS [OrderAmount], 
+    [vwOrderDetail].[OrderTotal] AS [OrderTotal], 
+    [vwOrderDetail].[Description] AS [Description], 
+    [vwOrderDetail].[OrderStatus] AS [OrderStatus], 
+    [vwOrderDetail].[OrderDay] AS [OrderDay], 
+    [vwOrderDetail].[ProductName] AS [ProductName], 
+    [vwOrderDetail].[ProductAbbr] AS [ProductAbbr], 
+    [vwOrderDetail].[Category] AS [Category], 
+    [vwOrderDetail].[Price] AS [Price], 
+    [vwOrderDetail].[Unit] AS [Unit], 
+    [vwOrderDetail].[Amount] AS [Amount], 
+    [vwOrderDetail].[CitizenID] AS [CitizenID], 
+    [vwOrderDetail].[CustomerName] AS [CustomerName], 
+    [vwOrderDetail].[CustomerAbbr] AS [CustomerAbbr], 
+    [vwOrderDetail].[Zone] AS [Zone], 
+    [vwOrderDetail].[Address1] AS [Address1], 
+    [vwOrderDetail].[Address2] AS [Address2], 
+    [vwOrderDetail].[Phone] AS [Phone], 
+    [vwOrderDetail].[ShowPrice] AS [ShowPrice]
+    FROM [dbo].[vwOrderDetail] AS [vwOrderDetail]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

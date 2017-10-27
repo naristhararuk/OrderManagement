@@ -18,23 +18,32 @@ namespace OrderManagement.Class
     {
         public static Font SegoeUIFont12 = new Font("Segoe UI", 12, FontStyle.Regular);
         public static DataTable dt;
+        public static DataTable dtSun,dtMon,dtTue,dtWed,dtThu,dtFri,dtSat;
         private static Panel pnl = new Panel();
         private static MetroPanel metropanel;
         private static MetroPanel metroHeadpanel;
         private static string dayTab;
         private static int Customerid;
         private static ComboBox productNew;
+        public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
 
-        class ProductModel
-        {
-            private int ProductID;
-            private string ProductName;
-            private string ProductAbbr;
-            private decimal Price;
-            private int Unit;
-        }
+        //internal static void SaveAllOrder(object sender)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        #region DataTable
+        //public static Form FormMain;
+
+        //class ProductModel
+        //{
+        //    private int ProductID;
+        //    private string ProductName;
+        //    private string ProductAbbr;
+        //    private decimal Price;
+        //    private int Unit;
+        //}
+
+        #region DATATABLE
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
@@ -75,6 +84,21 @@ namespace OrderManagement.Class
             else if (tableName == "Customer")
             {
                 var query = from x in db.Customer select x;
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else if (tableName == "Config")
+            {
+                var query = from x in db.Config select x;
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else if (tableName == "Order")
+            {
+                var query = from x in db.vwOrder select x;
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else if (tableName == "Login")
+            {
+                var query = from x in db.Login select x;
                 return HelperCS.ToDataTable(query.ToList());
             }
             else
@@ -122,9 +146,9 @@ namespace OrderManagement.Class
                 //}
             }
         }
-        #endregion Datatable
+        #endregion DATATABLE
 
-        #region PanelTable   
+        #region DAILY PANEL TABLE
         public static void CreatePanelTable(MetroPanel MainHeadPanel, MetroPanel MainPanel, string day, int customerid)
         {
             Customerid = customerid;
@@ -179,8 +203,8 @@ namespace OrderManagement.Class
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
-
-            int rowcount = 20;
+           
+            int rowcount = 0;
             //DataTable dt = GetDailyOrderTable(day, customerid);
             if (dt == null)
             {
@@ -194,16 +218,10 @@ namespace OrderManagement.Class
                 //tablepanel.RowCount = tablepanel.RowCount + 1;
                 for (int i = 0; i <= dt.Rows.Count; i++)
                 {
-                    tablepanel.RowCount = tablepanel.RowCount + 1;
-<<<<<<< HEAD
-                    
-=======
-
->>>>>>> bbc41e100339a78d7d77f4b75dbc16077926a5a0
-
+                    // tablepanel.RowCount = tablepanel.RowCount + 1;
+                    tablepanel.RowCount = i;
                     if (i != dt.Rows.Count)
                     {
-                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
                         DataRow dr = dt.Rows[i];
                         //Add Remove button
                         MetroTile bt = new MetroTile();
@@ -214,29 +232,67 @@ namespace OrderManagement.Class
                         bt.Click += new System.EventHandler(ButtonTileRemove_Click);
                         bt.Name = dr["ProductID"].ToString();
                         bt.BackgroundImageLayout = ImageLayout.Center;
+
+
+                        NumericTextBox txtprice = new NumericTextBox();
+                        //MetroTextBox txtamount = new MetroTextBox();
+                        txtprice.Name = dr["ProductID"].ToString();
+                        txtprice.Text = dr["OrderPrice"].ToString();
+                        txtprice.MaxLength = 12;
+                        txtprice.Width = 60;
+                        txtprice.Margin = new Padding(0);
+                        txtprice.Height = 25;
+                        txtprice.TextAlign = HorizontalAlignment.Center;
+                        txtprice.BorderStyle = BorderStyle.None;
+                        txtprice.Dock = DockStyle.Fill;
+                        txtprice.Leave += new EventHandler(TextBoxPriceInput_Leave);
+                        Panel pnlprice = new Panel();
+                        pnlprice.BorderStyle = BorderStyle.Fixed3D;
+                        pnlprice.Width = 120;
+                        pnlprice.Height = 25;
+                        pnlprice.Padding = new Padding(5, 0, 5, 0);
+                        pnlprice.Controls.Add(txtprice);
+
                         NumericTextBox txtamount = new NumericTextBox();
                         //MetroTextBox txtamount = new MetroTextBox();
-                        txtamount.Text = dr["ProductAmount"].ToString();
-                        txtamount.Width = 50;
-                        txtamount.Height = 20;
+                        txtamount.Name = dr["ProductID"].ToString();
+                        txtamount.Text = dr["OrderAmount"].ToString();
+                        txtamount.MaxLength = 10;
+                        txtamount.Width = 60;
+                        txtamount.Margin = new Padding(0); 
+                        txtamount.Height = 25;
+                        txtamount.TextAlign = HorizontalAlignment.Center;
+                        txtamount.BorderStyle = BorderStyle.None;
+                        txtamount.Dock = DockStyle.Fill;
+                        txtamount.Leave += new EventHandler(TextBoxInput_Leave);
                         
+                        Panel pnl = new Panel();
+                        pnl.BorderStyle = BorderStyle.Fixed3D;
+                        pnl.Width = 60;
+                        pnl.Height = 25;
+                        pnl.Padding = new Padding(5,0,5,0);
+                        //pnl.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
+                        //pnl.Dock = DockStyle.Fill;
+                        pnl.Controls.Add(txtamount);
                         
                         //Add Control to cell table
-                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
+                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
                         tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["ProductID"].ToString() }, 1, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["ProductName"].ToString() }, 2, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(new Label() { Text = dr["ProductPrice"].ToString() }, 3, tablepanel.RowCount - 1);
+                        //tablepanel.Controls.Add(new Label() { Text = dr["OrderPrice"].ToString() }, 3, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(pnlprice, 3, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(txtamount, 5, tablepanel.RowCount - 1);
-
-                        decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["ProductAmount"].ToString());
+                        tablepanel.Controls.Add(pnl, 5, tablepanel.RowCount - 1);
+                        
+                        decimal total = Convert.ToDecimal(dr["OrderPrice"].ToString()) * Convert.ToDecimal(dr["OrderAmount"].ToString());
+                        dr["OrderTotal"] = total.ToString("0.00");
                         tablepanel.Controls.Add(new Label() { Text = total.ToString("0.00") }, 6, tablepanel.RowCount - 1);
 
                     }
                     else
                     {
-                        //tablepanel.RowCount = tablepanel.RowCount + 1;
+                        tablepanel.RowCount = tablepanel.RowCount + 1;
                         MetroTile btAdd = new MetroTile();
                         btAdd.UseCustomBackColor = true;
                        // btAdd.BackColor = Color.Honeydew;
@@ -254,14 +310,11 @@ namespace OrderManagement.Class
                         pnl.Margin = new Padding(0);
                         pnl.Controls.Add(productNew);
                         pnl.Controls.Add(btAdd);
-<<<<<<< HEAD
-                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-=======
+
+                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute,100F));
+
                         //tableheadpanel.BackColor = Color.LightGray;
 
-
-                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
->>>>>>> bbc41e100339a78d7d77f4b75dbc16077926a5a0
                         tablepanel.Controls.Add(new Label() { Text = "" }, 0, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = "เพิ่มสินค้า" }, 1, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(pnl, 2, tablepanel.RowCount - 1);
@@ -307,31 +360,7 @@ namespace OrderManagement.Class
             MainPanel.VerticalScrollbar = true;
             MainPanel.VerticalScroll.Visible = true;
             MainPanel.Controls.Add(tablepanel);
-        }
-        class NumericTextBox : System.Windows.Forms.TextBox
-        {
-            protected override void OnKeyPress(System.Windows.Forms.KeyPressEventArgs e)
-            {
-                base.OnKeyPress(e);
-
-                //if ((e.KeyChar < '0' || e.KeyChar > '9' || e.KeyChar == '\b') && e.KeyChar != '.' )
-                if (!(Char.IsNumber(e.KeyChar) || e.KeyChar == 8 || e.KeyChar == 11 || e.KeyChar == 40))
-                {
-                    if (e.KeyChar == 40) { }
-                        //System.Windows.Forms.Control.SelectNextControl(NumericTextBox, true,true,true);
-                    e.Handled = true;
-                }
-                   
-            }
-            //protected override void OnKeyDown(System.Windows.Forms.KeyEventArgs e)
-            //{
-            //    // Determine whether the key entered is the F1 key. If it is, display Help.
-            //    if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Tab)
-            //    {
-            //        e.Handled = false;
-
-            //    }
-            //}
+            AddToDataTable(dayTab, tablepanel);
         }
 
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)
@@ -340,7 +369,107 @@ namespace OrderManagement.Class
             string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
             string value = ((KeyValuePair<string, string>)combo.SelectedItem).Value;
         }
-        #endregion PanelTable
+        #endregion DAILY PANEL TABLE
+
+        #region CUSTOM CONTROLS TEXTBOX
+        
+        private static void TextBoxPriceInput_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int productid;
+            if (Int32.TryParse(txt.Name, out productid))
+            {
+                if (!string.IsNullOrEmpty(txt.Text))
+                {
+                    UpdatePrice(productid, txt.Text);
+                }
+            }
+        }
+        private static void TextBoxInput_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int productid;
+            if (Int32.TryParse(txt.Name, out productid))
+            {
+                DataTable dtamount = QueryAllResult("Product");
+                int amount = (from DataRow dr in dtamount.Rows
+                          where (int)dr["ProductID"] == productid
+                              select (int)dr["Amount"]).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(txt.Text))
+                {
+                    if (Convert.ToDecimal(txt.Text) > amount)
+                    {
+                        Form frm = txt.FindForm();
+                        MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                        txt.Text = amount.ToString();
+                        txt.Focus();
+                    }
+                    else
+                    {
+                        //Update Total
+                        UpdatePriceTotal(productid,txt.Text);
+                    }
+                }
+            }
+        }
+
+        private static void UpdatePriceTotal(int productid,string amount)
+        {
+            if (dt.Rows.Count > 0) {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (dr["ProductID"].ToString() == productid.ToString())
+                    {
+                        dr["OrderAmount"] = Convert.ToDecimal(amount);
+                    }
+                }
+            }
+            CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+        }
+
+        private static void UpdatePrice(int productid, string price)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (dr["ProductID"].ToString() == productid.ToString())
+                    {
+                        dr["OrderPrice"] = Convert.ToDecimal(price);
+                    }
+                }
+            }
+            CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+        }
+
+        class NumericTextBox : System.Windows.Forms.TextBox
+        {
+            protected override void OnKeyPress(System.Windows.Forms.KeyPressEventArgs e)
+            {
+                base.OnKeyPress(e);
+                //e.KeyChar 8 = backspace, 40 = down arrow, 13 = enter, 110 = decimal point  Char.IsNumber(e.KeyChar) ||
+                //if (!( e.KeyChar == 8 || e.KeyChar == 40 || e.KeyChar == 13 || Char.IsDigit(e.KeyChar) || (e.KeyChar == '.' && base.Text.IndexOf('.') != -1) ))
+                //{
+                //    //if (e.KeyChar == 40) { }
+                //    e.Handled = true;
+                    
+                //}
+                if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46 && e.KeyChar != 40))
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                // checks to make sure only 1 decimal is allowed
+                if (e.KeyChar == 46)
+                {
+                    if (base.Text.IndexOf(e.KeyChar) != -1)
+                        e.Handled = true;
+                }
+            }
+        }
+        #endregion CUSTOM CONTROLS TEXTBOX
 
         #region ComboBox
         public static void AutoCompleteLoadValues(ComboBox autoCompleteCombo, string TableName)
@@ -434,6 +563,7 @@ namespace OrderManagement.Class
         }
         #endregion ComboBox
 
+        #region BUTTON 
         private static void ButtonTileRemove_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
@@ -460,7 +590,7 @@ namespace OrderManagement.Class
         private static void ButtonTileAdd_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
-            CheckProductIDCanOrder();
+            //CheckProductIDCanOrder();
             string key = ((KeyValuePair<string, string>)productNew.SelectedItem).Key;
             string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
             Form frm = btn.FindForm();
@@ -478,34 +608,130 @@ namespace OrderManagement.Class
             }
 
         }
+        public static void SaveAllOrder(MetroTile btn)
+        {
+            Form frm = btn.FindForm();
+            string id = "",total = "";
+            int cell = dt.Columns.Count;
+            foreach(DataRow dr in dtMon.Rows)
+            {
+                for(int j=0; j< cell; j++)
+                {
+                    total += dr[j].ToString();
+                    
+                }
+                total += "\r\n";
+                id += dr["ProductID"].ToString() + " , ";
+                //total += dr["Total"].ToString() + " , ";
+                //dr["OrderAmount"].ToString();
+                //dr["ProductName"].ToString();
+                //dr["ProductPrice"].ToString();
+                //dr["Unit"].ToString();
+                //tablepanel.Controls.Add(pnl, 5, tablepanel.RowCount - 1);
 
+                //decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["OrderAmount"].ToString());
+
+               
+            }
+            // CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+            MetroMessageBox.Show(frm, "id = " + id +"\r\n" +total, "Order", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+
+        }
+        #endregion BUTTON 
+
+        #region METHOD
+        private static void AddToDataTable(string dayTab, TableLayoutPanel tablepanel)
+        {
+            if (dayTab == "Sunday")
+            {
+                dtSun = null;
+                //for tablepanel to dtSun
+                dtSun = dt;
+                dayOrder[0] = "true";
+            }
+            else if (dayTab == "Monday")
+            {
+                dtMon = null;
+                //for tablepanel to dtMon
+                dtMon = dt;
+                dayOrder[1] = "true";
+            }
+            else if (dayTab == "Tuesday")
+            {
+                dtTue = null;
+                //for tablepanel to dtTue
+                dayOrder[2] = "true";
+            }
+            else if (dayTab == "Wednesday")
+            {
+                dtWed = null;
+                //for tablepanel to dtWed
+                dayOrder[3] = "true";
+            }
+            else if (dayTab == "Thursday")
+            {
+                dtThu = null;
+                //for tablepanel to dtThu
+                dayOrder[4] = "true";
+            }
+            else if (dayTab == "Friday")
+            {
+                dtFri = null;
+                //for tablepanel to dtFri
+                dayOrder[5] = "true";
+            }
+            else if (dayTab == "Saturday")
+            {
+                dtSat = null;
+                //for tablepanel to dtSat
+                dayOrder[6] = "true";
+            }
+        }
         private static void CheckProductIDCanOrder()
         {
 
         }
-
         private static void NewrowProductOrder(int productid, string productname)
         {
             //where All product get price
             DataTable pd = QueryAllResult("Product");
-            DataInfo.ProductList model = new DataInfo.ProductList();
+            //DataInfo.ProductList model = new DataInfo.ProductList();
             decimal price = (from DataRow dr in pd.Rows
                              where (int)dr["ProductID"] == productid
                              select (decimal)dr["Price"]).FirstOrDefault();
             int unit = (from DataRow dr in pd.Rows
                         where (int)dr["ProductID"] == productid
                         select (int)dr["Unit"]).FirstOrDefault();
-            //add new row to display
-            DataRow row = dt.NewRow();
-            row["ProductID"] = productid;
-            row["ProductName"] = productname;
-            row["Unit"] = unit.ToString();
-            row["ProductPrice"] = price.ToString("0.00");
-            row["ProductAmount"] = 1;
-            dt.Rows.Add(row);
-            CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+            int amount = (from DataRow dr in pd.Rows
+                        where (int)dr["ProductID"] == productid
+                        select (int)dr["Amount"]).FirstOrDefault();
+
+            if (amount >= 1)
+            {
+                //add new row to display
+                DataRow row = dt.NewRow();
+
+                row["ProductID"] = productid;
+                row["OrderDate"] = DateTime.Now.ToShortDateString();
+                row["CustomerID"] = Customerid.ToString();
+                row["ProductName"] = productname;
+                row["Unit"] = unit.ToString();
+                row["ProductPrice"] = price.ToString("0.00");
+                row["OrderPrice"] = price.ToString("0.00");
+                row["OrderAmount"] = 1;
+                row["OrderTotal"] = price.ToString("0.00");
+                row["Amount"] = amount;
+                dt.Rows.Add(row);
+                CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+            }
+            else
+            {
+                Form frm = metropanel.FindForm();
+                MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            }
 
         }
-
+        #endregion METHOD
     }
 }

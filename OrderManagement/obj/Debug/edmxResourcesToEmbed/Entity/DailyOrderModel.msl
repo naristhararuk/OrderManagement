@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DailyOrderModelStoreContainer" CdmEntityContainer="DailyOrderEntities">
-    <FunctionImportMapping FunctionImportName="GetDailyOrder" FunctionName="DailyOrderModel.Store.GetDailyOrder" />
-    <FunctionImportMapping FunctionImportName="GetDailyOrder1" FunctionName="DailyOrderModel.Store.GetDailyOrder" />
-  </EntityContainerMapping>
-</Mapping>

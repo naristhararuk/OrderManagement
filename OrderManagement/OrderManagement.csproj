@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -49,6 +49,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>OrderManagement.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -93,6 +96,9 @@
     </Compile>
     <Compile Include="CustomerManagement.Designer.cs">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Config.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
@@ -139,7 +145,13 @@
     <Compile Include="Entity\Product.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\sysdiagrams.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\vwOrder.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vwOrderDetail.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
@@ -277,6 +289,10 @@
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EntityDeploy Include="Entity\OrderEN.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <EntityDeploy Include="Entity\DailyOrderEN.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DailyOrderEN.Designer.cs</LastGenOutput>
@@ -284,10 +300,6 @@
     <None Include="Entity\DailyOrderEN.edmx.diagram">
       <DependentUpon>DailyOrderEN.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="Entity\OrderEN.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </None>
@@ -413,6 +425,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\add_22.png" />
+    <None Include="Resources\remove2-16.png" />
+    <None Include="Resources\remove-16.png" />
+    <None Include="Resources\add-16.png" />
+    <None Include="Resources\chart-481.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Entity\DailyOrderEN.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DailyOrderEN.edmx</DependentUpon>
@@ -433,11 +452,6 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\add_22.png" />
-    <None Include="Resources\remove2-16.png" />
-    <None Include="Resources\remove-16.png" />
-    <None Include="Resources\add-16.png" />
-    <None Include="Resources\chart-481.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

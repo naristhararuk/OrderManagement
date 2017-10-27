@@ -5,11 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="run" />
+          </Key>
+          <Property Name="run" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Module" Type="nvarchar" MaxLength="200" />
+          <Property Name="Type" Type="nvarchar" MaxLength="200" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Value" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Zone" Type="tinyint" />
@@ -17,6 +28,7 @@
           <Property Name="Address2" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ShowPrice" Type="bit" />
           <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="Login">
@@ -38,7 +50,9 @@
           <Property Name="CustomerID" Type="int" />
           <Property Name="ProductID" Type="int" />
           <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
-          <Property Name="ProductAmount" Type="int" />
+          <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="int" />
+          <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="OrderStatus" Type="bit" />
         </EntityType>
@@ -58,6 +72,16 @@
           <Property Name="Descripiton" Type="nvarchar(max)" />
           <Property Name="Status" Type="bit" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwOrder">
@@ -69,16 +93,52 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="CustomerID" Type="int" />
           <Property Name="ProductID" Type="int" />
           <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
-          <Property Name="ProductAmount" Type="int" />
+          <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
+          <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="int" />
+          <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="OrderStatus" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwOrderDetail">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ProductPrice" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="OrderPrice" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="int" />
+          <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="OrderStatus" Type="bit" />
           <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
+          <Property Name="Category" Type="tinyint" />
+          <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="Unit" Type="int" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
+          <Property Name="Zone" Type="tinyint" />
+          <Property Name="Address1" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShowPrice" Type="bit" />
         </EntityType>
         <EntityContainer Name="OrderModelStoreContainer">
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 
@@ -86,11 +146,42 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
     [vwOrder].[CustomerID] AS [CustomerID], 
     [vwOrder].[ProductID] AS [ProductID], 
     [vwOrder].[ProductPrice] AS [ProductPrice], 
-    [vwOrder].[ProductAmount] AS [ProductAmount], 
+    [vwOrder].[OrderDay] AS [OrderDay], 
+    [vwOrder].[OrderPrice] AS [OrderPrice], 
+    [vwOrder].[OrderAmount] AS [OrderAmount], 
+    [vwOrder].[OrderTotal] AS [OrderTotal], 
     [vwOrder].[Description] AS [Description], 
-    [vwOrder].[OrderStatus] AS [OrderStatus], 
-    [vwOrder].[OrderDay] AS [OrderDay]
+    [vwOrder].[OrderStatus] AS [OrderStatus]
     FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwOrderDetail].[OrderID] AS [OrderID], 
+    [vwOrderDetail].[OrderDate] AS [OrderDate], 
+    [vwOrderDetail].[CustomerID] AS [CustomerID], 
+    [vwOrderDetail].[ProductID] AS [ProductID], 
+    [vwOrderDetail].[ProductPrice] AS [ProductPrice], 
+    [vwOrderDetail].[OrderPrice] AS [OrderPrice], 
+    [vwOrderDetail].[OrderAmount] AS [OrderAmount], 
+    [vwOrderDetail].[OrderTotal] AS [OrderTotal], 
+    [vwOrderDetail].[Description] AS [Description], 
+    [vwOrderDetail].[OrderStatus] AS [OrderStatus], 
+    [vwOrderDetail].[OrderDay] AS [OrderDay], 
+    [vwOrderDetail].[ProductName] AS [ProductName], 
+    [vwOrderDetail].[ProductAbbr] AS [ProductAbbr], 
+    [vwOrderDetail].[Category] AS [Category], 
+    [vwOrderDetail].[Price] AS [Price], 
+    [vwOrderDetail].[Unit] AS [Unit], 
+    [vwOrderDetail].[Amount] AS [Amount], 
+    [vwOrderDetail].[CitizenID] AS [CitizenID], 
+    [vwOrderDetail].[CustomerName] AS [CustomerName], 
+    [vwOrderDetail].[CustomerAbbr] AS [CustomerAbbr], 
+    [vwOrderDetail].[Zone] AS [Zone], 
+    [vwOrderDetail].[Address1] AS [Address1], 
+    [vwOrderDetail].[Address2] AS [Address2], 
+    [vwOrderDetail].[Phone] AS [Phone], 
+    [vwOrderDetail].[ShowPrice] AS [ShowPrice]
+    FROM [dbo].[vwOrderDetail] AS [vwOrderDetail]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema>
@@ -98,11 +189,22 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="run" />
+          </Key>
+          <Property Name="run" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Module" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Zone" Type="Byte" />
@@ -110,6 +212,7 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShowPrice" Type="Boolean" />
           <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="Login">
@@ -131,7 +234,9 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="CustomerID" Type="Int32" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="ProductAmount" Type="Int32" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="Int32" />
+          <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrderStatus" Type="Boolean" />
         </EntityType>
@@ -151,6 +256,16 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="Descripiton" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="vwOrder">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -160,17 +275,52 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="CustomerID" Type="Int32" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
-          <Property Name="ProductAmount" Type="Int32" />
+          <Property Name="OrderDay" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="Int32" />
+          <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderStatus" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vwOrderDetail">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="OrderAmount" Type="Int32" />
+          <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrderStatus" Type="Boolean" />
           <Property Name="OrderDay" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProductAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="Byte" />
+          <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="Unit" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Zone" Type="Byte" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShowPrice" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Config" EntityType="Self.Config" />
           <EntitySet Name="Customer" EntityType="Self.Customer" />
           <EntitySet Name="Login" EntityType="Self.Login" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
+          <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -178,10 +328,22 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="OrderEntities">
+          <EntitySetMapping Name="Config">
+            <EntityTypeMapping TypeName="OrderModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="run" ColumnName="run" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="OrderModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
                 <ScalarProperty Name="Zone" ColumnName="Zone" />
@@ -189,6 +351,7 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
                 <ScalarProperty Name="Address2" ColumnName="Address2" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -212,7 +375,9 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
-                <ScalarProperty Name="ProductAmount" ColumnName="ProductAmount" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
               </MappingFragment>
@@ -235,6 +400,17 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OrderModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vwOrder">
             <EntityTypeMapping TypeName="OrderModel.vwOrder">
               <MappingFragment StoreEntitySet="vwOrder">
@@ -243,10 +419,43 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
-                <ScalarProperty Name="ProductAmount" ColumnName="ProductAmount" />
+                <ScalarProperty Name="OrderDay" ColumnName="OrderDay" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOrderDetail">
+            <EntityTypeMapping TypeName="OrderModel.vwOrderDetail">
+              <MappingFragment StoreEntitySet="vwOrderDetail">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="OrderDay" ColumnName="OrderDay" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

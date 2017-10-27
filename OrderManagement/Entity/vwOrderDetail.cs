@@ -12,18 +12,32 @@ namespace OrderManagement.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class vwOrder
+    public partial class vwOrderDetail
     {
         public int OrderID { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<int> CustomerID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public Nullable<decimal> ProductPrice { get; set; }
-        public string OrderDay { get; set; }
         public Nullable<decimal> OrderPrice { get; set; }
         public Nullable<int> OrderAmount { get; set; }
         public Nullable<decimal> OrderTotal { get; set; }
         public string Description { get; set; }
         public Nullable<bool> OrderStatus { get; set; }
+        public string OrderDay { get; set; }
+        public string ProductName { get; set; }
+        public string ProductAbbr { get; set; }
+        public Nullable<byte> Category { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<int> Unit { get; set; }
+        public Nullable<int> Amount { get; set; }
+        public string CitizenID { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerAbbr { get; set; }
+        public Nullable<byte> Zone { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Phone { get; set; }
+        public Nullable<bool> ShowPrice { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace OrderManagement.Entity
     public partial class Customer
     {
         public int CustomerID { get; set; }
+        public string CitizenID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAbbr { get; set; }
         public Nullable<byte> Zone { get; set; }
@@ -22,6 +23,7 @@ namespace OrderManagement.Entity
         public string Address2 { get; set; }
         public string Phone { get; set; }
         public string Description { get; set; }
+        public Nullable<bool> ShowPrice { get; set; }
         public Nullable<bool> Status { get; set; }
     }
 }
