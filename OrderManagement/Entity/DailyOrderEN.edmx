@@ -9,6 +9,23 @@
           <Parameter Name="day" Type="varchar" Mode="In" />
           <Parameter Name="customer" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetOrderbyDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="customer" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderdate" Type="datetime" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="customerid" Type="int" Mode="In" />
+          <Parameter Name="productid" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderamount" Type="int" Mode="In" />
+          <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="orderStatus" Type="bit" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DailyOrderModelStoreContainer" />
       </Schema>
     </edmx:StorageModels>
@@ -19,6 +36,23 @@
           <FunctionImport Name="GetDailyOrder" ReturnType="Collection(DailyOrderModel.GetDailyOrder_Result)">
             <Parameter Name="day" Mode="In" Type="String" />
             <Parameter Name="customer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderbyDay" ReturnType="Collection(DailyOrderModel.GetOrderbyDay_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="customer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertOrder" ReturnType="Collection(Int32)">
+            <Parameter Name="orderdate" Mode="In" Type="DateTime" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="customerid" Mode="In" Type="Int32" />
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderamount" Mode="In" Type="Int32" />
+            <Parameter Name="ordertotal" Mode="In" Type="Decimal" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="orderStatus" Mode="In" Type="Boolean" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetDailyOrder_Result">
@@ -32,6 +66,26 @@
           <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetOrderbyDay_Result">
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CustomerID" Nullable="true" />
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
@@ -56,6 +110,8 @@
                 <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -63,6 +119,29 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderbyDay" FunctionName="DailyOrderModel.Store.GetOrderbyDay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DailyOrderModel.GetOrderbyDay_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertOrder" FunctionName="DailyOrderModel.Store.InsertOrder" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -77,7 +156,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

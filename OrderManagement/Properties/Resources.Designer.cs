@@ -63,6 +63,16 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap accessories_calculator_icon {
+            get {
+                object obj = ResourceManager.GetObject("accessories-calculator-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add_16 {
             get {
                 object obj = ResourceManager.GetObject("add-16", resourceCulture);
@@ -226,6 +236,26 @@ namespace OrderManagement.Properties {
         internal static System.Drawing.Bitmap edit48 {
             get {
                 object obj = ResourceManager.GetObject("edit48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Female_Face_FA_5_icon {
+            get {
+                object obj = ResourceManager.GetObject("Female-Face-FA-5-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Female_Face_FA_5_icon__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Female-Face-FA-5-icon (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

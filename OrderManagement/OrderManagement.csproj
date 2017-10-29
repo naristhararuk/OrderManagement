@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\HelperCS.cs" />
+    <Compile Include="Class\MappingDAL.cs" />
     <Compile Include="CustomerManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +122,9 @@
     <Compile Include="Entity\GetDailyOrder_Result.cs">
       <DependentUpon>DailyOrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\GetOrderbyDay_Result.cs">
+      <DependentUpon>DailyOrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Login.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -143,9 +147,6 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\Product.cs">
-      <DependentUpon>OrderEN.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\vwOrder.cs">
@@ -289,10 +290,6 @@
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Entity\OrderEN.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="Entity\DailyOrderEN.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DailyOrderEN.Designer.cs</LastGenOutput>
@@ -300,6 +297,10 @@
     <None Include="Entity\DailyOrderEN.edmx.diagram">
       <DependentUpon>DailyOrderEN.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="Entity\OrderEN.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </None>
@@ -452,6 +453,9 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\accessories-calculator-icon.png" />
+    <None Include="Resources\Female-Face-FA-5-icon %281%29.png" />
+    <None Include="Resources\Female-Face-FA-5-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

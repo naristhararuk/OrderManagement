@@ -23,6 +23,8 @@ namespace OrderManagement.Entity
         public Nullable<decimal> OrderTotal { get; set; }
         public string Description { get; set; }
         public Nullable<bool> OrderStatus { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
         public string WeekDay { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> Unit { get; set; }

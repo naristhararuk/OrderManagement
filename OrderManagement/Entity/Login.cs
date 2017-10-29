@@ -19,5 +19,7 @@ namespace OrderManagement.Entity
         public string Password { get; set; }
         public Nullable<int> UserGroup { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
     }
 }

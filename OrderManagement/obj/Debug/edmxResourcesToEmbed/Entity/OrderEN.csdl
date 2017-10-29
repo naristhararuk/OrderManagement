@@ -9,6 +9,8 @@
     <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Value" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -25,6 +27,8 @@
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ShowPrice" Type="Boolean" />
     <Property Name="Status" Type="Boolean" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Login">
     <Key>
@@ -35,6 +39,8 @@
     <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="UserGroup" Type="Int32" />
     <Property Name="Status" Type="Boolean" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -50,6 +56,8 @@
     <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="OrderStatus" Type="Boolean" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -62,20 +70,10 @@
     <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
     <Property Name="Unit" Type="Int32" />
     <Property Name="Amount" Type="Int32" />
-    <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="EditDate" Type="DateTime" Precision="3" />
     <Property Name="Descripiton" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="vwOrder">
     <Key>
@@ -124,13 +122,12 @@
     <Property Name="ShowPrice" Type="Boolean" />
   </EntityType>
   <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Config" EntityType="Self.Config" />
-    <EntitySet Name="Customer" EntityType="Self.Customer" />
-    <EntitySet Name="Login" EntityType="Self.Login" />
-    <EntitySet Name="Order" EntityType="Self.Order" />
-    <EntitySet Name="Product" EntityType="Self.Product" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
-    <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
+    <EntitySet Name="Configs" EntityType="Self.Config" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Logins" EntityType="Self.Login" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="vwOrders" EntityType="Self.vwOrder" />
+    <EntitySet Name="vwOrderDetails" EntityType="Self.vwOrderDetail" />
   </EntityContainer>
 </Schema>

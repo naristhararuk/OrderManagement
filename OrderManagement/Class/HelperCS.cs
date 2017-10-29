@@ -12,6 +12,7 @@ using MetroFramework.Controls;
 using MetroFramework;
 using MetroFramework.Forms;
 using OrderManagement.Model;
+
 namespace OrderManagement.Class
 {
     class HelperCS
@@ -19,29 +20,18 @@ namespace OrderManagement.Class
         public static Font SegoeUIFont12 = new Font("Segoe UI", 12, FontStyle.Regular);
         public static DataTable dt;
         public static DataTable dtSun,dtMon,dtTue,dtWed,dtThu,dtFri,dtSat;
+        public static DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
         private static Panel pnl = new Panel();
         private static MetroPanel metropanel;
         private static MetroPanel metroHeadpanel;
         private static string dayTab;
         private static int Customerid;
+        private static string ProductTextSelect;
+        private static string ProductIdSelect;
         private static ComboBox productNew;
+        public static string UserName;
+        public static string[] EditMode = { "", "", "", "", "", "", "" };
         public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
-
-        //internal static void SaveAllOrder(object sender)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public static Form FormMain;
-
-        //class ProductModel
-        //{
-        //    private int ProductID;
-        //    private string ProductName;
-        //    private string ProductAbbr;
-        //    private decimal Price;
-        //    private int Unit;
-        //}
 
         #region DATATABLE
         public static DataTable ToDataTable<T>(List<T> items)
@@ -146,6 +136,68 @@ namespace OrderManagement.Class
                 //}
             }
         }
+        public static DataTable GetOrderbyDayTable(string day, int customerid)
+        {
+            int index = 0;
+            DateTime datewhere;
+            if (day == "Sunday")
+            {
+                datewhere = sundate;
+                index = 0;
+            }
+            else if (day == "Monday")
+            {
+                datewhere = mondate;
+                index = 1;
+            }
+            else if (day == "Tuesday")
+            {
+                datewhere = tuedate;
+                index = 2;
+            }
+            else if (day == "Wednesday")
+            {
+                datewhere = weddate;
+                index = 3;
+            }
+            else if (day == "Thursday")
+            {
+                datewhere = thudate;
+                index = 4;
+            }
+            else if (day == "Friday")
+            {
+                datewhere = fridate;
+                index = 5;
+            }
+            else if (day == "Saturday")
+            {
+                datewhere = satdate;
+                index = 6;
+            }
+            else
+            {
+                datewhere = DateTime.Now;
+            }
+            using (var dailydb = new DailyOrderEntities())
+            {
+                // Get result from Stored Procedure
+                var ds = dailydb.GetOrderbyDay(datewhere, customerid).ToList();
+
+                if (ds.Count() > 0)
+                {
+                    EditMode[index] = "แก้ไขข้อมูล";
+                    return HelperCS.ToDataTable(ds);
+                }
+                else
+                {
+                    EditMode[index] = "";
+                    var ds2 = dailydb.GetDailyOrder(day, customerid).ToList();
+                    return HelperCS.ToDataTable(ds2);
+                    //return new DataTable();
+                }
+            }
+        }
         #endregion DATATABLE
 
         #region DAILY PANEL TABLE
@@ -208,7 +260,9 @@ namespace OrderManagement.Class
             //DataTable dt = GetDailyOrderTable(day, customerid);
             if (dt == null)
             {
-                dt = GetDailyOrderTable(day, customerid);
+                //dt = 
+                //if no result value from date get max by day
+                dt = GetOrderbyDayTable(day, customerid);
             }
 
 
@@ -293,6 +347,10 @@ namespace OrderManagement.Class
                     else
                     {
                         tablepanel.RowCount = tablepanel.RowCount + 1;
+
+                        productNew = AutoCompleteProductNotExist();
+                        productNew.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
+                        productNew.SelectedIndexChanged += new EventHandler(ComboProductSelect_IndexChanged);
                         MetroTile btAdd = new MetroTile();
                         btAdd.UseCustomBackColor = true;
                        // btAdd.BackColor = Color.Honeydew;
@@ -302,8 +360,6 @@ namespace OrderManagement.Class
                         btAdd.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
                         btAdd.Click += new System.EventHandler(ButtonTileAdd_Click);
 
-                        productNew = AutoCompleteProductNotExist();
-                        productNew.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
                         Panel pnl = new Panel();
                         pnl.Dock = DockStyle.Fill;
                         pnl.Height = 50;
@@ -331,27 +387,40 @@ namespace OrderManagement.Class
             }
             else
             {
-                for (int i = 0; i <= rowcount; i++)
-                {
-                    tablepanel.RowCount = tablepanel.RowCount + 1;
-                    tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-                    //tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-                    ComboBox comboProduct = new ComboBox();
+                tablepanel.RowCount = tablepanel.RowCount + 1;
 
-                    //Bind Combobox and Add Indexchanged Event
-                    HelperCS.AutoCompleteLoadValues(comboProduct, "Product");
-                    comboProduct.SelectedIndexChanged += new System.EventHandler(AutoComplete_SelectedIndexChanged);
+                productNew = AutoCompleteProductNotExist();
+                productNew.Anchor = (AnchorStyles.Top | AnchorStyles.Left);
+                productNew.SelectedIndexChanged += new EventHandler(ComboProductSelect_IndexChanged);
+                MetroTile btAdd = new MetroTile();
+                btAdd.UseCustomBackColor = true;
+                // btAdd.BackColor = Color.Honeydew;
+                btAdd.BackgroundImage = OrderManagement.Properties.Resources.add_22;
+                btAdd.Size = new Size(24, 24);
+                btAdd.BackgroundImageLayout = ImageLayout.Center;
+                btAdd.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
+                btAdd.Click += new System.EventHandler(ButtonTileAdd_Click);
 
-                    //tablepanel.Controls.Add(comboProduct);
-                    tablepanel.Controls.Add(new Label() { Text = "888" }, 0, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 1, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "xxxxxxx@gmail.com" }, 2, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 3, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 4, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 5, tablepanel.RowCount - 1);
-                    tablepanel.Controls.Add(new Label() { Text = "888888888888" }, 6, tablepanel.RowCount - 1);
+                Panel pnl = new Panel();
+                pnl.Dock = DockStyle.Fill;
+                pnl.Height = 50;
+                pnl.Margin = new Padding(0);
+                pnl.Controls.Add(productNew);
+                pnl.Controls.Add(btAdd);
 
-                }
+                tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+
+                //tableheadpanel.BackColor = Color.LightGray;
+
+                tablepanel.Controls.Add(new Label() { Text = "" }, 0, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(new Label() { Text = "เพิ่มสินค้า" }, 1, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(pnl, 2, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(new Label() { Text = "" }, 3, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(new Label() { Text = "" }, 4, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(new Label() { Text = "" }, 5, tablepanel.RowCount - 1);
+                tablepanel.Controls.Add(new Label() { Text = "" }, 6, tablepanel.RowCount - 1);
+
+                tablepanel.GetControlFromPosition(1, (tablepanel.RowCount - 1)).BackColor = Color.WhiteSmoke;
             }
 
 
@@ -375,45 +444,61 @@ namespace OrderManagement.Class
         
         private static void TextBoxPriceInput_Leave(object sender, EventArgs e)
         {
-            TextBox txt = (TextBox)sender;
-            int productid;
-            if (Int32.TryParse(txt.Name, out productid))
-            {
-                if (!string.IsNullOrEmpty(txt.Text))
-                {
-                    UpdatePrice(productid, txt.Text);
-                }
-            }
+            //TextBox txt = (TextBox)sender;
+            //int productid;
+            //if (Int32.TryParse(txt.Name, out productid))
+            //{
+            //    if (!string.IsNullOrEmpty(txt.Text))
+            //    {
+            //        UpdatePrice(productid, txt.Text);
+            //    }
+            //}
         }
         private static void TextBoxInput_Leave(object sender, EventArgs e)
         {
-            TextBox txt = (TextBox)sender;
-            int productid;
-            if (Int32.TryParse(txt.Name, out productid))
-            {
-                DataTable dtamount = QueryAllResult("Product");
-                int amount = (from DataRow dr in dtamount.Rows
-                          where (int)dr["ProductID"] == productid
-                              select (int)dr["Amount"]).FirstOrDefault();
+            //TextBox txt = (TextBox)sender;
+            //int productid;
+            //if (Int32.TryParse(txt.Name, out productid))
+            //{
+            //    DataTable dtamount = QueryAllResult("Product");
+            //    int amount = (from DataRow dr in dtamount.Rows
+            //              where (int)dr["ProductID"] == productid
+            //                  select (int)dr["Amount"]).FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(txt.Text))
-                {
-                    if (Convert.ToDecimal(txt.Text) > amount)
-                    {
-                        Form frm = txt.FindForm();
-                        MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-                        txt.Text = amount.ToString();
-                        txt.Focus();
-                    }
-                    else
-                    {
-                        //Update Total
-                        UpdatePriceTotal(productid,txt.Text);
-                    }
-                }
+            //    if (!string.IsNullOrEmpty(txt.Text))
+            //    {
+            //        if (Convert.ToDecimal(txt.Text) > amount)
+            //        {
+            //            Form frm = txt.FindForm();
+            //            MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            //            txt.Text = amount.ToString();
+            //            txt.Focus();
+            //        }
+            //        else
+            //        {
+            //            //Update Total
+            //            UpdatePriceTotal(productid,txt.Text);
+            //        }
+            //    }
+            //}
+        }
+        private static void ComboProductSelect_IndexChanged(object sender,EventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
+            string value = ((KeyValuePair<string, string>)combo.SelectedItem).Value;
+            if (key != "")
+            {
+                //ProductIdSelect = int.Parse(key);
+                ProductIdSelect = key;
+                ProductTextSelect = value;
+            }
+            else
+            {
+                //Form frm = combo.FindForm();
+                //MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private static void UpdatePriceTotal(int productid,string amount)
         {
             if (dt.Rows.Count > 0) {
@@ -505,11 +590,6 @@ namespace OrderManagement.Class
             autoCompleteCombo.DisplayMember = "Value";
             autoCompleteCombo.ValueMember = "Key";
         }
-        //public class Productobj
-        //{
-        //    public int ProductID { get; set; }
-        //    public string ProductName { get; set; }
-        //}
         public static ComboBox AutoCompleteProductNotExist()
         {
             ComboBox autoCompleteCombo = new ComboBox();
@@ -590,54 +670,258 @@ namespace OrderManagement.Class
         private static void ButtonTileAdd_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
-            //CheckProductIDCanOrder();
-            string key = ((KeyValuePair<string, string>)productNew.SelectedItem).Key;
-            string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
             Form frm = btn.FindForm();
-            if (key != "")
+            //string key = ((KeyValuePair<string, string>)productNew.SelectedItem).Key;
+            //string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
+            if(!string.IsNullOrEmpty(ProductIdSelect))
             {
-                NewrowProductOrder(int.Parse(key), value);
-                //MetroMessageBox.Show(frm, "select :" + value);
-                //Hand = red, Exclamation = yellow, (Asterisk,Information = blue)
-                //MetroMessageBox.Show(frm, "Please select Product:" + value, "Add New Product", MessageBoxButtons.OK, MessageBoxIcon.Question);
-
+                NewrowProductOrder(int.Parse(ProductIdSelect), ProductTextSelect);
             }
             else
             {
                 MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            //MetroMessageBox.Show(frm, "Please select Product Before" + ProductIdSelect + ProductTextSelect, "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
         }
         public static void SaveAllOrder(MetroTile btn)
         {
             Form frm = btn.FindForm();
-            string id = "",total = "";
-            int cell = dt.Columns.Count;
-            foreach(DataRow dr in dtMon.Rows)
+            DateTime updatedate = DateTime.Now;
+            int[] allresult = { 0, 0, 0, 0, 0, 0, 0 };
+
+            //[OrderID],[OrderDate],[CustomerID],[ProductID],[ProductPrice],[OrderPrice],[OrderAmount],[OrderTotal],[Description],[OrderStatus],UpdateDate,UpdateBy
+            try
             {
-                for(int j=0; j< cell; j++)
+                #region Save Sunday
+                if (dayOrder[0] == "true")
                 {
-                    total += dr[j].ToString();
                     
+                    foreach (DataRow dr in dtSun.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[0];
+                        bool status = true;
+
+                        allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
                 }
-                total += "\r\n";
-                id += dr["ProductID"].ToString() + " , ";
-                //total += dr["Total"].ToString() + " , ";
-                //dr["OrderAmount"].ToString();
-                //dr["ProductName"].ToString();
-                //dr["ProductPrice"].ToString();
-                //dr["Unit"].ToString();
-                //tablepanel.Controls.Add(pnl, 5, tablepanel.RowCount - 1);
+                else
+                {
 
-                //decimal total = Convert.ToDecimal(dr["ProductPrice"].ToString()) * Convert.ToDecimal(dr["OrderAmount"].ToString());
+                }
+                #endregion Save Sunday
 
-               
+                #region Save Monday
+                if (dayOrder[1] == "true")
+                {
+                    foreach (DataRow dr in dtMon.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[1];
+                        bool status = true;
+                        allresult[1] = SaveOrderToDatabase(mondate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Monday
+
+                #region Save Tuesday
+                if (dayOrder[2] == "true")
+                {
+                    foreach (DataRow dr in dtTue.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[2];
+                        bool status = true;
+                        
+                        allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Tuesday
+
+                #region Save Wednesday
+                if (dayOrder[3] == "true")
+                {
+                    foreach (DataRow dr in dtWed.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[3];
+                        bool status = true;
+                        
+                        allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Wednesday
+
+                #region Save Thursday
+                if (dayOrder[4] == "true")
+                {
+                    foreach (DataRow dr in dtThu.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[4];
+                        bool status = true;
+                        
+                        allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Thursday
+
+                #region Save Friday
+                if (dayOrder[5] == "true")
+                {
+                    foreach (DataRow dr in dtFri.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[5];
+                        bool status = true;
+                        
+                        allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Friday
+
+                #region Save Saturday
+                if (dayOrder[6] == "true")
+                {
+                    foreach (DataRow dr in dtSat.Rows)
+                    {
+                        int pid = int.Parse(dr["ProductID"].ToString());
+                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                        int oamount = int.Parse(dr["OrderAmount"].ToString());
+                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                        string description = EditMode[6];
+                        bool status = true;
+                        
+                        allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                    }
+                }
+                else
+                {
+
+                }
+                #endregion Save Saturday
+                int all = 0;
+                string problem = "ข้อมูลมีปัญหา ";
+
+                if (allresult[0] != 0)
+                {
+                    problem += "วันอาทิตย์ ";
+                    all += allresult[0];
+                }
+                if (allresult[1] != 0)
+                {
+                    problem += "วันจันทร์ ";
+                    all += allresult[1];
+                }
+                if (allresult[2] != 0)
+                {
+                    problem += "วันอังคาร ";
+                    all += allresult[2];
+                }
+                if (allresult[3] != 0)
+                {
+                    problem += "วันพุธ ";
+                    all += allresult[3];
+                }
+                if (allresult[4] != 0)
+                {
+                    problem += "วันพฤหัส ";
+                    all += allresult[4];
+                }
+                if (allresult[5] != 0)
+                {
+                    problem += "วันศุกร์ ";
+                    all += allresult[5];
+                }
+                if (allresult[6] != 0)
+                {
+                    problem += "วันเสาร์ ";
+                    all += allresult[6];
+                }
+
+                if (all != 0)
+                {
+                    MetroMessageBox.Show(frm, "Some Data has Problem Cannot Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MetroMessageBox.Show(frm, "Data has been Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                }
+
             }
-            // CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
-            MetroMessageBox.Show(frm, "id = " + id +"\r\n" +total, "Order", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-
-
+            catch (Exception ex)
+            {
+                MetroMessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:"+ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private static int SaveOrderToDatabase(DateTime orderdate, int customerid, int pid, decimal pprice, decimal oprice, int oamount, decimal ototal, string description, bool status, DateTime updatedate, string userName)
+        {
+            int result = 1;
+            using (var db = new DailyOrderEntities())
+            {
+                // Get result from Stored Procedure
+                var ds = db.InsertOrder(orderdate, updatedate, customerid, pid,pprice,oprice,oamount,ototal,description,status,userName).ToList();
+
+                if (ds.Count() > 0)
+                {
+                    result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                }
+                else
+                {
+                    result = 99;
+                }
+            }
+            //When Save Success must return 0
+            return result;
+        }
+
         #endregion BUTTON 
 
         #region METHOD
@@ -688,10 +972,6 @@ namespace OrderManagement.Class
                 dayOrder[6] = "true";
             }
         }
-        private static void CheckProductIDCanOrder()
-        {
-
-        }
         private static void NewrowProductOrder(int productid, string productname)
         {
             //where All product get price
@@ -711,16 +991,20 @@ namespace OrderManagement.Class
             {
                 //add new row to display
                 DataRow row = dt.NewRow();
-
-                row["ProductID"] = productid;
+                // OrderID OrderDate   CustomerID ProductID   ProductPrice OrderPrice  OrderAmount OrderTotal  Description OrderStatus WeekDay ProductName Unit Amount
+                row["OrderID"] = 9;
                 row["OrderDate"] = DateTime.Now.ToShortDateString();
                 row["CustomerID"] = Customerid.ToString();
-                row["ProductName"] = productname;
-                row["Unit"] = unit.ToString();
+                row["ProductID"] = productid;
                 row["ProductPrice"] = price.ToString("0.00");
                 row["OrderPrice"] = price.ToString("0.00");
                 row["OrderAmount"] = 1;
                 row["OrderTotal"] = price.ToString("0.00");
+                row["Description"] = null;
+                row["OrderStatus"] = true;
+                row["Weekday"] = dayTab;
+                row["ProductName"] = productname;
+                row["Unit"] = unit.ToString();
                 row["Amount"] = amount;
                 dt.Rows.Add(row);
                 CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);

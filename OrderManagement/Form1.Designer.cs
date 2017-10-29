@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.pnlMenu = new MetroFramework.Controls.MetroPanel();
+            this.pnlMain = new MetroFramework.Controls.MetroPanel();
+            this.UserTile = new MetroFramework.Controls.MetroTile();
             this.SettingMenuTile = new MetroFramework.Controls.MetroTile();
             this.OrderMenuTile = new MetroFramework.Controls.MetroTile();
             this.ProductMenuTile = new MetroFramework.Controls.MetroTile();
             this.ReportMenuTile = new MetroFramework.Controls.MetroTile();
             this.CustomerMenuTile = new MetroFramework.Controls.MetroTile();
-            this.pnlMain = new MetroFramework.Controls.MetroPanel();
             this.pnlMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMenu
             // 
+            this.pnlMenu.Controls.Add(this.UserTile);
             this.pnlMenu.Controls.Add(this.SettingMenuTile);
             this.pnlMenu.Controls.Add(this.OrderMenuTile);
             this.pnlMenu.Controls.Add(this.ProductMenuTile);
@@ -56,6 +58,44 @@
             this.pnlMenu.VerticalScrollbarBarColor = true;
             this.pnlMenu.VerticalScrollbarHighlightOnWheel = false;
             this.pnlMenu.VerticalScrollbarSize = 10;
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.AutoScroll = true;
+            this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.HorizontalScrollbar = true;
+            this.pnlMain.HorizontalScrollbarBarColor = true;
+            this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
+            this.pnlMain.HorizontalScrollbarSize = 10;
+            this.pnlMain.Location = new System.Drawing.Point(20, 113);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1463, 795);
+            this.pnlMain.TabIndex = 41;
+            this.pnlMain.VerticalScrollbar = true;
+            this.pnlMain.VerticalScrollbarBarColor = true;
+            this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
+            this.pnlMain.VerticalScrollbarSize = 10;
+            // 
+            // UserTile
+            // 
+            this.UserTile.ActiveControl = null;
+            this.UserTile.BackColor = System.Drawing.Color.Transparent;
+            this.UserTile.Location = new System.Drawing.Point(1301, 3);
+            this.UserTile.Name = "UserTile";
+            this.UserTile.Size = new System.Drawing.Size(150, 44);
+            this.UserTile.TabIndex = 42;
+            this.UserTile.Text = "User";
+            this.UserTile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.UserTile.TileImage = global::OrderManagement.Properties.Resources.Female_Face_FA_5_icon__1_;
+            this.UserTile.TileImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.UserTile.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
+            this.UserTile.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.UserTile.UseCustomBackColor = true;
+            this.UserTile.UseCustomForeColor = true;
+            this.UserTile.UseSelectable = true;
+            this.UserTile.UseTileImage = true;
+            this.UserTile.Click += new System.EventHandler(this.UserTile_Click);
             // 
             // SettingMenuTile
             // 
@@ -133,6 +173,7 @@
             this.ReportMenuTile.UseCustomBackColor = true;
             this.ReportMenuTile.UseSelectable = true;
             this.ReportMenuTile.UseTileImage = true;
+            this.ReportMenuTile.Click += new System.EventHandler(this.ReportMenuTile_Click);
             // 
             // CustomerMenuTile
             // 
@@ -149,24 +190,6 @@
             this.CustomerMenuTile.UseSelectable = true;
             this.CustomerMenuTile.UseTileImage = true;
             this.CustomerMenuTile.Click += new System.EventHandler(this.CustomerMenuTile_Click);
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.AutoScroll = true;
-            this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.HorizontalScrollbar = true;
-            this.pnlMain.HorizontalScrollbarBarColor = true;
-            this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
-            this.pnlMain.HorizontalScrollbarSize = 10;
-            this.pnlMain.Location = new System.Drawing.Point(20, 113);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1463, 795);
-            this.pnlMain.TabIndex = 41;
-            this.pnlMain.VerticalScrollbar = true;
-            this.pnlMain.VerticalScrollbarBarColor = true;
-            this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
-            this.pnlMain.VerticalScrollbarSize = 10;
             // 
             // Form1
             // 
@@ -194,6 +217,7 @@
         private MetroFramework.Controls.MetroPanel pnlMenu;
         private MetroFramework.Controls.MetroPanel pnlMain;
         private MetroFramework.Controls.MetroTile SettingMenuTile;
+        private MetroFramework.Controls.MetroTile UserTile;
     }
 }
 

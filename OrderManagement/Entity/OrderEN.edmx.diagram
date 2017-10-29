@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04b10e2cde1c4deb9a6633624ae5b275" Name="Diagram1">
+      <Diagram DiagramId="71bb0fb8cff149c3bdeb0711eb65695c" Name="Diagram1">
         <EntityTypeShape EntityType="OrderModel.Config" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderModel.Customer" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderModel.Login" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderModel.Product" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrderModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderModel.Order" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrderModel.Product" Width="1.5" PointX="0.625" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderModel.vwOrder" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OrderModel.vwOrderDetail" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
       </Diagram>

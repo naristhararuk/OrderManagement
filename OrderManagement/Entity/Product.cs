@@ -21,9 +21,9 @@ namespace OrderManagement.Entity
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Unit { get; set; }
         public Nullable<int> Amount { get; set; }
-        public string EditBy { get; set; }
-        public Nullable<System.DateTime> EditDate { get; set; }
         public string Descripiton { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
     }
 }

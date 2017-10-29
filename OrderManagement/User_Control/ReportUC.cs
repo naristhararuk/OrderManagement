@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using OrderManagement.Class;
+using MetroFramework;
 namespace OrderManagement.User_Control
 {
     public partial class ReportUC : UserControl

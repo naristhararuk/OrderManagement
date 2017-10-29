@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using OrderManagement.User_Control;
 using OrderManagement.Entity;
 using OrderManagement.Model;
+using OrderManagement.Class;
 
 namespace OrderManagement.User_Control
 {
@@ -36,9 +37,12 @@ namespace OrderManagement.User_Control
                 rownum = db.Login.Where(a => a.UserName == txtUserName.Text && a.Password == txtPassword.Text).Count();
                 if(rownum > 0)
                 {
-                    DataInfo.UserLoginName = txtUserName.Text;
+                    //DataInfo.UserLoginName = txtUserName.Text;
+                    HelperCS.UserName = txtUserName.Text;
                     Form1 frm = this.FindForm() as Form1;
-                    frm.CheckUserLogin(txtUserName.Text);
+                    //frm.CheckUserLogin(txtUserName.Text);
+                    //frm.pa
+                    frm.CheckUserLogin();
                 }
                 else
                 {

@@ -40,5 +40,67 @@ namespace OrderManagement.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDailyOrder_Result>("GetDailyOrder", dayParameter, customerParameter);
         }
+    
+        public virtual ObjectResult<GetOrderbyDay_Result> GetOrderbyDay(Nullable<System.DateTime> date, Nullable<int> customer)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var customerParameter = customer.HasValue ?
+                new ObjectParameter("customer", customer) :
+                new ObjectParameter("customer", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderbyDay_Result>("GetOrderbyDay", dateParameter, customerParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> InsertOrder(Nullable<System.DateTime> orderdate, Nullable<System.DateTime> updatedate, Nullable<int> customerid, Nullable<int> productid, Nullable<decimal> productprice, Nullable<decimal> orderprice, Nullable<int> orderamount, Nullable<decimal> ordertotal, string description, Nullable<bool> orderStatus, string updateby)
+        {
+            var orderdateParameter = orderdate.HasValue ?
+                new ObjectParameter("orderdate", orderdate) :
+                new ObjectParameter("orderdate", typeof(System.DateTime));
+    
+            var updatedateParameter = updatedate.HasValue ?
+                new ObjectParameter("updatedate", updatedate) :
+                new ObjectParameter("updatedate", typeof(System.DateTime));
+    
+            var customeridParameter = customerid.HasValue ?
+                new ObjectParameter("customerid", customerid) :
+                new ObjectParameter("customerid", typeof(int));
+    
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            var productpriceParameter = productprice.HasValue ?
+                new ObjectParameter("productprice", productprice) :
+                new ObjectParameter("productprice", typeof(decimal));
+    
+            var orderpriceParameter = orderprice.HasValue ?
+                new ObjectParameter("orderprice", orderprice) :
+                new ObjectParameter("orderprice", typeof(decimal));
+    
+            var orderamountParameter = orderamount.HasValue ?
+                new ObjectParameter("orderamount", orderamount) :
+                new ObjectParameter("orderamount", typeof(int));
+    
+            var ordertotalParameter = ordertotal.HasValue ?
+                new ObjectParameter("ordertotal", ordertotal) :
+                new ObjectParameter("ordertotal", typeof(decimal));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var orderStatusParameter = orderStatus.HasValue ?
+                new ObjectParameter("orderStatus", orderStatus) :
+                new ObjectParameter("orderStatus", typeof(bool));
+    
+            var updatebyParameter = updateby != null ?
+                new ObjectParameter("updateby", updateby) :
+                new ObjectParameter("updateby", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertOrder", orderdateParameter, updatedateParameter, customeridParameter, productidParameter, productpriceParameter, orderpriceParameter, orderamountParameter, ordertotalParameter, descriptionParameter, orderStatusParameter, updatebyParameter);
+        }
     }
 }

@@ -4,5 +4,22 @@
     <Parameter Name="day" Type="varchar" Mode="In" />
     <Parameter Name="customer" Type="int" Mode="In" />
   </Function>
+  <Function Name="GetOrderbyDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="customer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InsertOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="orderdate" Type="datetime" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="customerid" Type="int" Mode="In" />
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderamount" Type="int" Mode="In" />
+    <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="orderStatus" Type="bit" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="DailyOrderModelStoreContainer" />
 </Schema>

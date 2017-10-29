@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
+using OrderManagement.Class;
 using OrderManagement.User_Control;
 namespace OrderManagement
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
         private static Font fontstyle;
-
-        public static string UserLoginName { get; set; }
         #region Inititial
         public Form1()
         {
@@ -24,6 +24,8 @@ namespace OrderManagement
         {
             this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
+            HelperCS.UserName = "Admin";
+            CheckUserLogin();
         }
         protected override void OnPaintBackground(PaintEventArgs e)
         {
@@ -60,9 +62,8 @@ namespace OrderManagement
         }
         private void SettingMenuTile_Click(object sender, EventArgs e)
         {
-            LoginUC login = new LoginUC();
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(login);
+
+          
         }
         #endregion MenuClick
 
@@ -80,23 +81,28 @@ namespace OrderManagement
             }
             MaskedDialog.ShowDialog(this, uc);
         }
-        public void CheckUserLogin(string username)
+        public void CheckUserLogin()
         {
+            string username = HelperCS.UserName;
             if (username == "Admin")
             {
                 ReportUC report = new ReportUC();
                 pnlMain.Controls.Clear();
                 pnlMain.Controls.Add(report);
+                UserTile.Text = username;
             }
             else if (username == "Account")
             {
-                ProductUC product = new ProductUC();
+                OrderUC order = new OrderUC();
                 pnlMain.Controls.Clear();
-                pnlMain.Controls.Add(product);
+                pnlMain.Controls.Add(order);
+                UserTile.Text = username;
             }
             else
             {
-
+                LoginUC login = new LoginUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(login);
             }
             
         }
@@ -108,8 +114,40 @@ namespace OrderManagement
                 c.Font = fontstyle;
             }
         }
+
         #endregion Method
 
+        private void UserTile_Click(object sender, EventArgs e)
+        {
+            //logout and login different accoun
+            LoginUC login = new LoginUC();
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(login);
+        }
 
+        private void ReportMenuTile_Click(object sender, EventArgs e)
+        {
+            if (HelperCS.UserName != "Admin")
+            {
+                DialogResult result = MetroMessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                if (result.Equals(DialogResult.OK))
+                {
+                    LoginUC login = new LoginUC();
+                    pnlMain.Controls.Clear();
+                    pnlMain.Controls.Add(login);
+                }
+                else
+                {
+                    pnlMain.Controls.Clear();
+                }
+
+            }
+            else
+            {
+                ReportUC report = new ReportUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(report);
+            }
+        }
     }
 }

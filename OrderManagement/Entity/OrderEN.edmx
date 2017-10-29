@@ -14,6 +14,8 @@
           <Property Name="Type" Type="nvarchar" MaxLength="200" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="Value" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -30,6 +32,8 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ShowPrice" Type="bit" />
           <Property Name="Status" Type="bit" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -40,6 +44,8 @@
           <Property Name="Password" Type="nvarchar" MaxLength="200" />
           <Property Name="UserGroup" Type="int" />
           <Property Name="Status" Type="bit" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -55,6 +61,8 @@
           <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="OrderStatus" Type="bit" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -67,20 +75,10 @@
           <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Unit" Type="int" />
           <Property Name="Amount" Type="int" />
-          <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="EditDate" Type="datetime" />
           <Property Name="Descripiton" Type="nvarchar(max)" />
           <Property Name="Status" Type="bit" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -138,7 +136,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 
@@ -198,6 +195,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -214,6 +213,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ShowPrice" Type="Boolean" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -224,6 +225,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserGroup" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -239,6 +242,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrderStatus" Type="Boolean" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -251,20 +256,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Unit" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
-          <Property Name="EditBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
           <Property Name="Descripiton" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vwOrder">
           <Key>
@@ -313,14 +308,13 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ShowPrice" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Config" EntityType="Self.Config" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
-          <EntitySet Name="Login" EntityType="Self.Login" />
-          <EntitySet Name="Order" EntityType="Self.Order" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
-          <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
+          <EntitySet Name="Configs" EntityType="Self.Config" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="vwOrders" EntityType="Self.vwOrder" />
+          <EntitySet Name="vwOrderDetails" EntityType="Self.vwOrderDetail" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -328,7 +322,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="OrderEntities">
-          <EntitySetMapping Name="Config">
+          <EntitySetMapping Name="Configs">
             <EntityTypeMapping TypeName="OrderModel.Config">
               <MappingFragment StoreEntitySet="Config">
                 <ScalarProperty Name="run" ColumnName="run" />
@@ -336,10 +330,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customer">
+          <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="OrderModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -353,10 +349,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Login">
+          <EntitySetMapping Name="Logins">
             <EntityTypeMapping TypeName="OrderModel.Login">
               <MappingFragment StoreEntitySet="Login">
                 <ScalarProperty Name="run" ColumnName="run" />
@@ -364,10 +362,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Order">
+          <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OrderModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -380,10 +380,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product">
+          <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OrderModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -393,25 +395,14 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="OrderModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwOrder">
+          <EntitySetMapping Name="vwOrders">
             <EntityTypeMapping TypeName="OrderModel.vwOrder">
               <MappingFragment StoreEntitySet="vwOrder">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -428,7 +419,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vwOrderDetail">
+          <EntitySetMapping Name="vwOrderDetails">
             <EntityTypeMapping TypeName="OrderModel.vwOrderDetail">
               <MappingFragment StoreEntitySet="vwOrderDetail">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -473,7 +464,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

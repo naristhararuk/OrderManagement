@@ -9,6 +9,8 @@
     <Property Name="Type" Type="nvarchar" MaxLength="200" />
     <Property Name="Name" Type="nvarchar" MaxLength="200" />
     <Property Name="Value" Type="nvarchar" MaxLength="200" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -25,6 +27,8 @@
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="ShowPrice" Type="bit" />
     <Property Name="Status" Type="bit" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Login">
     <Key>
@@ -35,6 +39,8 @@
     <Property Name="Password" Type="nvarchar" MaxLength="200" />
     <Property Name="UserGroup" Type="int" />
     <Property Name="Status" Type="bit" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -50,6 +56,8 @@
     <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="OrderStatus" Type="bit" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -62,20 +70,10 @@
     <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
     <Property Name="Unit" Type="int" />
     <Property Name="Amount" Type="int" />
-    <Property Name="EditBy" Type="nvarchar" MaxLength="50" />
-    <Property Name="EditDate" Type="datetime" />
     <Property Name="Descripiton" Type="nvarchar(max)" />
     <Property Name="Status" Type="bit" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -133,7 +131,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 

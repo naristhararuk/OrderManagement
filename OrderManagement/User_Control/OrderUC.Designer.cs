@@ -31,7 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.btnOrderSave = new MetroFramework.Controls.MetroTile();
             this.DatePicker = new MetroFramework.Controls.MetroDateTime();
             this.ComboOrderCustomer = new System.Windows.Forms.ComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -62,6 +61,8 @@
             this.SaturdayToggle = new MetroFramework.Controls.MetroToggle();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.btnOrderCalculate = new MetroFramework.Controls.MetroTile();
+            this.btnOrderSave = new MetroFramework.Controls.MetroTile();
             this.metroPanel1.SuspendLayout();
             this.OrderTab.SuspendLayout();
             this.SundayTab.SuspendLayout();
@@ -89,6 +90,7 @@
             this.metroPanel1.AutoScroll = true;
             this.metroPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.metroPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.metroPanel1.Controls.Add(this.btnOrderCalculate);
             this.metroPanel1.Controls.Add(this.metroLabel2);
             this.metroPanel1.Controls.Add(this.btnOrderSave);
             this.metroPanel1.Controls.Add(this.DatePicker);
@@ -116,31 +118,16 @@
             this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel2.Location = new System.Drawing.Point(367, 10);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(106, 25);
+            this.metroLabel2.Size = new System.Drawing.Size(103, 25);
             this.metroLabel2.TabIndex = 14;
             this.metroLabel2.Text = "เลือกสัปดาห์";
-            // 
-            // btnOrderSave
-            // 
-            this.btnOrderSave.ActiveControl = null;
-            this.btnOrderSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnOrderSave.Location = new System.Drawing.Point(1293, 28);
-            this.btnOrderSave.Name = "btnOrderSave";
-            this.btnOrderSave.Size = new System.Drawing.Size(55, 53);
-            this.btnOrderSave.TabIndex = 13;
-            this.btnOrderSave.TileImage = global::OrderManagement.Properties.Resources.save4_48;
-            this.btnOrderSave.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrderSave.UseCustomBackColor = true;
-            this.btnOrderSave.UseSelectable = true;
-            this.btnOrderSave.UseTileImage = true;
-            this.btnOrderSave.Click += new System.EventHandler(this.btnOrderSave_Click);
             // 
             // DatePicker
             // 
             this.DatePicker.Location = new System.Drawing.Point(367, 38);
             this.DatePicker.MinimumSize = new System.Drawing.Size(0, 29);
             this.DatePicker.Name = "DatePicker";
-            this.DatePicker.Size = new System.Drawing.Size(200, 29);
+            this.DatePicker.Size = new System.Drawing.Size(268, 29);
             this.DatePicker.TabIndex = 12;
             this.DatePicker.ValueChanged += new System.EventHandler(this.DatePicker_ValueChanged);
             // 
@@ -160,7 +147,7 @@
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel1.Location = new System.Drawing.Point(16, 10);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(80, 25);
+            this.metroLabel1.Size = new System.Drawing.Size(74, 25);
             this.metroLabel1.TabIndex = 10;
             this.metroLabel1.Text = "ชื่อลูกค้า";
             // 
@@ -177,7 +164,7 @@
             this.OrderTab.ItemSize = new System.Drawing.Size(100, 30);
             this.OrderTab.Location = new System.Drawing.Point(16, 87);
             this.OrderTab.Name = "OrderTab";
-            this.OrderTab.SelectedIndex = 6;
+            this.OrderTab.SelectedIndex = 1;
             this.OrderTab.Size = new System.Drawing.Size(1438, 683);
             this.OrderTab.TabIndex = 8;
             this.OrderTab.UseSelectable = true;
@@ -251,7 +238,7 @@
             this.pnlMainMondayBody.HorizontalScrollbarSize = 10;
             this.pnlMainMondayBody.Location = new System.Drawing.Point(9, 83);
             this.pnlMainMondayBody.Name = "pnlMainMondayBody";
-            this.pnlMainMondayBody.Size = new System.Drawing.Size(1319, 588);
+            this.pnlMainMondayBody.Size = new System.Drawing.Size(1319, 1988);
             this.pnlMainMondayBody.TabIndex = 13;
             this.pnlMainMondayBody.VerticalScrollbar = true;
             this.pnlMainMondayBody.VerticalScrollbarBarColor = true;
@@ -501,6 +488,36 @@
             this.SaturdayToggle.UseSelectable = true;
             this.SaturdayToggle.CheckedChanged += new System.EventHandler(this.DayToggle_CheckedChanged);
             // 
+            // btnOrderCalculate
+            // 
+            this.btnOrderCalculate.ActiveControl = null;
+            this.btnOrderCalculate.BackColor = System.Drawing.Color.Transparent;
+            this.btnOrderCalculate.Location = new System.Drawing.Point(1232, 28);
+            this.btnOrderCalculate.Name = "btnOrderCalculate";
+            this.btnOrderCalculate.Size = new System.Drawing.Size(55, 53);
+            this.btnOrderCalculate.TabIndex = 15;
+            this.btnOrderCalculate.TileImage = global::OrderManagement.Properties.Resources.accessories_calculator_icon;
+            this.btnOrderCalculate.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrderCalculate.UseCustomBackColor = true;
+            this.btnOrderCalculate.UseSelectable = true;
+            this.btnOrderCalculate.UseTileImage = true;
+            this.btnOrderCalculate.Click += new System.EventHandler(this.btnOrderCalculate_Click);
+            // 
+            // btnOrderSave
+            // 
+            this.btnOrderSave.ActiveControl = null;
+            this.btnOrderSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnOrderSave.Location = new System.Drawing.Point(1293, 28);
+            this.btnOrderSave.Name = "btnOrderSave";
+            this.btnOrderSave.Size = new System.Drawing.Size(55, 53);
+            this.btnOrderSave.TabIndex = 13;
+            this.btnOrderSave.TileImage = global::OrderManagement.Properties.Resources.save4_48;
+            this.btnOrderSave.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrderSave.UseCustomBackColor = true;
+            this.btnOrderSave.UseSelectable = true;
+            this.btnOrderSave.UseTileImage = true;
+            this.btnOrderSave.Click += new System.EventHandler(this.btnOrderSave_Click);
+            // 
             // OrderUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -567,5 +584,6 @@
         private MetroFramework.Controls.MetroLabel lblDateSaturday;
         private MetroFramework.Controls.MetroTile btnOrderSave;
         private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroTile btnOrderCalculate;
     }
 }

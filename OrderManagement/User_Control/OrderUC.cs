@@ -16,7 +16,7 @@ namespace OrderManagement.User_Control
     public partial class OrderUC : UserControl
     {
         private int customerid = 0;
-        private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
+        //private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
         
         public OrderUC()
         {
@@ -388,6 +388,34 @@ namespace OrderManagement.User_Control
                 //pnlSaturdayHead.Controls.Clear();
                 //pnlMainSaturdayBody.Controls.Clear();
             }
+            else
+            {
+                HelperCS.dtSun = null;
+                HelperCS.dtMon = null;
+                HelperCS.dtTue = null;
+                HelperCS.dtWed = null;
+                HelperCS.dtThu = null;
+                HelperCS.dtFri = null;
+                HelperCS.dtSat = null;
+
+                //pnlSundayHead.Controls.Clear();
+                pnlMondayHead.Controls.Clear();
+                //pnlTuesdayHead.Controls.Clear();
+                //pnlWednesdayHead.Controls.Clear();
+                //pnlThursdayHead.Controls.Clear();
+                //pnlFridayHead.Controls.Clear();
+                //pnlSaturdayHead.Controls.Clear();
+
+                //pnlMainSundayBody.Controls.Clear();
+                pnlMainMondayBody.Controls.Clear();
+                //pnlMainTuesdayBody.Controls.Clear();
+                //pnlMainWednesdayBody.Controls.Clear();
+                //pnlMainThursdayBody.Controls.Clear();
+                //pnlMainFridayBody.Controls.Clear();
+                //pnlMainSaturdayBody.Controls.Clear();
+
+                HelperCS.dayOrder = new string[7] { "false", "false", "false", "false", "false", "false", "false" };
+            }
         }
 
         private void CheckDate()
@@ -400,90 +428,97 @@ namespace OrderManagement.User_Control
                 {
                     case DayOfWeek.Sunday:
                         {
-                            sundate = date;
-                            mondate = date.AddDays(1);
-                            tuedate = date.AddDays(2);
-                            weddate = date.AddDays(3);
-                            thudate = date.AddDays(4);
-                            fridate = date.AddDays(5);
-                            satdate = date.AddDays(6);
+                            HelperCS.sundate = date;
+                            HelperCS.mondate = date.AddDays(1);
+                            HelperCS.tuedate = date.AddDays(2);
+                            HelperCS.weddate = date.AddDays(3);
+                            HelperCS.thudate = date.AddDays(4);
+                            HelperCS.fridate = date.AddDays(5);
+                            HelperCS.satdate = date.AddDays(6);
+                            OrderTab.SelectedTab = SundayTab;
                             break;
                         }
                     case DayOfWeek.Monday:
                         {
-                            sundate = date.AddDays(-1);
-                            mondate = date;
-                            tuedate = date.AddDays(1);
-                            weddate = date.AddDays(2);
-                            thudate = date.AddDays(3);
-                            fridate = date.AddDays(4);
-                            satdate = date.AddDays(5);
+                            HelperCS.sundate = date.AddDays(-1);
+                            HelperCS.mondate = date;
+                            HelperCS.tuedate = date.AddDays(1);
+                            HelperCS.weddate = date.AddDays(2);
+                            HelperCS.thudate = date.AddDays(3);
+                            HelperCS.fridate = date.AddDays(4);
+                            HelperCS.satdate = date.AddDays(5);
+                            OrderTab.SelectedTab = MondayTab;
                             break;
                         }
                     case DayOfWeek.Tuesday:
                         {
-                            sundate = date.AddDays(-2);
-                            mondate = date.AddDays(-1);
-                            tuedate = date;
-                            weddate = date.AddDays(1);
-                            thudate = date.AddDays(2);
-                            fridate = date.AddDays(3);
-                            satdate = date.AddDays(4);
+                            HelperCS.sundate = date.AddDays(-2);
+                            HelperCS.mondate = date.AddDays(-1);
+                            HelperCS.tuedate = date;
+                            HelperCS.weddate = date.AddDays(1);
+                            HelperCS.thudate = date.AddDays(2);
+                            HelperCS.fridate = date.AddDays(3);
+                            HelperCS.satdate = date.AddDays(4);
+                            OrderTab.SelectedTab = TuesdayTab;
                             break;
                         }
                     case DayOfWeek.Wednesday:
                         {
-                            sundate = date.AddDays(-3);
-                            mondate = date.AddDays(-2);
-                            tuedate = date.AddDays(-1);
-                            weddate = date;
-                            thudate = date.AddDays(1);
-                            fridate = date.AddDays(2);
-                            satdate = date.AddDays(3);
+                            HelperCS.sundate = date.AddDays(-3);
+                            HelperCS.mondate = date.AddDays(-2);
+                            HelperCS.tuedate = date.AddDays(-1);
+                            HelperCS.weddate = date;
+                            HelperCS.thudate = date.AddDays(1);
+                            HelperCS.fridate = date.AddDays(2);
+                            HelperCS.satdate = date.AddDays(3);
+                            OrderTab.SelectedTab = WednesdayTab;
                             break;
                         }
                     case DayOfWeek.Thursday:
                         {
-                            sundate = date.AddDays(-4);
-                            mondate = date.AddDays(-3);
-                            tuedate = date.AddDays(-2);
-                            weddate = date.AddDays(-1);
-                            thudate = date;
-                            fridate = date.AddDays(1);
-                            satdate = date.AddDays(2);
+                            HelperCS.sundate = date.AddDays(-4);
+                            HelperCS.mondate = date.AddDays(-3);
+                            HelperCS.tuedate = date.AddDays(-2);
+                            HelperCS.weddate = date.AddDays(-1);
+                            HelperCS.thudate = date;
+                            HelperCS.fridate = date.AddDays(1);
+                            HelperCS.satdate = date.AddDays(2);
+                            OrderTab.SelectedTab = ThursdayTab;
                             break;
                         }
                     case DayOfWeek.Friday:
                         {
-                            sundate = date.AddDays(-5);
-                            mondate = date.AddDays(-4);
-                            tuedate = date.AddDays(-3);
-                            weddate = date.AddDays(-2);
-                            thudate = date.AddDays(-1);
-                            fridate = date;
-                            satdate = date.AddDays(1);
+                            HelperCS.sundate = date.AddDays(-5);
+                            HelperCS.mondate = date.AddDays(-4);
+                            HelperCS.tuedate = date.AddDays(-3);
+                            HelperCS.weddate = date.AddDays(-2);
+                            HelperCS.thudate = date.AddDays(-1);
+                            HelperCS.fridate = date;
+                            HelperCS.satdate = date.AddDays(1);
+                            OrderTab.SelectedTab = FridayTab;
                             break;
                         }
                     case DayOfWeek.Saturday:
                         {
-                            sundate = date.AddDays(-6);
-                            mondate = date.AddDays(-5);
-                            tuedate = date.AddDays(-4);
-                            weddate = date.AddDays(-3);
-                            thudate = date.AddDays(-2);
-                            fridate = date.AddDays(-1);
-                            satdate = date;
+                            HelperCS.sundate = date.AddDays(-6);
+                            HelperCS.mondate = date.AddDays(-5);
+                            HelperCS.tuedate = date.AddDays(-4);
+                            HelperCS.weddate = date.AddDays(-3);
+                            HelperCS.thudate = date.AddDays(-2);
+                            HelperCS.fridate = date.AddDays(-1);
+                            HelperCS.satdate = date;
+                            OrderTab.SelectedTab = SaturdayTab;
                             break;
                         }
                 }
 
-                lblDateSunday.Text = sundate.ToString(formatdate);
-                lblDateMonday.Text = mondate.ToString(formatdate);
-                lblDateTuesday.Text = tuedate.ToString(formatdate);
-                lblDateWednesday.Text = weddate.ToString(formatdate);
-                lblDateThursday.Text = thudate.ToString(formatdate);
-                lblDateFriday.Text = fridate.ToString(formatdate);
-                lblDateSaturday.Text = satdate.ToString(formatdate);
+                lblDateSunday.Text = HelperCS.sundate.ToString(formatdate);
+                lblDateMonday.Text = HelperCS.mondate.ToString(formatdate);
+                lblDateTuesday.Text = HelperCS.tuedate.ToString(formatdate);
+                lblDateWednesday.Text = HelperCS.weddate.ToString(formatdate);
+                lblDateThursday.Text = HelperCS.thudate.ToString(formatdate);
+                lblDateFriday.Text = HelperCS.fridate.ToString(formatdate);
+                lblDateSaturday.Text = HelperCS.satdate.ToString(formatdate);
             }
         }
         #endregion Method
@@ -492,13 +527,14 @@ namespace OrderManagement.User_Control
         //TAB      
         private void OrderTab_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Form frm = OrderTab.FindForm();
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
                 CheckTabActive();
             }
             else
             {
-                MetroMessageBox.Show(this, "Please Select Customer Before");
+                MetroMessageBox.Show(frm, "Please Select Customer Before");
             }
         }
 
@@ -514,17 +550,28 @@ namespace OrderManagement.User_Control
                 HelperCS.dt = null;
                 CheckTabActive();
             }
+            else
+            {
+                ClearPanel("ALL");
+            }
         }
 
         private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
             CheckDate();
+            HelperCS.dt = null;
+            CheckTabActive();
         }
 
         //TOGGLE DAY
         private void DayToggle_CheckedChanged(object sender, EventArgs e)
         {
             CheckTabActive();
+        }
+
+        private void btnOrderCalculate_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion IndexChanged
 

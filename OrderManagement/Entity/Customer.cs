@@ -25,5 +25,7 @@ namespace OrderManagement.Entity
         public string Description { get; set; }
         public Nullable<bool> ShowPrice { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
     }
 }

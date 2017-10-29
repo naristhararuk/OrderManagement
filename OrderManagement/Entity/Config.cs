@@ -19,5 +19,7 @@ namespace OrderManagement.Entity
         public string Type { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string UpdateBy { get; set; }
     }
 }
