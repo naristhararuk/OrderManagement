@@ -20,10 +20,18 @@ namespace OrderManagement
         {
             InitializeComponent();
         }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = false;
+            //if (form2.AskBeforeClosing)
+            //{
+            //    e.Cancel = MessageBox.Show("Are you sure?", "", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel;
+            //}
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.None;
-            //this.WindowState = FormWindowState.Maximized;
+           this.WindowState = FormWindowState.Maximized;
             HelperCS.UserName = "Admin";
             CheckUserLogin();
         }

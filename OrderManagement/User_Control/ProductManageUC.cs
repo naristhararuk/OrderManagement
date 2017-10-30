@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OrderManagement.Entity;
+using OrderManagement.Class;
+using MetroFramework;
 
 namespace OrderManagement.User_Control
 {
@@ -34,7 +37,37 @@ namespace OrderManagement.User_Control
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
-
+            DialogResult confirm = MetroMessageBox.Show(this, "Do You Want to Delete Customer ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (confirm.Equals(DialogResult.OK))
+            {
+                int productid = 0;
+                int result = 0;
+                using (var db = new DailyOrderEntities())
+                {
+                    var ds = db.DeleteRecord("Product", productid, DateTime.Now, HelperCS.UserName).ToList();
+                    if (ds.Count() > 0)
+                    {
+                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                    }
+                    else
+                    {
+                        result = 99;
+                    }
+                }
+                if (result != 0)
+                {
+                    MetroMessageBox.Show(this, "Some Data has Problem Cannot Delete ", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MetroMessageBox.Show(this, "Data has been Delete ", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    ((Form)this.TopLevelControl).Close();
+                }
+            }
+            else
+            {
+                ((Form)this.TopLevelControl).Close();
+            }
         }
         #endregion BUTTON
     }

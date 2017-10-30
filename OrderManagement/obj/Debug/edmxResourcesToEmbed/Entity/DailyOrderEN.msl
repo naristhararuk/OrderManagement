@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DailyOrderModelStoreContainer" CdmEntityContainer="DailyOrderEntities">
+    <FunctionImportMapping FunctionImportName="DeleteRecord" FunctionName="DailyOrderModel.Store.DeleteRecord" />
     <FunctionImportMapping FunctionImportName="GetDailyOrder" FunctionName="DailyOrderModel.Store.GetDailyOrder">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DailyOrderModel.GetDailyOrder_Result">
@@ -45,6 +46,11 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertCustomer" FunctionName="DailyOrderModel.Store.InsertCustomer" />
     <FunctionImportMapping FunctionImportName="InsertOrder" FunctionName="DailyOrderModel.Store.InsertOrder" />
+    <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="DailyOrderModel.Store.InsertProduct" />
+    <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="DailyOrderModel.Store.UpdateCustomer" />
+    <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="DailyOrderModel.Store.UpdateOrder" />
+    <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="DailyOrderModel.Store.UpdateProduct" />
   </EntityContainerMapping>
 </Mapping>

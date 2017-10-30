@@ -922,15 +922,15 @@ namespace OrderManagement.Class
                 else
                 {
                     //Update
-                    //var ds = db.UpdateOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
-                    //if (ds.Count() > 0)
-                    //{
-                    //    result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
-                    //}
-                    //else
-                    //{
-                    //    result = 99;
-                    //}
+                    var ds = db.UpdateOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
+                    if (ds.Count() > 0)
+                    {
+                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                    }
+                    else
+                    {
+                        result = 99;
+                    }
                 }
                 // Get result from Stored Procedure
                 
