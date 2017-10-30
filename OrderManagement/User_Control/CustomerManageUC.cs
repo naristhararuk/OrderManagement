@@ -16,20 +16,31 @@ namespace OrderManagement.User_Control
         {
             InitializeComponent();
         }
-
-        private void btnCloseDialog_Click(object sender, EventArgs e)
-        {
-            ((Form)this.TopLevelControl).Close();
-        }
-
         private void CustomerManageUC_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void metroLabel6_Click(object sender, EventArgs e)
+        #region BUTTON
+        private void btnCloseDialog_Click(object sender, EventArgs e)
+        {
+            ((Form)this.TopLevelControl).Close();
+        }
+
+        private void btnCustomerClear_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void btnCustomerSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCustomerDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion BUTTON
     }
 }

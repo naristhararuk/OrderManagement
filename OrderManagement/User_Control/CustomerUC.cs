@@ -31,6 +31,9 @@ namespace OrderManagement
             //call popup from parent Form
             Form1 frm = this.FindForm() as Form1;
             frm.callCustomerManageUC("CustomerManageUC");
+
+            //https://www.codeproject.com/Articles/16303/DataGrid-Paging-C-Windows-Forms link paging grid
+            //https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/how-to-bind-data-to-the-windows-forms-datagridview-control
         }
 
     }

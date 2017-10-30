@@ -28,20 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerUC));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerUC));
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.btnSearchCustomer = new MetroFramework.Controls.MetroTile();
             this.ddlCustomer = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.ddlCustormerZone = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroGrid1 = new MetroFramework.Controls.MetroGrid();
+            this.txtPageNo = new MetroFramework.Controls.MetroTextBox();
+            this.btnFirstPage = new MetroFramework.Controls.MetroTile();
             this.btnNewCustomer = new MetroFramework.Controls.MetroTile();
+            this.btnSearchCustomer = new MetroFramework.Controls.MetroTile();
+            this.btnBackPage = new MetroFramework.Controls.MetroTile();
+            this.btnLastPage = new MetroFramework.Controls.MetroTile();
+            this.btnNextPage = new MetroFramework.Controls.MetroTile();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGrid1)).BeginInit();
             this.SuspendLayout();
@@ -79,21 +84,6 @@
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
-            // 
-            // btnSearchCustomer
-            // 
-            this.btnSearchCustomer.ActiveControl = null;
-            this.btnSearchCustomer.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearchCustomer.Location = new System.Drawing.Point(686, 15);
-            this.btnSearchCustomer.Name = "btnSearchCustomer";
-            this.btnSearchCustomer.Size = new System.Drawing.Size(49, 50);
-            this.btnSearchCustomer.TabIndex = 32;
-            this.btnSearchCustomer.TileImage = ((System.Drawing.Image)(resources.GetObject("btnSearchCustomer.TileImage")));
-            this.btnSearchCustomer.UseCustomBackColor = true;
-            this.btnSearchCustomer.UseSelectable = true;
-            this.btnSearchCustomer.UseStyleColors = true;
-            this.btnSearchCustomer.UseTileImage = true;
-            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
             // 
             // ddlCustomer
             // 
@@ -194,6 +184,52 @@
             this.metroGrid1.Size = new System.Drawing.Size(1170, 460);
             this.metroGrid1.TabIndex = 44;
             // 
+            // txtPageNo
+            // 
+            // 
+            // 
+            // 
+            this.txtPageNo.CustomButton.Image = null;
+            this.txtPageNo.CustomButton.Location = new System.Drawing.Point(53, 1);
+            this.txtPageNo.CustomButton.Name = "";
+            this.txtPageNo.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtPageNo.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtPageNo.CustomButton.TabIndex = 1;
+            this.txtPageNo.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtPageNo.CustomButton.UseSelectable = true;
+            this.txtPageNo.CustomButton.Visible = false;
+            this.txtPageNo.Lines = new string[] {
+        "metroTextBox1"};
+            this.txtPageNo.Location = new System.Drawing.Point(542, 733);
+            this.txtPageNo.MaxLength = 32767;
+            this.txtPageNo.Name = "txtPageNo";
+            this.txtPageNo.PasswordChar = '\0';
+            this.txtPageNo.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtPageNo.SelectedText = "";
+            this.txtPageNo.SelectionLength = 0;
+            this.txtPageNo.SelectionStart = 0;
+            this.txtPageNo.ShortcutsEnabled = true;
+            this.txtPageNo.Size = new System.Drawing.Size(75, 23);
+            this.txtPageNo.TabIndex = 47;
+            this.txtPageNo.Text = "metroTextBox1";
+            this.txtPageNo.UseSelectable = true;
+            this.txtPageNo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtPageNo.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // btnFirstPage
+            // 
+            this.btnFirstPage.ActiveControl = null;
+            this.btnFirstPage.BackColor = System.Drawing.Color.Transparent;
+            this.btnFirstPage.Location = new System.Drawing.Point(482, 733);
+            this.btnFirstPage.Name = "btnFirstPage";
+            this.btnFirstPage.Size = new System.Drawing.Size(24, 24);
+            this.btnFirstPage.TabIndex = 50;
+            this.btnFirstPage.TileImage = global::OrderManagement.Properties.Resources.first_record;
+            this.btnFirstPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnFirstPage.UseCustomBackColor = true;
+            this.btnFirstPage.UseSelectable = true;
+            this.btnFirstPage.UseTileImage = true;
+            // 
             // btnNewCustomer
             // 
             this.btnNewCustomer.ActiveControl = null;
@@ -209,17 +245,79 @@
             this.btnNewCustomer.UseTileImage = true;
             this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
             // 
+            // btnSearchCustomer
+            // 
+            this.btnSearchCustomer.ActiveControl = null;
+            this.btnSearchCustomer.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearchCustomer.Location = new System.Drawing.Point(686, 15);
+            this.btnSearchCustomer.Name = "btnSearchCustomer";
+            this.btnSearchCustomer.Size = new System.Drawing.Size(49, 50);
+            this.btnSearchCustomer.TabIndex = 32;
+            this.btnSearchCustomer.TileImage = ((System.Drawing.Image)(resources.GetObject("btnSearchCustomer.TileImage")));
+            this.btnSearchCustomer.UseCustomBackColor = true;
+            this.btnSearchCustomer.UseSelectable = true;
+            this.btnSearchCustomer.UseStyleColors = true;
+            this.btnSearchCustomer.UseTileImage = true;
+            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
+            // 
+            // btnBackPage
+            // 
+            this.btnBackPage.ActiveControl = null;
+            this.btnBackPage.BackColor = System.Drawing.Color.Transparent;
+            this.btnBackPage.Location = new System.Drawing.Point(512, 733);
+            this.btnBackPage.Name = "btnBackPage";
+            this.btnBackPage.Size = new System.Drawing.Size(24, 24);
+            this.btnBackPage.TabIndex = 51;
+            this.btnBackPage.TileImage = global::OrderManagement.Properties.Resources.playback;
+            this.btnBackPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnBackPage.UseCustomBackColor = true;
+            this.btnBackPage.UseSelectable = true;
+            this.btnBackPage.UseTileImage = true;
+            // 
+            // btnLastPage
+            // 
+            this.btnLastPage.ActiveControl = null;
+            this.btnLastPage.BackColor = System.Drawing.Color.Transparent;
+            this.btnLastPage.Location = new System.Drawing.Point(653, 733);
+            this.btnLastPage.Name = "btnLastPage";
+            this.btnLastPage.Size = new System.Drawing.Size(24, 24);
+            this.btnLastPage.TabIndex = 52;
+            this.btnLastPage.TileImage = global::OrderManagement.Properties.Resources.last_recor;
+            this.btnLastPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnLastPage.UseCustomBackColor = true;
+            this.btnLastPage.UseSelectable = true;
+            this.btnLastPage.UseTileImage = true;
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.ActiveControl = null;
+            this.btnNextPage.BackColor = System.Drawing.Color.Transparent;
+            this.btnNextPage.Location = new System.Drawing.Point(623, 733);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(24, 24);
+            this.btnNextPage.TabIndex = 53;
+            this.btnNextPage.TileImage = global::OrderManagement.Properties.Resources.play;
+            this.btnNextPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnNextPage.UseCustomBackColor = true;
+            this.btnNextPage.UseSelectable = true;
+            this.btnNextPage.UseTileImage = true;
+            // 
             // CustomerUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnNextPage);
+            this.Controls.Add(this.btnLastPage);
+            this.Controls.Add(this.btnBackPage);
+            this.Controls.Add(this.btnFirstPage);
+            this.Controls.Add(this.txtPageNo);
             this.Controls.Add(this.metroGrid1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.btnNewCustomer);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroPanel1);
             this.Name = "CustomerUC";
-            this.Size = new System.Drawing.Size(1200, 720);
+            this.Size = new System.Drawing.Size(1200, 779);
             this.Load += new System.EventHandler(this.CustomerUC_Load);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
@@ -240,5 +338,10 @@
         private MetroFramework.Controls.MetroTile btnNewCustomer;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroGrid metroGrid1;
+        private MetroFramework.Controls.MetroTextBox txtPageNo;
+        private MetroFramework.Controls.MetroTile btnFirstPage;
+        private MetroFramework.Controls.MetroTile btnBackPage;
+        private MetroFramework.Controls.MetroTile btnLastPage;
+        private MetroFramework.Controls.MetroTile btnNextPage;
     }
 }

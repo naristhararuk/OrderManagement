@@ -213,6 +213,46 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap control_left_icon {
+            get {
+                object obj = ResourceManager.GetObject("control-left-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_right_icon {
+            get {
+                object obj = ResourceManager.GetObject("control-right-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_stop_left_icon {
+            get {
+                object obj = ResourceManager.GetObject("control-stop-left-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_stop_right_icon {
+            get {
+                object obj = ResourceManager.GetObject("control-stop-right-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap documentNew48 {
             get {
                 object obj = ResourceManager.GetObject("documentNew48", resourceCulture);
@@ -273,6 +313,16 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap first_record {
+            get {
+                object obj = ResourceManager.GetObject("first_record", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap group_48 {
             get {
                 object obj = ResourceManager.GetObject("group-48", resourceCulture);
@@ -303,6 +353,16 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap last_recor {
+            get {
+                object obj = ResourceManager.GetObject("last_recor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap left48 {
             get {
                 object obj = ResourceManager.GetObject("left48", resourceCulture);
@@ -316,6 +376,26 @@ namespace OrderManagement.Properties {
         internal static System.Drawing.Bitmap pencil48 {
             get {
                 object obj = ResourceManager.GetObject("pencil48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap play {
+            get {
+                object obj = ResourceManager.GetObject("play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap playback {
+            get {
+                object obj = ResourceManager.GetObject("playback", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

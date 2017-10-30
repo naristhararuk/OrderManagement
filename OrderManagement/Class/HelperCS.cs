@@ -256,7 +256,6 @@ namespace OrderManagement.Class
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
            
-            int rowcount = 0;
             //DataTable dt = GetDailyOrderTable(day, customerid);
             if (dt == null)
             {
@@ -904,22 +903,48 @@ namespace OrderManagement.Class
         private static int SaveOrderToDatabase(DateTime orderdate, int customerid, int pid, decimal pprice, decimal oprice, int oamount, decimal ototal, string description, bool status, DateTime updatedate, string userName)
         {
             int result = 1;
+
             using (var db = new DailyOrderEntities())
             {
-                // Get result from Stored Procedure
-                var ds = db.InsertOrder(orderdate, updatedate, customerid, pid,pprice,oprice,oamount,ototal,description,status,userName).ToList();
-
-                if (ds.Count() > 0)
+                if(EditMode[IndexDateofWeek(orderdate)] == "")
                 {
-                    result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                    //Insert
+                    var ds = db.InsertOrder(orderdate, updatedate, customerid, pid,pprice,oprice,oamount,ototal,description,status,userName).ToList();
+                    if (ds.Count() > 0)
+                    {
+                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                    }
+                    else
+                    {
+                        result = 99;
+                    }
                 }
                 else
                 {
-                    result = 99;
+                    //Update
+                    //var ds = db.UpdateOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
+                    //if (ds.Count() > 0)
+                    //{
+                    //    result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                    //}
+                    //else
+                    //{
+                    //    result = 99;
+                    //}
                 }
+                // Get result from Stored Procedure
+                
+
+
             }
             //When Save Success must return 0
             return result;
+        }
+
+        private static int IndexDateofWeek(DateTime date)
+        {
+            int dw = (int)date.DayOfWeek; 
+            return dw;
         }
 
         #endregion BUTTON 

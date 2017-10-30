@@ -453,6 +453,14 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\playback.png" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\last_recor.png" />
+    <None Include="Resources\first_record.png" />
+    <None Include="Resources\control-stop-right-icon.png" />
+    <None Include="Resources\control-stop-left-icon.png" />
+    <None Include="Resources\control-right-icon.png" />
+    <None Include="Resources\control-left-icon.png" />
     <None Include="Resources\accessories-calculator-icon.png" />
     <None Include="Resources\Female-Face-FA-5-icon %281%29.png" />
     <None Include="Resources\Female-Face-FA-5-icon.png" />

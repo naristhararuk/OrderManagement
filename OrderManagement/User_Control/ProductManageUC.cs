@@ -16,5 +16,26 @@ namespace OrderManagement.User_Control
         {
             InitializeComponent();
         }
+        #region BUTTON
+        private void btnCloseDialog_Click(object sender, EventArgs e)
+        {
+            ((Form)this.TopLevelControl).Close();
+        }
+
+        private void btnProductClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProductSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProductDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion BUTTON
     }
 }
