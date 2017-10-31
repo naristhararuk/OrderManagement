@@ -176,6 +176,7 @@
             // pnlMain
             // 
             this.pnlMain.AutoScroll = true;
+            this.pnlMain.AutoSize = true;
             this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.HorizontalScrollbar = true;
@@ -183,6 +184,7 @@
             this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlMain.HorizontalScrollbarSize = 10;
             this.pnlMain.Location = new System.Drawing.Point(20, 113);
+            this.pnlMain.MaximumSize = new System.Drawing.Size(1900, 795);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1463, 795);
             this.pnlMain.TabIndex = 41;
@@ -196,10 +198,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1503, 928);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlMenu);
-            this.MaximumSize = new System.Drawing.Size(1800, 1200);
+            this.MaximumSize = new System.Drawing.Size(2400, 1200);
             this.Name = "Form1";
             this.Text = "Order Management";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -207,6 +210,7 @@
             this.pnlMenu.ResumeLayout(false);
             this.pnlMenu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

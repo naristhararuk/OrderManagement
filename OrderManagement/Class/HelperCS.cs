@@ -112,6 +112,20 @@ namespace OrderManagement.Class
                 var query = from x in db.Customer select new { x.CustomerID, x.CustomerName };
                 return HelperCS.ToDataTable(query.ToList());
             }
+            else if (tableName == "Config-Zone")
+            {
+                var query = from x in db.Config
+                            where x.Module == "CustomerZone"
+                            select new { x.Value, x.Name };
+                return HelperCS.ToDataTable(query.ToList());
+            }
+            else if (tableName == "Config-ProductCategory")
+            {
+                var query = from x in db.Config
+                            where x.Module == "ProductCategory"
+                            select new { x.Value, x.Name };
+                return HelperCS.ToDataTable(query.ToList());
+            }
             else
             {
                 return new DataTable();
@@ -298,6 +312,7 @@ namespace OrderManagement.Class
                         txtprice.TextAlign = HorizontalAlignment.Center;
                         txtprice.BorderStyle = BorderStyle.None;
                         txtprice.Dock = DockStyle.Fill;
+                        txtprice.TextChanged += new EventHandler(TextBoxPrice_TextChanged);
                         txtprice.Leave += new EventHandler(TextBoxPriceInput_Leave);
                         Panel pnlprice = new Panel();
                         pnlprice.BorderStyle = BorderStyle.Fixed3D;
@@ -440,46 +455,70 @@ namespace OrderManagement.Class
         #endregion DAILY PANEL TABLE
 
         #region CUSTOM CONTROLS TEXTBOX
-        
+        private static string value;
+        private static string OldPrice;
+        private static void TextBoxPrice_TextChanged(object sender, EventArgs e)
+        {
+            // at this moment value is still old
+            OldPrice = value;
+            value = ((TextBox)sender).Text; // text1.Text
+
+            // here you have oldValue and new value
+        }
         private static void TextBoxPriceInput_Leave(object sender, EventArgs e)
         {
-            //TextBox txt = (TextBox)sender;
-            //int productid;
-            //if (Int32.TryParse(txt.Name, out productid))
-            //{
-            //    if (!string.IsNullOrEmpty(txt.Text))
-            //    {
-            //        UpdatePrice(productid, txt.Text);
-            //    }
-            //}
+            TextBox txt = (TextBox)sender;
+            Form frm = txt.FindForm();
+            int productid;
+            if (Int32.TryParse(txt.Name, out productid))
+            {
+                if (!string.IsNullOrEmpty(txt.Text))
+                {
+                    if (Convert.ToDecimal(txt.Text) > 0)
+                    {
+                        UpdatePrice(productid, txt.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("ราคาสินค้าต้องมากกว่า 0 ", "ราคาสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        //MetroMessageBox.Show("ราคาสินค้าต้องมากกว่า 0 ", "ราคาสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        txt.Text = OldPrice;
+                    }
+                }
+            }
         }
         private static void TextBoxInput_Leave(object sender, EventArgs e)
         {
-            //TextBox txt = (TextBox)sender;
-            //int productid;
-            //if (Int32.TryParse(txt.Name, out productid))
-            //{
-            //    DataTable dtamount = QueryAllResult("Product");
-            //    int amount = (from DataRow dr in dtamount.Rows
-            //              where (int)dr["ProductID"] == productid
-            //                  select (int)dr["Amount"]).FirstOrDefault();
+            TextBox txt = (TextBox)sender;
+            int productid;
+            if (Int32.TryParse(txt.Name, out productid))
+            {
+                DataTable dtamount = QueryAllResult("Product");
+                int amount = (from DataRow dr in dtamount.Rows
+                              where (int)dr["ProductID"] == productid
+                              select (int)dr["Amount"]).FirstOrDefault();
 
-            //    if (!string.IsNullOrEmpty(txt.Text))
-            //    {
-            //        if (Convert.ToDecimal(txt.Text) > amount)
-            //        {
-            //            Form frm = txt.FindForm();
-            //            MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            //            txt.Text = amount.ToString();
-            //            txt.Focus();
-            //        }
-            //        else
-            //        {
-            //            //Update Total
-            //            UpdatePriceTotal(productid,txt.Text);
-            //        }
-            //    }
-            //}
+                if (!string.IsNullOrEmpty(txt.Text))
+                {
+                    if (Convert.ToDecimal(txt.Text) > amount)
+                    {
+                        Form frm = txt.FindForm();
+                        MessageBox.Show("จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                       // MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                        txt.Text = amount.ToString();
+                        txt.Focus();
+                    }
+                    else if (Convert.ToDecimal(txt.Text) <= 0)
+                    {
+                        MessageBox.Show("จำนวนสินค้าต้องมากกว่า 0" , "จำนวนสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        //Update Total
+                        UpdatePriceTotal(productid, txt.Text);
+                    }
+                }
+            }
         }
         private static void ComboProductSelect_IndexChanged(object sender,EventArgs e)
         {
@@ -509,7 +548,7 @@ namespace OrderManagement.Class
                     }
                 }
             }
-            CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+            //CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
         }
 
         private static void UpdatePrice(int productid, string price)
@@ -524,10 +563,10 @@ namespace OrderManagement.Class
                     }
                 }
             }
-            CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+            //CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
         }
 
-        class NumericTextBox : System.Windows.Forms.TextBox
+        public class NumericTextBox : System.Windows.Forms.TextBox
         {
             protected override void OnKeyPress(System.Windows.Forms.KeyPressEventArgs e)
             {
@@ -569,7 +608,8 @@ namespace OrderManagement.Class
 
             //Add First Row
             DataRow firstrow = dt.NewRow();
-            firstrow[1] = "--Please select " + TableName + "--";
+            //firstrow[1] = "--Please select " + TableName + "--";
+            firstrow[1] = "--กรุณาเลือก--";
             dt.Rows.InsertAt(firstrow, 0);
             Source.Add(firstrow[0].ToString(), firstrow[1].ToString());
 
@@ -1002,16 +1042,18 @@ namespace OrderManagement.Class
             //where All product get price
             DataTable pd = QueryAllResult("Product");
             //DataInfo.ProductList model = new DataInfo.ProductList();
-            decimal price = (from DataRow dr in pd.Rows
+            var objprice = (from DataRow dr in pd.Rows
                              where (int)dr["ProductID"] == productid
-                             select (decimal)dr["Price"]).FirstOrDefault();
-            int unit = (from DataRow dr in pd.Rows
+                             select dr["Price"]).FirstOrDefault();
+            var objunit = (from DataRow dr in pd.Rows
                         where (int)dr["ProductID"] == productid
-                        select (int)dr["Unit"]).FirstOrDefault();
-            int amount = (from DataRow dr in pd.Rows
+                        select dr["Unit"]).FirstOrDefault();
+            var objamount = (from DataRow dr in pd.Rows
                         where (int)dr["ProductID"] == productid
-                        select (int)dr["Amount"]).FirstOrDefault();
-
+                        select dr["Amount"]).FirstOrDefault();
+            int unit = objunit.ToString() != "" ? int.Parse(objunit.ToString()) : 0;
+            decimal price = objprice.ToString() != "" ? Convert.ToDecimal(objprice.ToString()) : 0;
+            int amount = objamount.ToString() != "" ? int.Parse(objamount.ToString()) : 0;
             if (amount >= 1)
             {
                 //add new row to display
@@ -1036,8 +1078,9 @@ namespace OrderManagement.Class
             }
             else
             {
-                Form frm = metropanel.FindForm();
-                MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                MessageBox.Show("จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                //Form frm = metropanel.FindForm();
+                //MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             }
 
         }

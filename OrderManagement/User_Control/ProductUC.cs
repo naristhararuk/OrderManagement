@@ -16,5 +16,11 @@ namespace OrderManagement.User_Control
         {
             InitializeComponent();
         }
+
+        private void btnNewProduct_Click(object sender, EventArgs e)
+        {
+            Form1 frm = this.FindForm() as Form1;
+            frm.callControlPopup("ProductManageUC");
+        }
     }
 }

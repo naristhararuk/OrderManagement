@@ -285,12 +285,13 @@ namespace OrderManagement.User_Control
         private void CheckTabActive()
         {
             OrderTab.AutoSize = true;
+            //OrderTab.MaximumSize = //new (1800, 900);
 
             //check select customer beform bind data
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
                 if (OrderTab.SelectedTab == OrderTab.TabPages["SundayTab"])
-                {   OrderTab.TabPages[0].AutoSize = true;
+                {   //OrderTab.TabPages[0].AutoSize = true;
                     //TabActive(SundayGrid, "Sunday");
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["MondayTab"])
@@ -307,7 +308,7 @@ namespace OrderManagement.User_Control
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["TuesdayTab"])
                 {
                     //BindGrid(TuesdayGrid);
-                    OrderTab.TabPages[2].AutoSize = true;
+                    //OrderTab.TabPages[2].AutoSize = true;
                     for (int i=0; i < 45; i++)
                     {
                         //lbltest.Text += "\r\n sfdsafdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaf";
@@ -333,7 +334,7 @@ namespace OrderManagement.User_Control
             }
             else
             {
-                MetroMessageBox.Show(this, "Please Select Customer Before");
+                //MetroMessageBox.Show(this, "Please Select Customer Before");
             }
         }
 
@@ -534,7 +535,8 @@ namespace OrderManagement.User_Control
             }
             else
             {
-                MetroMessageBox.Show(frm, "Please Select Customer Before");
+                //MessageBox.Show("Please Select Customer Before" ,"Select Customer",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                //MetroMessageBox.Show(frm, "Please Select Customer Before");
             }
         }
 
@@ -566,12 +568,20 @@ namespace OrderManagement.User_Control
         //TOGGLE DAY
         private void DayToggle_CheckedChanged(object sender, EventArgs e)
         {
-            CheckTabActive();
+            if (ComboOrderCustomer.SelectedIndex > 0)
+            {
+                CheckTabActive();
+            }
+            else
+            {
+                MessageBox.Show("Please Select Customer Before", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btnOrderCalculate_Click(object sender, EventArgs e)
         {
-
+            //CheckDate();
+            CheckTabActive();
         }
         #endregion IndexChanged
 

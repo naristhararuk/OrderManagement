@@ -18,7 +18,7 @@
     <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
     <Parameter Name="customername" Type="nvarchar" Mode="In" />
     <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
-    <Parameter Name="zone" Type="tinyint" Mode="In" />
+    <Parameter Name="zone" Type="int" Mode="In" />
     <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="phone" Type="nvarchar" Mode="In" />
@@ -44,7 +44,7 @@
   <Function Name="InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="productname" Type="nvarchar" Mode="In" />
     <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
-    <Parameter Name="category" Type="tinyint" Mode="In" />
+    <Parameter Name="category" Type="int" Mode="In" />
     <Parameter Name="productprice" Type="decimal" Mode="In" />
     <Parameter Name="unit" Type="int" Mode="In" />
     <Parameter Name="productamount" Type="int" Mode="In" />
@@ -58,7 +58,7 @@
     <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
     <Parameter Name="customername" Type="nvarchar" Mode="In" />
     <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
-    <Parameter Name="zone" Type="tinyint" Mode="In" />
+    <Parameter Name="zone" Type="int" Mode="In" />
     <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="phone" Type="nvarchar" Mode="In" />
@@ -85,7 +85,7 @@
     <Parameter Name="productid" Type="int" Mode="In" />
     <Parameter Name="productname" Type="nvarchar" Mode="In" />
     <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
-    <Parameter Name="category" Type="tinyint" Mode="In" />
+    <Parameter Name="category" Type="int" Mode="In" />
     <Parameter Name="productprice" Type="decimal" Mode="In" />
     <Parameter Name="unit" Type="int" Mode="In" />
     <Parameter Name="productamount" Type="int" Mode="In" />

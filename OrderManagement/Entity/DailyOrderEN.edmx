@@ -23,7 +23,7 @@
           <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
           <Parameter Name="customername" Type="nvarchar" Mode="In" />
           <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
-          <Parameter Name="zone" Type="tinyint" Mode="In" />
+          <Parameter Name="zone" Type="int" Mode="In" />
           <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="phone" Type="nvarchar" Mode="In" />
@@ -49,7 +49,7 @@
         <Function Name="InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productname" Type="nvarchar" Mode="In" />
           <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
-          <Parameter Name="category" Type="tinyint" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
           <Parameter Name="productprice" Type="decimal" Mode="In" />
           <Parameter Name="unit" Type="int" Mode="In" />
           <Parameter Name="productamount" Type="int" Mode="In" />
@@ -63,7 +63,7 @@
           <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
           <Parameter Name="customername" Type="nvarchar" Mode="In" />
           <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
-          <Parameter Name="zone" Type="tinyint" Mode="In" />
+          <Parameter Name="zone" Type="int" Mode="In" />
           <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="phone" Type="nvarchar" Mode="In" />
@@ -90,7 +90,7 @@
           <Parameter Name="productid" Type="int" Mode="In" />
           <Parameter Name="productname" Type="nvarchar" Mode="In" />
           <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
-          <Parameter Name="category" Type="tinyint" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
           <Parameter Name="productprice" Type="decimal" Mode="In" />
           <Parameter Name="unit" Type="int" Mode="In" />
           <Parameter Name="productamount" Type="int" Mode="In" />
@@ -123,7 +123,7 @@
             <Parameter Name="citizenid" Mode="In" Type="String" />
             <Parameter Name="customername" Mode="In" Type="String" />
             <Parameter Name="customerabbr" Mode="In" Type="String" />
-            <Parameter Name="zone" Mode="In" Type="Byte" />
+            <Parameter Name="zone" Mode="In" Type="Int32" />
             <Parameter Name="address1" Mode="In" Type="String" />
             <Parameter Name="address2" Mode="In" Type="String" />
             <Parameter Name="phone" Mode="In" Type="String" />
@@ -149,7 +149,7 @@
           <FunctionImport Name="InsertProduct" ReturnType="Collection(Int32)">
             <Parameter Name="productname" Mode="In" Type="String" />
             <Parameter Name="productabbr" Mode="In" Type="String" />
-            <Parameter Name="category" Mode="In" Type="Byte" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
             <Parameter Name="productprice" Mode="In" Type="Decimal" />
             <Parameter Name="unit" Mode="In" Type="Int32" />
             <Parameter Name="productamount" Mode="In" Type="Int32" />
@@ -163,7 +163,7 @@
             <Parameter Name="citizenid" Mode="In" Type="String" />
             <Parameter Name="customername" Mode="In" Type="String" />
             <Parameter Name="customerabbr" Mode="In" Type="String" />
-            <Parameter Name="zone" Mode="In" Type="Byte" />
+            <Parameter Name="zone" Mode="In" Type="Int32" />
             <Parameter Name="address1" Mode="In" Type="String" />
             <Parameter Name="address2" Mode="In" Type="String" />
             <Parameter Name="phone" Mode="In" Type="String" />
@@ -190,7 +190,7 @@
             <Parameter Name="productid" Mode="In" Type="Int32" />
             <Parameter Name="productname" Mode="In" Type="String" />
             <Parameter Name="productabbr" Mode="In" Type="String" />
-            <Parameter Name="category" Mode="In" Type="Byte" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
             <Parameter Name="productprice" Mode="In" Type="Decimal" />
             <Parameter Name="unit" Mode="In" Type="Int32" />
             <Parameter Name="productamount" Mode="In" Type="Int32" />
@@ -307,7 +307,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

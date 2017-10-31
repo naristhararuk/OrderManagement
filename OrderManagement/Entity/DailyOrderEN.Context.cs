@@ -75,7 +75,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderbyDay_Result>("GetOrderbyDay", dateParameter, customerParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> InsertCustomer(string citizenid, string customername, string customerabbr, Nullable<byte> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> InsertCustomer(string citizenid, string customername, string customerabbr, Nullable<int> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var citizenidParameter = citizenid != null ?
                 new ObjectParameter("citizenid", citizenid) :
@@ -91,7 +91,7 @@ namespace OrderManagement.Entity
     
             var zoneParameter = zone.HasValue ?
                 new ObjectParameter("zone", zone) :
-                new ObjectParameter("zone", typeof(byte));
+                new ObjectParameter("zone", typeof(int));
     
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
@@ -177,7 +177,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertOrder", orderdateParameter, updatedateParameter, customeridParameter, productidParameter, productpriceParameter, orderpriceParameter, orderamountParameter, ordertotalParameter, descriptionParameter, orderStatusParameter, updatebyParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> InsertProduct(string productname, string productabbr, Nullable<byte> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> InsertProduct(string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var productnameParameter = productname != null ?
                 new ObjectParameter("productname", productname) :
@@ -189,7 +189,7 @@ namespace OrderManagement.Entity
     
             var categoryParameter = category.HasValue ?
                 new ObjectParameter("category", category) :
-                new ObjectParameter("category", typeof(byte));
+                new ObjectParameter("category", typeof(int));
     
             var productpriceParameter = productprice.HasValue ?
                 new ObjectParameter("productprice", productprice) :
@@ -222,7 +222,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertProduct", productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> UpdateCustomer(Nullable<int> customerid, string citizenid, string customername, string customerabbr, Nullable<byte> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> UpdateCustomer(Nullable<int> customerid, string citizenid, string customername, string customerabbr, Nullable<int> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var customeridParameter = customerid.HasValue ?
                 new ObjectParameter("customerid", customerid) :
@@ -242,7 +242,7 @@ namespace OrderManagement.Entity
     
             var zoneParameter = zone.HasValue ?
                 new ObjectParameter("zone", zone) :
-                new ObjectParameter("zone", typeof(byte));
+                new ObjectParameter("zone", typeof(int));
     
             var address1Parameter = address1 != null ?
                 new ObjectParameter("address1", address1) :
@@ -328,7 +328,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateOrder", orderdateParameter, updatedateParameter, customeridParameter, productidParameter, productpriceParameter, orderpriceParameter, orderamountParameter, ordertotalParameter, descriptionParameter, statusParameter, updatebyParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> UpdateProduct(Nullable<int> productid, string productname, string productabbr, Nullable<byte> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> UpdateProduct(Nullable<int> productid, string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var productidParameter = productid.HasValue ?
                 new ObjectParameter("productid", productid) :
@@ -344,7 +344,7 @@ namespace OrderManagement.Entity
     
             var categoryParameter = category.HasValue ?
                 new ObjectParameter("category", category) :
-                new ObjectParameter("category", typeof(byte));
+                new ObjectParameter("category", typeof(int));
     
             var productpriceParameter = productprice.HasValue ?
                 new ObjectParameter("productprice", productprice) :

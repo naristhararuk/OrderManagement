@@ -30,7 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.btnOrderCalculate = new MetroFramework.Controls.MetroTile();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.btnOrderSave = new MetroFramework.Controls.MetroTile();
             this.DatePicker = new MetroFramework.Controls.MetroDateTime();
             this.ComboOrderCustomer = new System.Windows.Forms.ComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
@@ -61,8 +63,6 @@
             this.SaturdayToggle = new MetroFramework.Controls.MetroToggle();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.btnOrderCalculate = new MetroFramework.Controls.MetroTile();
-            this.btnOrderSave = new MetroFramework.Controls.MetroTile();
             this.metroPanel1.SuspendLayout();
             this.OrderTab.SuspendLayout();
             this.SundayTab.SuspendLayout();
@@ -104,12 +104,27 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(0, 0);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1457, 783);
+            this.metroPanel1.Size = new System.Drawing.Size(1457, 792);
             this.metroPanel1.TabIndex = 8;
             this.metroPanel1.VerticalScrollbar = true;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
+            // 
+            // btnOrderCalculate
+            // 
+            this.btnOrderCalculate.ActiveControl = null;
+            this.btnOrderCalculate.BackColor = System.Drawing.Color.Transparent;
+            this.btnOrderCalculate.Location = new System.Drawing.Point(1232, 28);
+            this.btnOrderCalculate.Name = "btnOrderCalculate";
+            this.btnOrderCalculate.Size = new System.Drawing.Size(55, 53);
+            this.btnOrderCalculate.TabIndex = 15;
+            this.btnOrderCalculate.TileImage = global::OrderManagement.Properties.Resources.accessories_calculator_icon;
+            this.btnOrderCalculate.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrderCalculate.UseCustomBackColor = true;
+            this.btnOrderCalculate.UseSelectable = true;
+            this.btnOrderCalculate.UseTileImage = true;
+            this.btnOrderCalculate.Click += new System.EventHandler(this.btnOrderCalculate_Click);
             // 
             // metroLabel2
             // 
@@ -118,9 +133,24 @@
             this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel2.Location = new System.Drawing.Point(367, 10);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(103, 25);
+            this.metroLabel2.Size = new System.Drawing.Size(106, 25);
             this.metroLabel2.TabIndex = 14;
             this.metroLabel2.Text = "เลือกสัปดาห์";
+            // 
+            // btnOrderSave
+            // 
+            this.btnOrderSave.ActiveControl = null;
+            this.btnOrderSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnOrderSave.Location = new System.Drawing.Point(1293, 28);
+            this.btnOrderSave.Name = "btnOrderSave";
+            this.btnOrderSave.Size = new System.Drawing.Size(55, 53);
+            this.btnOrderSave.TabIndex = 13;
+            this.btnOrderSave.TileImage = global::OrderManagement.Properties.Resources.save4_48;
+            this.btnOrderSave.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrderSave.UseCustomBackColor = true;
+            this.btnOrderSave.UseSelectable = true;
+            this.btnOrderSave.UseTileImage = true;
+            this.btnOrderSave.Click += new System.EventHandler(this.btnOrderSave_Click);
             // 
             // DatePicker
             // 
@@ -147,7 +177,7 @@
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel1.Location = new System.Drawing.Point(16, 10);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(74, 25);
+            this.metroLabel1.Size = new System.Drawing.Size(80, 25);
             this.metroLabel1.TabIndex = 10;
             this.metroLabel1.Text = "ชื่อลูกค้า";
             // 
@@ -165,7 +195,7 @@
             this.OrderTab.Location = new System.Drawing.Point(16, 87);
             this.OrderTab.Name = "OrderTab";
             this.OrderTab.SelectedIndex = 1;
-            this.OrderTab.Size = new System.Drawing.Size(1438, 683);
+            this.OrderTab.Size = new System.Drawing.Size(1420, 683);
             this.OrderTab.TabIndex = 8;
             this.OrderTab.UseSelectable = true;
             this.OrderTab.SelectedIndexChanged += new System.EventHandler(this.OrderTab_SelectedIndexChanged);
@@ -179,7 +209,7 @@
             this.SundayTab.HorizontalScrollbarSize = 10;
             this.SundayTab.Location = new System.Drawing.Point(4, 34);
             this.SundayTab.Name = "SundayTab";
-            this.SundayTab.Size = new System.Drawing.Size(1430, 645);
+            this.SundayTab.Size = new System.Drawing.Size(1392, 662);
             this.SundayTab.TabIndex = 0;
             this.SundayTab.Text = "    Sunday    ";
             this.SundayTab.VerticalScrollbarBarColor = true;
@@ -220,7 +250,7 @@
             this.MondayTab.HorizontalScrollbarSize = 10;
             this.MondayTab.Location = new System.Drawing.Point(4, 34);
             this.MondayTab.Name = "MondayTab";
-            this.MondayTab.Size = new System.Drawing.Size(1430, 645);
+            this.MondayTab.Size = new System.Drawing.Size(1412, 645);
             this.MondayTab.TabIndex = 1;
             this.MondayTab.Text = "    Monday    ";
             this.MondayTab.VerticalScrollbar = true;
@@ -310,7 +340,7 @@
             this.TuesdayTab.HorizontalScrollbarSize = 10;
             this.TuesdayTab.Location = new System.Drawing.Point(4, 34);
             this.TuesdayTab.Name = "TuesdayTab";
-            this.TuesdayTab.Size = new System.Drawing.Size(1430, 645);
+            this.TuesdayTab.Size = new System.Drawing.Size(1392, 662);
             this.TuesdayTab.TabIndex = 2;
             this.TuesdayTab.Text = "    Tuesday   ";
             this.TuesdayTab.VerticalScrollbar = true;
@@ -348,7 +378,7 @@
             this.WednesdayTab.HorizontalScrollbarSize = 10;
             this.WednesdayTab.Location = new System.Drawing.Point(4, 34);
             this.WednesdayTab.Name = "WednesdayTab";
-            this.WednesdayTab.Size = new System.Drawing.Size(1430, 645);
+            this.WednesdayTab.Size = new System.Drawing.Size(1392, 662);
             this.WednesdayTab.TabIndex = 3;
             this.WednesdayTab.Text = "   Wednesday    ";
             this.WednesdayTab.VerticalScrollbarBarColor = true;
@@ -385,7 +415,7 @@
             this.ThursdayTab.HorizontalScrollbarSize = 10;
             this.ThursdayTab.Location = new System.Drawing.Point(4, 34);
             this.ThursdayTab.Name = "ThursdayTab";
-            this.ThursdayTab.Size = new System.Drawing.Size(1430, 645);
+            this.ThursdayTab.Size = new System.Drawing.Size(1392, 662);
             this.ThursdayTab.TabIndex = 4;
             this.ThursdayTab.Text = "   Thursday   ";
             this.ThursdayTab.VerticalScrollbarBarColor = true;
@@ -422,7 +452,7 @@
             this.FridayTab.HorizontalScrollbarSize = 10;
             this.FridayTab.Location = new System.Drawing.Point(4, 34);
             this.FridayTab.Name = "FridayTab";
-            this.FridayTab.Size = new System.Drawing.Size(1430, 645);
+            this.FridayTab.Size = new System.Drawing.Size(1392, 662);
             this.FridayTab.TabIndex = 5;
             this.FridayTab.Text = "    Friday    ";
             this.FridayTab.VerticalScrollbarBarColor = true;
@@ -460,7 +490,7 @@
             this.SaturdayTab.HorizontalScrollbarSize = 10;
             this.SaturdayTab.Location = new System.Drawing.Point(4, 34);
             this.SaturdayTab.Name = "SaturdayTab";
-            this.SaturdayTab.Size = new System.Drawing.Size(1430, 645);
+            this.SaturdayTab.Size = new System.Drawing.Size(1392, 662);
             this.SaturdayTab.TabIndex = 6;
             this.SaturdayTab.Text = "   Saturday  ";
             this.SaturdayTab.VerticalScrollbarBarColor = true;
@@ -487,36 +517,6 @@
             this.SaturdayToggle.Text = "Off";
             this.SaturdayToggle.UseSelectable = true;
             this.SaturdayToggle.CheckedChanged += new System.EventHandler(this.DayToggle_CheckedChanged);
-            // 
-            // btnOrderCalculate
-            // 
-            this.btnOrderCalculate.ActiveControl = null;
-            this.btnOrderCalculate.BackColor = System.Drawing.Color.Transparent;
-            this.btnOrderCalculate.Location = new System.Drawing.Point(1232, 28);
-            this.btnOrderCalculate.Name = "btnOrderCalculate";
-            this.btnOrderCalculate.Size = new System.Drawing.Size(55, 53);
-            this.btnOrderCalculate.TabIndex = 15;
-            this.btnOrderCalculate.TileImage = global::OrderManagement.Properties.Resources.accessories_calculator_icon;
-            this.btnOrderCalculate.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrderCalculate.UseCustomBackColor = true;
-            this.btnOrderCalculate.UseSelectable = true;
-            this.btnOrderCalculate.UseTileImage = true;
-            this.btnOrderCalculate.Click += new System.EventHandler(this.btnOrderCalculate_Click);
-            // 
-            // btnOrderSave
-            // 
-            this.btnOrderSave.ActiveControl = null;
-            this.btnOrderSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnOrderSave.Location = new System.Drawing.Point(1293, 28);
-            this.btnOrderSave.Name = "btnOrderSave";
-            this.btnOrderSave.Size = new System.Drawing.Size(55, 53);
-            this.btnOrderSave.TabIndex = 13;
-            this.btnOrderSave.TileImage = global::OrderManagement.Properties.Resources.save4_48;
-            this.btnOrderSave.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrderSave.UseCustomBackColor = true;
-            this.btnOrderSave.UseSelectable = true;
-            this.btnOrderSave.UseTileImage = true;
-            this.btnOrderSave.Click += new System.EventHandler(this.btnOrderSave_Click);
             // 
             // OrderUC
             // 

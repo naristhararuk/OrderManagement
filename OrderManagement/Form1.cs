@@ -18,6 +18,7 @@ namespace OrderManagement
         #region Inititial
         public Form1()
         {
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -31,7 +32,7 @@ namespace OrderManagement
         private void Form1_Load(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.None;
-           this.WindowState = FormWindowState.Maximized;
+           //this.WindowState = FormWindowState.Maximized;
             HelperCS.UserName = "Admin";
             CheckUserLogin();
         }
@@ -76,7 +77,7 @@ namespace OrderManagement
         #endregion MenuClick
 
         #region Method
-        public void callCustomerManageUC(string usercontrolname)
+        public void callControlPopup(string usercontrolname)
         {
             UserControl uc = null;
             if (usercontrolname == "CustomerManageUC")
@@ -86,6 +87,14 @@ namespace OrderManagement
             else if (usercontrolname == "CustomerUC")
             {
                 uc = new CustomerUC();
+            }
+            else if (usercontrolname == "ProductManageUC")
+            {
+                uc = new ProductManageUC();
+            }
+            else if (usercontrolname == "ProductUC")
+            {
+                uc = new ProductUC();
             }
             MaskedDialog.ShowDialog(this, uc);
         }

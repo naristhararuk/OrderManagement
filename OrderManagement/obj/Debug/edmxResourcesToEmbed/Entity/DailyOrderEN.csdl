@@ -19,7 +19,7 @@
       <Parameter Name="citizenid" Mode="In" Type="String" />
       <Parameter Name="customername" Mode="In" Type="String" />
       <Parameter Name="customerabbr" Mode="In" Type="String" />
-      <Parameter Name="zone" Mode="In" Type="Byte" />
+      <Parameter Name="zone" Mode="In" Type="Int32" />
       <Parameter Name="address1" Mode="In" Type="String" />
       <Parameter Name="address2" Mode="In" Type="String" />
       <Parameter Name="phone" Mode="In" Type="String" />
@@ -45,7 +45,7 @@
     <FunctionImport Name="InsertProduct" ReturnType="Collection(Int32)">
       <Parameter Name="productname" Mode="In" Type="String" />
       <Parameter Name="productabbr" Mode="In" Type="String" />
-      <Parameter Name="category" Mode="In" Type="Byte" />
+      <Parameter Name="category" Mode="In" Type="Int32" />
       <Parameter Name="productprice" Mode="In" Type="Decimal" />
       <Parameter Name="unit" Mode="In" Type="Int32" />
       <Parameter Name="productamount" Mode="In" Type="Int32" />
@@ -59,7 +59,7 @@
       <Parameter Name="citizenid" Mode="In" Type="String" />
       <Parameter Name="customername" Mode="In" Type="String" />
       <Parameter Name="customerabbr" Mode="In" Type="String" />
-      <Parameter Name="zone" Mode="In" Type="Byte" />
+      <Parameter Name="zone" Mode="In" Type="Int32" />
       <Parameter Name="address1" Mode="In" Type="String" />
       <Parameter Name="address2" Mode="In" Type="String" />
       <Parameter Name="phone" Mode="In" Type="String" />
@@ -86,7 +86,7 @@
       <Parameter Name="productid" Mode="In" Type="Int32" />
       <Parameter Name="productname" Mode="In" Type="String" />
       <Parameter Name="productabbr" Mode="In" Type="String" />
-      <Parameter Name="category" Mode="In" Type="Byte" />
+      <Parameter Name="category" Mode="In" Type="Int32" />
       <Parameter Name="productprice" Mode="In" Type="Decimal" />
       <Parameter Name="unit" Mode="In" Type="Int32" />
       <Parameter Name="productamount" Mode="In" Type="Int32" />
