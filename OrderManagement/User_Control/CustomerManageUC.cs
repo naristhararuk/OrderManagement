@@ -16,6 +16,7 @@ namespace OrderManagement.User_Control
 {
     public partial class CustomerManageUC : UserControl
     {
+        public static int customerid = 0;
         public CustomerManageUC()
         {
             InitializeComponent();

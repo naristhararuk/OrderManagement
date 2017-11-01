@@ -22,5 +22,10 @@ namespace OrderManagement.User_Control
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ProductManageUC");
         }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

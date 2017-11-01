@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="340944">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="347088">
       <assemblyIdentity name="OrderManagement" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OjeM5mo8/sKnLGZA1/CxCrlpB8XagAh5ZxP2JK63e+w=</dsig:DigestValue>
+        <dsig:DigestValue>agr09DjT5DRmYgBWqCaJM2nWEH2wU3bBUvTQDV/PrWU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

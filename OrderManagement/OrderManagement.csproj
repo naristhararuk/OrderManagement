@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\GridCS.cs" />
     <Compile Include="Class\HelperCS.cs" />
     <Compile Include="Class\MappingDAL.cs" />
     <Compile Include="CustomerManagement.cs">
@@ -319,7 +320,9 @@
     </None>
     <None Include="OrderManagement_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\OrderManagement.Entity.Customer.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Order.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Entity.Product.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
