@@ -52,5 +52,22 @@
     <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="DailyOrderModel.Store.UpdateCustomer" />
     <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="DailyOrderModel.Store.UpdateOrder" />
     <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="DailyOrderModel.Store.UpdateProduct" />
+    <FunctionImportMapping FunctionImportName="SelectGridPaging" FunctionName="DailyOrderModel.Store.SelectGridPaging">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DailyOrderModel.SelectGridPaging_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

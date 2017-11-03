@@ -21,60 +21,81 @@ namespace OrderManagement
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ddlCustomer, "Customer");
+            HelperCS.AutoCompleteLoadValues(ddlCustomerZone, "Config-Zone");
         }
         private void CustomerUC_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
             lblValid.Text = "";
+            BindAllCustomerData();
+        }
+
+        private void BindAllCustomerData()
+        {
+            using (var db = new OrderEntities())
+            {
+                List<Customer> result = (from x in db.Customer where x.Status == true select x).ToList();
+                if (result.Count() > 0)
+                {
+                    CustomerGrid.DataSource = HelperCS.ToDataTable(result);
+                    CustomerGrid.AllowUserToAddRows = false;
+                }
+                else
+                {
+                    lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
+                }
+            }
         }
 
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
+            BindCustomerData();
+        }
+
+        private void BindCustomerData()
+        {
             string Customerkey = ((KeyValuePair<string, string>)ddlCustomer.SelectedItem).Key;
-            string Zonekey = ((KeyValuePair<string, string>)ddlCustormerZone.SelectedItem).Key;
-            List<Customer> result ;
-            if (Zonekey != "" || Customerkey != "")
+            string Zonekey = ((KeyValuePair<string, string>)ddlCustomerZone.SelectedItem).Key;
+            List<Customer> result;
+            using (var db = new OrderEntities())
             {
-                using (var db = new OrderEntities())
+                if (Zonekey != "" && Customerkey != "")
                 {
-                    if (Zonekey != "" && Customerkey != "")
-                    {
-                        int id = int.Parse(Customerkey);
-                        int zone = int.Parse(Zonekey);
-                        result = (from x in db.Customer
-                                      where x.CustomerID == id && x.Zone == zone
-                                      select x).ToList();
-                    }else if (Zonekey != "" && Customerkey == "")
-                    {
-                        int zone = int.Parse(Zonekey);
-                        result = (from x in db.Customer
-                                      where x.Zone == zone
-                                      select x).ToList();
-                    }else if (Zonekey == "" && Customerkey != "")
-                    {
-                        int id = int.Parse(Customerkey);
-                        result = (from x in db.Customer
-                                  where x.CustomerID == id
-                                  select x).ToList();
-                    }
-                    else
-                    {
-                        result = new List<Customer>();
-                    }
-                    
-                    if (result.Count() > 0)
-                    {
-                        CustomerGrid.DataSource = HelperCS.ToDataTable(result);
-                    }
-                    else
-                    {
-                        lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
-                    }
+                    int id = int.Parse(Customerkey);
+                    int zone = int.Parse(Zonekey);
+                    result = (from x in db.Customer
+                              where x.CustomerID == id && x.Zone == zone && x.Status == true
+                              select x).ToList();
                 }
-            }
-            else
-            {
-                lblValid.Text = "** กรุณาเลือกเขต หรือเลือกชื่อลูกค้า ก่อนกดปุ่มค้นหา";
+                else if (Zonekey != "" && Customerkey == "")
+                {
+                    int zone = int.Parse(Zonekey);
+                    result = (from x in db.Customer
+                              where x.Zone == zone && x.Status == true
+                              select x).ToList();
+                }
+                else if (Zonekey == "" && Customerkey != "")
+                {
+                    int id = int.Parse(Customerkey);
+                    result = (from x in db.Customer
+                              where x.CustomerID == id && x.Status == true
+                              select x).ToList();
+                }
+                else
+                {
+                    //int id = int.Parse(Customerkey);
+                    result = (from x in db.Customer where x.Status == true select x).ToList();
+                }
+
+                if (result.Count() > 0)
+                {
+                    CustomerGrid.DataSource = HelperCS.ToDataTable(result);
+                    CustomerGrid.AllowUserToAddRows = false;
+                }
+                else
+                {
+                    lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
+                }
             }
         }
 
@@ -83,7 +104,7 @@ namespace OrderManagement
             //call popup from parent Form
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("CustomerManageUC");
-
+            BindAllCustomerData();
             //https://www.codeproject.com/Articles/16303/DataGrid-Paging-C-Windows-Forms link paging grid
             //https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/how-to-bind-data-to-the-windows-forms-datagridview-control
         }
@@ -101,13 +122,15 @@ namespace OrderManagement
             if (dgv.CurrentRow.Selected)
             {
                 //get if from grid column
-                int id = Convert.ToInt32(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value);
+                //int id = Convert.ToInt32(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value);
+                CustomerManageUC.customerid = Convert.ToInt32(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value);
                 //do you staff.
             }
             // get value customerid
             //CustomerManageUC.customerid = 
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("CustomerManageUC");
+            BindAllCustomerData();
         }
     }
 }

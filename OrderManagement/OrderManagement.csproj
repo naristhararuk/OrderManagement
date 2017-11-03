@@ -163,6 +163,9 @@
     <Compile Include="Entity\Product.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\SelectGridPaging_Result.cs">
+      <DependentUpon>DailyOrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\vwOrder.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>

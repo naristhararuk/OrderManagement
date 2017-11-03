@@ -58,6 +58,11 @@
           <Parameter Name="updatedate" Type="datetime" Mode="In" />
           <Parameter Name="updateby" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="SelectGridPaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tablename" Type="nvarchar" Mode="In" />
+          <Parameter Name="minpagesize" Type="int" Mode="In" />
+          <Parameter Name="intskip" Type="int" Mode="In" />
+        </Function>
         <Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="customerid" Type="int" Mode="In" />
           <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
@@ -199,6 +204,11 @@
             <Parameter Name="updatedate" Mode="In" Type="DateTime" />
             <Parameter Name="updateby" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SelectGridPaging" ReturnType="Collection(DailyOrderModel.SelectGridPaging_Result)">
+            <Parameter Name="tablename" Mode="In" Type="String" />
+            <Parameter Name="minpagesize" Mode="In" Type="Int32" />
+            <Parameter Name="intskip" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetDailyOrder_Result">
           <Property Type="Int32" Name="OrderID" Nullable="false" />
@@ -235,6 +245,19 @@
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
           <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectGridPaging_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ProductAbbr" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Category" Nullable="true" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+          <Property Type="String" Name="Descripiton" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -293,6 +316,23 @@
           <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="DailyOrderModel.Store.UpdateCustomer" />
           <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="DailyOrderModel.Store.UpdateOrder" />
           <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="DailyOrderModel.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="SelectGridPaging" FunctionName="DailyOrderModel.Store.SelectGridPaging">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DailyOrderModel.SelectGridPaging_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -53,6 +53,11 @@
     <Parameter Name="updatedate" Type="datetime" Mode="In" />
     <Parameter Name="updateby" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="SelectGridPaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="minpagesize" Type="int" Mode="In" />
+    <Parameter Name="intskip" Type="int" Mode="In" />
+  </Function>
   <Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="customerid" Type="int" Mode="In" />
     <Parameter Name="citizenid" Type="nvarchar" Mode="In" />

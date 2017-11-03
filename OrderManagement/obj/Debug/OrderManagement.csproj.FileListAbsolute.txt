@@ -61,3 +61,4 @@ D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.exe.manifes
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.application
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.exe
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.pdb
+D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.csprojResolveAssemblyReference.cache

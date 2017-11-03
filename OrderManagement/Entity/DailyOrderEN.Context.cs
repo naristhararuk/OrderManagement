@@ -376,5 +376,22 @@ namespace OrderManagement.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateProduct", productidParameter, productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
         }
+    
+        public virtual ObjectResult<SelectGridPaging_Result> SelectGridPaging(string tablename, Nullable<int> minpagesize, Nullable<int> intskip)
+        {
+            var tablenameParameter = tablename != null ?
+                new ObjectParameter("tablename", tablename) :
+                new ObjectParameter("tablename", typeof(string));
+    
+            var minpagesizeParameter = minpagesize.HasValue ?
+                new ObjectParameter("minpagesize", minpagesize) :
+                new ObjectParameter("minpagesize", typeof(int));
+    
+            var intskipParameter = intskip.HasValue ?
+                new ObjectParameter("intskip", intskip) :
+                new ObjectParameter("intskip", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectGridPaging_Result>("SelectGridPaging", tablenameParameter, minpagesizeParameter, intskipParameter);
+        }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="run" />
@@ -25,7 +25,7 @@
           <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
-          <Property Name="Zone" Type="tinyint" />
+          <Property Name="Zone" Type="int" />
           <Property Name="Address1" Type="nvarchar(max)" />
           <Property Name="Address2" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
@@ -71,7 +71,7 @@
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
           <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
-          <Property Name="Category" Type="tinyint" />
+          <Property Name="Category" Type="int" />
           <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Unit" Type="int" />
           <Property Name="Amount" Type="int" />
@@ -97,6 +97,8 @@ warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key def
           <Property Name="OrderTotal" Type="decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="OrderStatus" Type="bit" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -148,7 +150,9 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     [vwOrder].[OrderAmount] AS [OrderAmount], 
     [vwOrder].[OrderTotal] AS [OrderTotal], 
     [vwOrder].[Description] AS [Description], 
-    [vwOrder].[OrderStatus] AS [OrderStatus]
+    [vwOrder].[OrderStatus] AS [OrderStatus], 
+    [vwOrder].[UpdateDate] AS [UpdateDate], 
+    [vwOrder].[UpdateBy] AS [UpdateBy]
     FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" store:Type="Views" store:Schema="dbo">
@@ -181,8 +185,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     FROM [dbo].[vwOrderDetail] AS [vwOrderDetail]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -276,6 +279,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="OrderTotal" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrderStatus" Type="Boolean" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vwOrderDetail">
           <Key>
@@ -405,6 +410,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <EntitySetMapping Name="vwOrders">
             <EntityTypeMapping TypeName="OrderModel.vwOrder">
               <MappingFragment StoreEntitySet="vwOrder">
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
