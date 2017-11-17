@@ -273,6 +273,16 @@ namespace OrderManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edit2_48 {
+            get {
+                object obj = ResourceManager.GetObject("edit2-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap edit48 {
             get {
                 object obj = ResourceManager.GetObject("edit48", resourceCulture);
@@ -366,6 +376,26 @@ namespace OrderManagement.Properties {
         internal static System.Drawing.Bitmap left48 {
             get {
                 object obj = ResourceManager.GetObject("left48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pencil_icon {
+            get {
+                object obj = ResourceManager.GetObject("Pencil-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pencil_icon48 {
+            get {
+                object obj = ResourceManager.GetObject("Pencil-icon48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

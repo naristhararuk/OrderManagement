@@ -23,11 +23,7 @@ namespace OrderManagement
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = false;
-            //if (form2.AskBeforeClosing)
-            //{
-            //    e.Cancel = MessageBox.Show("Are you sure?", "", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel;
-            //}
+            e.Cancel = MessageBox.Show("คุณต้องการออกจากโปรแกรม ใช่หรือไม่?", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -146,7 +142,7 @@ namespace OrderManagement
         {
             if (HelperCS.UserName != "Admin")
             {
-                DialogResult result = MetroMessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                DialogResult result = MessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result.Equals(DialogResult.OK))
                 {
                     LoginUC login = new LoginUC();

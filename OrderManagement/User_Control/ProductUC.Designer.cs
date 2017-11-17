@@ -28,100 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductUC));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductUC));
-            this.ProductGrid = new MetroFramework.Controls.MetroGrid();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.btnNewProduct = new MetroFramework.Controls.MetroTile();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.btnSearchCustomer = new MetroFramework.Controls.MetroTile();
-            this.ddlCustomer = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.ddlCustormerZone = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.btnNextPage = new MetroFramework.Controls.MetroTile();
             this.btnLastPage = new MetroFramework.Controls.MetroTile();
             this.btnBackPage = new MetroFramework.Controls.MetroTile();
             this.btnFirstPage = new MetroFramework.Controls.MetroTile();
             this.txtPageNo = new MetroFramework.Controls.MetroTextBox();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productAbbrDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripitonDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updateDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updateByDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblValid = new MetroFramework.Controls.MetroLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.ProductGrid)).BeginInit();
+            this.ProductGrid = new MetroFramework.Controls.MetroGrid();
+            this.ddlProductCategory = new System.Windows.Forms.ComboBox();
+            this.ddlProduct = new System.Windows.Forms.ComboBox();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProductBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ProductGrid
-            // 
-            this.ProductGrid.AllowUserToResizeRows = false;
-            this.ProductGrid.AutoGenerateColumns = false;
-            this.ProductGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ProductGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ProductGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.ProductGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProductGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.ProductGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProductGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.productIDDataGridViewTextBoxColumn,
-            this.productNameDataGridViewTextBoxColumn,
-            this.productAbbrDataGridViewTextBoxColumn,
-            this.categoryDataGridViewTextBoxColumn,
-            this.priceDataGridViewTextBoxColumn,
-            this.unitDataGridViewTextBoxColumn,
-            this.amountDataGridViewTextBoxColumn,
-            this.descripitonDataGridViewTextBoxColumn,
-            this.statusDataGridViewTextBoxColumn,
-            this.updateDateDataGridViewTextBoxColumn,
-            this.updateByDataGridViewTextBoxColumn});
-            this.ProductGrid.DataSource = this.ProductBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ProductGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ProductGrid.EnableHeadersVisualStyles = false;
-            this.ProductGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.ProductGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ProductGrid.Location = new System.Drawing.Point(16, 237);
-            this.ProductGrid.Name = "ProductGrid";
-            this.ProductGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProductGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.ProductGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.ProductGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProductGrid.Size = new System.Drawing.Size(1170, 460);
-            this.ProductGrid.TabIndex = 49;
             // 
             // metroLabel3
             // 
@@ -170,17 +100,17 @@
             // 
             this.metroPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.metroPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanel1.Controls.Add(this.ddlProduct);
+            this.metroPanel1.Controls.Add(this.ddlProductCategory);
             this.metroPanel1.Controls.Add(this.btnSearchCustomer);
-            this.metroPanel1.Controls.Add(this.ddlCustomer);
             this.metroPanel1.Controls.Add(this.metroLabel1);
-            this.metroPanel1.Controls.Add(this.ddlCustormerZone);
             this.metroPanel1.Controls.Add(this.metroLabel7);
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(44, 68);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(759, 82);
+            this.metroPanel1.Size = new System.Drawing.Size(883, 82);
             this.metroPanel1.TabIndex = 45;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -190,7 +120,7 @@
             // 
             this.btnSearchCustomer.ActiveControl = null;
             this.btnSearchCustomer.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearchCustomer.Location = new System.Drawing.Point(686, 15);
+            this.btnSearchCustomer.Location = new System.Drawing.Point(804, 15);
             this.btnSearchCustomer.Name = "btnSearchCustomer";
             this.btnSearchCustomer.Size = new System.Drawing.Size(49, 50);
             this.btnSearchCustomer.TabIndex = 32;
@@ -199,37 +129,18 @@
             this.btnSearchCustomer.UseSelectable = true;
             this.btnSearchCustomer.UseStyleColors = true;
             this.btnSearchCustomer.UseTileImage = true;
-            // 
-            // ddlCustomer
-            // 
-            this.ddlCustomer.FormattingEnabled = true;
-            this.ddlCustomer.ItemHeight = 23;
-            this.ddlCustomer.Location = new System.Drawing.Point(377, 25);
-            this.ddlCustomer.Name = "ddlCustomer";
-            this.ddlCustomer.Size = new System.Drawing.Size(289, 29);
-            this.ddlCustomer.TabIndex = 31;
-            this.ddlCustomer.UseSelectable = true;
+            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
             // 
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.Location = new System.Drawing.Point(300, 25);
+            this.metroLabel1.Location = new System.Drawing.Point(399, 25);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(72, 25);
             this.metroLabel1.TabIndex = 30;
             this.metroLabel1.Text = "ชื่อสินค้า";
             this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // ddlCustormerZone
-            // 
-            this.ddlCustormerZone.FormattingEnabled = true;
-            this.ddlCustormerZone.ItemHeight = 23;
-            this.ddlCustormerZone.Location = new System.Drawing.Point(65, 25);
-            this.ddlCustormerZone.Name = "ddlCustormerZone";
-            this.ddlCustormerZone.Size = new System.Drawing.Size(209, 29);
-            this.ddlCustormerZone.TabIndex = 31;
-            this.ddlCustormerZone.UseSelectable = true;
             // 
             // metroLabel7
             // 
@@ -237,9 +148,9 @@
             this.metroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel7.Location = new System.Drawing.Point(21, 25);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(38, 25);
+            this.metroLabel7.Size = new System.Drawing.Size(42, 25);
             this.metroLabel7.TabIndex = 30;
-            this.metroLabel7.Text = "เขต";
+            this.metroLabel7.Text = "กลุ่ม";
             this.metroLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnNextPage
@@ -330,76 +241,6 @@
             this.txtPageNo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtPageNo.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // productIDDataGridViewTextBoxColumn
-            // 
-            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.HeaderText = "ProductID";
-            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
-            // 
-            // productNameDataGridViewTextBoxColumn
-            // 
-            this.productNameDataGridViewTextBoxColumn.DataPropertyName = "ProductName";
-            this.productNameDataGridViewTextBoxColumn.HeaderText = "ProductName";
-            this.productNameDataGridViewTextBoxColumn.Name = "productNameDataGridViewTextBoxColumn";
-            // 
-            // productAbbrDataGridViewTextBoxColumn
-            // 
-            this.productAbbrDataGridViewTextBoxColumn.DataPropertyName = "ProductAbbr";
-            this.productAbbrDataGridViewTextBoxColumn.HeaderText = "ProductAbbr";
-            this.productAbbrDataGridViewTextBoxColumn.Name = "productAbbrDataGridViewTextBoxColumn";
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Category";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            // 
-            // unitDataGridViewTextBoxColumn
-            // 
-            this.unitDataGridViewTextBoxColumn.DataPropertyName = "Unit";
-            this.unitDataGridViewTextBoxColumn.HeaderText = "Unit";
-            this.unitDataGridViewTextBoxColumn.Name = "unitDataGridViewTextBoxColumn";
-            // 
-            // amountDataGridViewTextBoxColumn
-            // 
-            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
-            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
-            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
-            // 
-            // descripitonDataGridViewTextBoxColumn
-            // 
-            this.descripitonDataGridViewTextBoxColumn.DataPropertyName = "Descripiton";
-            this.descripitonDataGridViewTextBoxColumn.HeaderText = "Descripiton";
-            this.descripitonDataGridViewTextBoxColumn.Name = "descripitonDataGridViewTextBoxColumn";
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            // 
-            // updateDateDataGridViewTextBoxColumn
-            // 
-            this.updateDateDataGridViewTextBoxColumn.DataPropertyName = "UpdateDate";
-            this.updateDateDataGridViewTextBoxColumn.HeaderText = "UpdateDate";
-            this.updateDateDataGridViewTextBoxColumn.Name = "updateDateDataGridViewTextBoxColumn";
-            // 
-            // updateByDataGridViewTextBoxColumn
-            // 
-            this.updateByDataGridViewTextBoxColumn.DataPropertyName = "UpdateBy";
-            this.updateByDataGridViewTextBoxColumn.HeaderText = "UpdateBy";
-            this.updateByDataGridViewTextBoxColumn.Name = "updateByDataGridViewTextBoxColumn";
-            // 
-            // ProductBindingSource
-            // 
-            this.ProductBindingSource.DataSource = typeof(OrderManagement.Entity.Product);
-            // 
             // lblValid
             // 
             this.lblValid.AutoSize = true;
@@ -412,61 +253,122 @@
             this.lblValid.UseCustomBackColor = true;
             this.lblValid.UseCustomForeColor = true;
             // 
+            // ProductGrid
+            // 
+            this.ProductGrid.AllowUserToResizeRows = false;
+            this.ProductGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ProductGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ProductGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.ProductGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProductGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.ProductGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ProductGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ProductGrid.EnableHeadersVisualStyles = false;
+            this.ProductGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.ProductGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ProductGrid.Location = new System.Drawing.Point(16, 237);
+            this.ProductGrid.Name = "ProductGrid";
+            this.ProductGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProductGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.ProductGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.ProductGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ProductGrid.Size = new System.Drawing.Size(1334, 460);
+            this.ProductGrid.TabIndex = 60;
+            this.ProductGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProductGrid_CellClick);
+            // 
+            // ddlProductCategory
+            // 
+            this.ddlProductCategory.FormattingEnabled = true;
+            this.ddlProductCategory.Location = new System.Drawing.Point(65, 29);
+            this.ddlProductCategory.Name = "ddlProductCategory";
+            this.ddlProductCategory.Size = new System.Drawing.Size(229, 21);
+            this.ddlProductCategory.TabIndex = 61;
+            // 
+            // ddlProduct
+            // 
+            this.ddlProduct.FormattingEnabled = true;
+            this.ddlProduct.Location = new System.Drawing.Point(477, 29);
+            this.ddlProduct.Name = "ddlProduct";
+            this.ddlProduct.Size = new System.Drawing.Size(229, 21);
+            this.ddlProduct.TabIndex = 61;
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.metroLabel4.ForeColor = System.Drawing.Color.Red;
+            this.metroLabel4.Location = new System.Drawing.Point(16, 713);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(0, 0);
+            this.metroLabel4.TabIndex = 61;
+            this.metroLabel4.UseCustomBackColor = true;
+            this.metroLabel4.UseCustomForeColor = true;
+            // 
             // ProductUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.metroLabel4);
+            this.Controls.Add(this.ProductGrid);
             this.Controls.Add(this.lblValid);
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnLastPage);
             this.Controls.Add(this.btnBackPage);
             this.Controls.Add(this.btnFirstPage);
             this.Controls.Add(this.txtPageNo);
-            this.Controls.Add(this.ProductGrid);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.btnNewProduct);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroPanel1);
             this.Name = "ProductUC";
-            this.Size = new System.Drawing.Size(1200, 785);
-            ((System.ComponentModel.ISupportInitialize)(this.ProductGrid)).EndInit();
+            this.Size = new System.Drawing.Size(1370, 785);
+            this.Load += new System.EventHandler(this.ProductUC_Load);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProductBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private MetroFramework.Controls.MetroGrid ProductGrid;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroTile btnNewProduct;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroTile btnSearchCustomer;
-        private MetroFramework.Controls.MetroComboBox ddlCustomer;
         private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroComboBox ddlCustormerZone;
         private MetroFramework.Controls.MetroLabel metroLabel7;
         private MetroFramework.Controls.MetroTile btnNextPage;
         private MetroFramework.Controls.MetroTile btnLastPage;
         private MetroFramework.Controls.MetroTile btnBackPage;
         private MetroFramework.Controls.MetroTile btnFirstPage;
         private MetroFramework.Controls.MetroTextBox txtPageNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productAbbrDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unitDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descripitonDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updateDateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updateByDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource ProductBindingSource;
         private MetroFramework.Controls.MetroLabel lblValid;
+        private MetroFramework.Controls.MetroGrid ProductGrid;
+        private System.Windows.Forms.ComboBox ddlProduct;
+        private System.Windows.Forms.ComboBox ddlProductCategory;
+        private MetroFramework.Controls.MetroLabel metroLabel4;
     }
 }

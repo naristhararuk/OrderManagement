@@ -136,8 +136,14 @@
   <data name="setting-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\setting-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="back2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\back2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="documentNew48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\documentNew48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="control-stop-right-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\control-stop-right-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,6 +154,9 @@
   <data name="edit48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\edit48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Pencil-icon48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pencil-icon48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cancel48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -156,6 +165,9 @@
   </data>
   <data name="recycleBin48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\recycleBin48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pencil-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pencil-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -171,6 +183,9 @@
   </data>
   <data name="add48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="last_recor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\last_recor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Female-Face-FA-5-icon (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Female-Face-FA-5-icon (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -195,9 +210,6 @@
   </data>
   <data name="print48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\print48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="documentNew48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\documentNew48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="remove2-161" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remove2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,6 +241,9 @@
   <data name="Female-Face-FA-5-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Female-Face-FA-5-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="first_record" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\first_record.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="addUser48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\addUser48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -244,16 +259,10 @@
   <data name="right48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="first_record" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\first_record.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="last_recor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\last_recor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="playback" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\playback.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

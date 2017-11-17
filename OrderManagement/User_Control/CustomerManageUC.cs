@@ -119,7 +119,7 @@ namespace OrderManagement.User_Control
                     }
                     else if (result == 11)
                     {
-                        MessageBox.Show("มีชื่อนี้ลูกค้า" + txtbCustomerName.Text + " อยู่แล้ว \r\n กรุณาตั้งชื่อให้แตกต่างกัน ", "บันทึกข้อมูลไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("มีชื่อลูกค้า" + txtbCustomerName.Text + " นี้อยู่แล้ว \r\n กรุณาตั้งชื่อให้แตกต่างกัน ", "บันทึกข้อมูลไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {

@@ -29,7 +29,8 @@ namespace OrderManagement
             lblValid.Text = "";
             BindAllCustomerData();
         }
-
+       
+        #region BIND DATA
         private void BindAllCustomerData()
         {
             using (var db = new OrderEntities())
@@ -39,17 +40,13 @@ namespace OrderManagement
                 {
                     CustomerGrid.DataSource = HelperCS.ToDataTable(result);
                     CustomerGrid.AllowUserToAddRows = false;
+                    lblValid.Text = "";
                 }
                 else
                 {
                     lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
                 }
             }
-        }
-
-        private void btnSearchCustomer_Click(object sender, EventArgs e)
-        {
-            BindCustomerData();
         }
 
         private void BindCustomerData()
@@ -91,12 +88,20 @@ namespace OrderManagement
                 {
                     CustomerGrid.DataSource = HelperCS.ToDataTable(result);
                     CustomerGrid.AllowUserToAddRows = false;
+                    lblValid.Text = "";
                 }
                 else
                 {
                     lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
                 }
             }
+        }
+        #endregion BIND DATA
+
+        #region EVENT CLICK
+        private void btnSearchCustomer_Click(object sender, EventArgs e)
+        {
+            BindCustomerData();
         }
 
         private void btnNewCustomer_Click(object sender, EventArgs e)
@@ -132,5 +137,6 @@ namespace OrderManagement
             frm.callControlPopup("CustomerManageUC");
             BindAllCustomerData();
         }
+        #endregion EVENT CLICK
     }
 }

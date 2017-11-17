@@ -17,35 +17,88 @@ namespace OrderManagement.User_Control
     {
         private int customerid = 0;
         //private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
-        
         public OrderUC()
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ComboOrderCustomer, "Customer");
             CheckDate();
             
+            
         }
-
-      
-
+        public void ToggleOrder(string name, bool status)
+        {
+            if (name == "Sunday")
+            {
+                SundayToggle.Visible = status;
+            }
+            else if (name == "Monday")
+            {
+                MondayToggle.Checked = status;
+            }
+            else if (name == "Tueday")
+            {
+                TuesdayToggle.Checked = status;
+            }
+            else if (name == "Wednesday")
+            {
+                WednesdayToggle.Checked = status;
+            }
+            else if (name == "Thursday")
+            {
+                ThursdayToggle.Visible = status;
+            }
+            else if (name == "Friday")
+            {
+                FridayToggle.Checked = status;
+            }
+            else if (name == "Saturday")
+            {
+                SaturdayToggle.Checked = status;
+            }
+        }
+        public void ShowHideEditButton(string name,bool status)
+        {
+            if(name == "Sunday")
+            {
+                btnEditOrderSunday.Visible = status;
+            }
+            else if (name == "Monday")
+            {
+                MondayToggle.Checked = status;
+            }
+            else if (name == "Tueday")
+            {
+                TuesdayToggle.Checked = status;
+            }
+            else if (name == "Wednesday")
+            {
+                WednesdayToggle.Checked = status;
+            }
+            else if (name == "Thursday")
+            {
+                btnEditOrderThursday.Visible = status;
+            }
+            else if (name == "Friday")
+            {
+                FridayToggle.Checked = status;
+            }
+            else if (name == "Saturday")
+            {
+                SaturdayToggle.Checked = status;
+            }
+        }
         private void OrderUC_Load(object sender, EventArgs e)
         {
             //HelperCS.FormMain = new Form1();
-
             
             //CreateTemplateTable();
             //CheckTabBindGrid();
         }
 
-        private void checkfrm1(Form1 form1)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void metroLabel6_Click(object sender, EventArgs e)
-        {
-
-        }
+        //private void checkfrm1(Form1 form1)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private void btnOrderSave_Click(object sender, EventArgs e)
         {
@@ -257,30 +310,6 @@ namespace OrderManagement.User_Control
 
        */
 
-        #region Sunday
-
-
-        #endregion Sunday
-
-        #region Monday
-        #endregion Monday
-
-        #region Tuesday
-
-        #endregion Tuesday
-
-        #region Wednesday
-        #endregion Wednesday
-
-        #region Thursday
-        #endregion Thursday
-
-        #region Friday
-        #endregion Friday
-
-        #region Saturday
-        #endregion Saturday
-
         #region Method
         private void CheckTabActive()
         {
@@ -291,8 +320,15 @@ namespace OrderManagement.User_Control
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
                 if (OrderTab.SelectedTab == OrderTab.TabPages["SundayTab"])
-                {   //OrderTab.TabPages[0].AutoSize = true;
-                    //TabActive(SundayGrid, "Sunday");
+                {   
+                    if (SundayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlSundayHead, pnlMainSundayBody, "Sunday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Sunday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["MondayTab"])
                 {
@@ -307,29 +343,60 @@ namespace OrderManagement.User_Control
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["TuesdayTab"])
                 {
-                    //BindGrid(TuesdayGrid);
-                    //OrderTab.TabPages[2].AutoSize = true;
-                    for (int i=0; i < 45; i++)
+                    if (TuesdayToggle.Checked == true)
                     {
-                        //lbltest.Text += "\r\n sfdsafdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaf";
+                        HelperCS.CreatePanelTable(pnlTuesdayHead, pnlMainTuesdayBody, "Tuesday", customerid);
                     }
-
+                    else
+                    {
+                        ClearPanel("Tuesday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["WednesdayTab"])
                 {
-                    //BindGrid(WednesdayGrid);
+                    if (WednesdayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlWednesdayHead, pnlMainWednesdayBody, "Wednesday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Wednesday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["ThursdayTab"])
                 {
-                    //BindGrid(ThursdayGrid);
+                    btnEditOrderThursday.Visible = false;
+                    //HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
+                    if (ThursdayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Thursday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["FridayTab"])
                 {
-                    //BindGrid(FridayGrid);
+                    if (FridayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlFridayHead, pnlMainFridayBody, "Friday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Friday");
+                    }
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["SaturdayTab"])
                 {
-                    //BindGrid(SaturdayGrid);
+                    if (SaturdayToggle.Checked == true)
+                    {
+                        HelperCS.CreatePanelTable(pnlSaturdayHead, pnlMainSaturdayBody, "Saturday", customerid);
+                    }
+                    else
+                    {
+                        ClearPanel("Saturday");
+                    }
                 }
             }
             else
@@ -344,8 +411,8 @@ namespace OrderManagement.User_Control
             {
                 HelperCS.dtSun = null;
                 HelperCS.dayOrder[0] = "false";
-                //pnlSundayHead.Controls.Clear();
-                //pnlMainSundayBody.Controls.Clear();
+                pnlSundayHead.Controls.Clear();
+                pnlMainSundayBody.Controls.Clear();
             }
             else if (day == "Monday")
             {
@@ -358,36 +425,36 @@ namespace OrderManagement.User_Control
             {
                 HelperCS.dtTue = null;
                 HelperCS.dayOrder[2] = "false";
-                //pnlTuesdayHead.Controls.Clear();
-                //pnlMainTuesdayBody.Controls.Clear();
+                pnlTuesdayHead.Controls.Clear();
+                pnlMainTuesdayBody.Controls.Clear();
             }
             else if (day == "Wednesday")
             {
                 HelperCS.dtWed = null;
                 HelperCS.dayOrder[3] = "false";
-                //pnlWednesdayHead.Controls.Clear();
-                //pnlMainWednesdayBody.Controls.Clear();
+                pnlWednesdayHead.Controls.Clear();
+                pnlMainWednesdayBody.Controls.Clear();
             }
             else if (day == "Thursday")
             {
                 HelperCS.dtThu = null;
                 HelperCS.dayOrder[4] = "false";
-                //pnlThursdayHead.Controls.Clear();
-                //pnlMainThursdayBody.Controls.Clear();
+                pnlThursdayHead.Controls.Clear();
+                pnlMainThursdayBody.Controls.Clear();
             }
             else if (day == "Friday")
             {
                 HelperCS.dtFri = null;
                 HelperCS.dayOrder[5] = "false";
-                //pnlFridayHead.Controls.Clear();
-                //pnlMainFridayBody.Controls.Clear();
+                pnlFridayHead.Controls.Clear();
+                pnlMainFridayBody.Controls.Clear();
             }
             else if (day == "Saturday")
             {
                 HelperCS.dtSat = null;
                 HelperCS.dayOrder[6] = "false";
-                //pnlSaturdayHead.Controls.Clear();
-                //pnlMainSaturdayBody.Controls.Clear();
+                pnlSaturdayHead.Controls.Clear();
+                pnlMainSaturdayBody.Controls.Clear();
             }
             else
             {
@@ -399,21 +466,21 @@ namespace OrderManagement.User_Control
                 HelperCS.dtFri = null;
                 HelperCS.dtSat = null;
 
-                //pnlSundayHead.Controls.Clear();
+                pnlSundayHead.Controls.Clear();
                 pnlMondayHead.Controls.Clear();
-                //pnlTuesdayHead.Controls.Clear();
-                //pnlWednesdayHead.Controls.Clear();
-                //pnlThursdayHead.Controls.Clear();
-                //pnlFridayHead.Controls.Clear();
-                //pnlSaturdayHead.Controls.Clear();
+                pnlTuesdayHead.Controls.Clear();
+                pnlWednesdayHead.Controls.Clear();
+                pnlThursdayHead.Controls.Clear();
+                pnlFridayHead.Controls.Clear();
+                pnlSaturdayHead.Controls.Clear();
 
-                //pnlMainSundayBody.Controls.Clear();
+                pnlMainSundayBody.Controls.Clear();
                 pnlMainMondayBody.Controls.Clear();
-                //pnlMainTuesdayBody.Controls.Clear();
-                //pnlMainWednesdayBody.Controls.Clear();
-                //pnlMainThursdayBody.Controls.Clear();
-                //pnlMainFridayBody.Controls.Clear();
-                //pnlMainSaturdayBody.Controls.Clear();
+                pnlMainTuesdayBody.Controls.Clear();
+                pnlMainWednesdayBody.Controls.Clear();
+                pnlMainThursdayBody.Controls.Clear();
+                pnlMainFridayBody.Controls.Clear();
+                pnlMainSaturdayBody.Controls.Clear();
 
                 HelperCS.dayOrder = new string[7] { "false", "false", "false", "false", "false", "false", "false" };
             }
@@ -539,7 +606,6 @@ namespace OrderManagement.User_Control
                 //MetroMessageBox.Show(frm, "Please Select Customer Before");
             }
         }
-
         //COMBO
         private void ComboOrderCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -568,14 +634,15 @@ namespace OrderManagement.User_Control
         //TOGGLE DAY
         private void DayToggle_CheckedChanged(object sender, EventArgs e)
         {
-            if (ComboOrderCustomer.SelectedIndex > 0)
-            {
-                CheckTabActive();
-            }
-            else
-            {
-                MessageBox.Show("Please Select Customer Before", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            CheckTabActive();
+            //if (ComboOrderCustomer.SelectedIndex > 0)
+            //{
+            //    CheckTabActive();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Please Select Customer Before", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
         }
 
         private void btnOrderCalculate_Click(object sender, EventArgs e)
@@ -583,6 +650,13 @@ namespace OrderManagement.User_Control
             //CheckDate();
             CheckTabActive();
         }
+
+        private void btnEditOrder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         #endregion IndexChanged
 
         /*

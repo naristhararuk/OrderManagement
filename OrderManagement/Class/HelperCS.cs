@@ -12,6 +12,7 @@ using MetroFramework.Controls;
 using MetroFramework;
 using MetroFramework.Forms;
 using OrderManagement.Model;
+using OrderManagement.User_Control;
 
 namespace OrderManagement.Class
 {
@@ -32,7 +33,6 @@ namespace OrderManagement.Class
         public static string UserName;
         public static string[] EditMode = { "", "", "", "", "", "", "" };
         public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
-
         #region DATATABLE
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -68,12 +68,16 @@ namespace OrderManagement.Class
             if (tableName == "Product")
             {
                 //Select only ID and Name
-                var query = from x in db.Product select x;
+                var query = from x in db.Product
+                            where x.Status == true
+                            select x;
                 return HelperCS.ToDataTable(query.ToList());
             }
             else if (tableName == "Customer")
             {
-                var query = from x in db.Customer select x;
+                var query = from x in db.Customer
+                            where x.Status == true
+                            select x;
                 return HelperCS.ToDataTable(query.ToList());
             }
             else if (tableName == "Config")
@@ -88,7 +92,9 @@ namespace OrderManagement.Class
             }
             else if (tableName == "Login")
             {
-                var query = from x in db.Login select x;
+                var query = from x in db.Login
+                            where x.Status == true
+                            select x;
                 return HelperCS.ToDataTable(query.ToList());
             }
             else
@@ -104,12 +110,16 @@ namespace OrderManagement.Class
             if (tableName == "Product")
             {
                 //Select only ID and Name
-                var query = from x in db.Product select new { x.ProductID, x.ProductName };
+                var query = from x in db.Product
+                            where  x.Status == true
+                            select new { x.ProductID, x.ProductName };
                 return HelperCS.ToDataTable(query.ToList());
             }
             else if (tableName == "Customer")
             {
-                var query = from x in db.Customer select new { x.CustomerID, x.CustomerName };
+                var query = from x in db.Customer
+                            where x.Status == true
+                            select new { x.CustomerID, x.CustomerName };
                 return HelperCS.ToDataTable(query.ToList());
             }
             else if (tableName == "Config-Zone")
@@ -197,14 +207,30 @@ namespace OrderManagement.Class
             {
                 // Get result from Stored Procedure
                 var ds = dailydb.GetOrderbyDay(datewhere, customerid).ToList();
-
+                OrderUC orderUC = new OrderUC();
                 if (ds.Count() > 0)
                 {
                     EditMode[index] = "แก้ไขข้อมูล";
+                    MetroTile edit = new MetroTile();
+                    //edit.Location = new Point(1185, 28);
+                    //edit.UseCustomBackColor = true;
+                    //edit.BackColor = Color.Transparent;
+                    //edit.BackgroundImage = OrderManagement.Properties.Resources.edit2_48;
+                    //edit.Size = new Size(48, 48);
+                    //edit.Click += new System.EventHandler(btnOrderEdit_Click);
+                    //edit.Name = "btnOrderEdit";
+                    //edit.BackgroundImageLayout = ImageLayout.Center;
+
+                        orderUC.ShowHideEditButton(dayTab, true);
+
+
+                    bool orderstatus = (bool)ds[0].OrderStatus;
+                    orderUC.ToggleOrder(dayTab, orderstatus);
                     return HelperCS.ToDataTable(ds);
                 }
                 else
                 {
+                    orderUC.ShowHideEditButton(dayTab, false);
                     EditMode[index] = "";
                     var ds2 = dailydb.GetDailyOrder(day, customerid).ToList();
                     return HelperCS.ToDataTable(ds2);
@@ -445,7 +471,10 @@ namespace OrderManagement.Class
             MainPanel.Controls.Add(tablepanel);
             AddToDataTable(dayTab, tablepanel);
         }
+        private static void btnOrderEdit_Click(object sender, EventArgs e)
+        {
 
+        }
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox combo = (ComboBox)sender;
@@ -494,9 +523,14 @@ namespace OrderManagement.Class
             if (Int32.TryParse(txt.Name, out productid))
             {
                 DataTable dtamount = QueryAllResult("Product");
-                int amount = (from DataRow dr in dtamount.Rows
-                              where (int)dr["ProductID"] == productid
-                              select (int)dr["Amount"]).FirstOrDefault();
+                //int amount = (from DataRow dr in dtamount.Rows
+                //              where (int)dr["ProductID"] == productid
+                //              select (int)dr["Amount"]).FirstOrDefault();
+
+                var objamount = (from DataRow dr in dtamount.Rows
+                                 where (int)dr["ProductID"] == productid
+                                 select dr["Amount"]).FirstOrDefault();
+                int amount = objamount.ToString() != "" ? int.Parse(objamount.ToString()) : 0;
 
                 if (!string.IsNullOrEmpty(txt.Text))
                 {
@@ -689,8 +723,8 @@ namespace OrderManagement.Class
             // MessageBox.Show(btn.Name.ToString());
             //MetroMessageBox.Show(this, "Your message here.", "Title Here", MessageBoxButtons.OKCancel, MessageBoxIcon.Hand);
             Form frm = btn.FindForm();
-            DialogResult result = MetroMessageBox.Show(frm, "Do You Want to delete?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            if (result.Equals(DialogResult.OK))
+            DialogResult result = MessageBox.Show(frm, "คุณต้องการจะลบข้อมูล ใช่หรือไม่?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result.Equals(DialogResult.Yes))
             {
                 for (int i = dt.Rows.Count - 1; i >= 0; i--)
                 {
@@ -718,7 +752,7 @@ namespace OrderManagement.Class
             }
             else
             {
-                MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(frm, "กรุณาเลือกข้อมูลสินค้าก่อน ", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             //MetroMessageBox.Show(frm, "Please select Product Before" + ProductIdSelect + ProductTextSelect, "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
@@ -926,17 +960,17 @@ namespace OrderManagement.Class
 
                 if (all != 0)
                 {
-                    MetroMessageBox.Show(frm, "Some Data has Problem Cannot Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(frm, "Some Data has Problem Cannot Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MetroMessageBox.Show(frm, "Data has been Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    MessageBox.Show(frm, "Data has been Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 }
 
             }
             catch (Exception ex)
             {
-                MetroMessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:"+ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:"+ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1010,30 +1044,35 @@ namespace OrderManagement.Class
             {
                 dtTue = null;
                 //for tablepanel to dtTue
+                dtTue = dt;
                 dayOrder[2] = "true";
             }
             else if (dayTab == "Wednesday")
             {
                 dtWed = null;
                 //for tablepanel to dtWed
+                dtWed = dt;
                 dayOrder[3] = "true";
             }
             else if (dayTab == "Thursday")
             {
                 dtThu = null;
                 //for tablepanel to dtThu
+                dtThu = dt;
                 dayOrder[4] = "true";
             }
             else if (dayTab == "Friday")
             {
                 dtFri = null;
                 //for tablepanel to dtFri
+                dtFri = dt;
                 dayOrder[5] = "true";
             }
             else if (dayTab == "Saturday")
             {
                 dtSat = null;
                 //for tablepanel to dtSat
+                dtSat = dt;
                 dayOrder[6] = "true";
             }
         }

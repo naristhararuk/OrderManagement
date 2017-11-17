@@ -473,6 +473,9 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\edit2-48.png" />
+    <None Include="Resources\Pencil-icon48.png" />
+    <None Include="Resources\Pencil-icon.png" />
     <None Include="Resources\playback.png" />
     <None Include="Resources\play.png" />
     <None Include="Resources\last_recor.png" />
