@@ -20,13 +20,20 @@ namespace OrderManagement.Class
     {
         public static Font SegoeUIFont12 = new Font("Segoe UI", 12, FontStyle.Regular);
         public static DataTable dt;
-        public static DataTable dtSun,dtMon,dtTue,dtWed,dtThu,dtFri,dtSat;
+        public static DataTable dtSun, dtMon, dtTue, dtWed, dtThu, dtFri, dtSat;
         public static DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
+        public static DateTime currentdate = DateTime.Now;
+        
         private static Panel pnl = new Panel();
         private static MetroPanel metropanel;
         private static MetroPanel metroHeadpanel;
-        private static string dayTab;
+        public static MetroLabel editlabel;
+        public static MetroTile editbtn;
+        public static MetroToggle daytoggle;
+
+        public static bool editmode;
         private static int Customerid;
+        private static string dayTab;
         private static string ProductTextSelect;
         private static string ProductIdSelect;
         private static ComboBox productNew;
@@ -111,7 +118,7 @@ namespace OrderManagement.Class
             {
                 //Select only ID and Name
                 var query = from x in db.Product
-                            where  x.Status == true
+                            where x.Status == true
                             select new { x.ProductID, x.ProductName };
                 return HelperCS.ToDataTable(query.ToList());
             }
@@ -207,31 +214,22 @@ namespace OrderManagement.Class
             {
                 // Get result from Stored Procedure
                 var ds = dailydb.GetOrderbyDay(datewhere, customerid).ToList();
-                OrderUC orderUC = new OrderUC();
+                //OrderUC orderUC = new OrderUC();
                 if (ds.Count() > 0)
                 {
+                    editbtn.Visible = true;
+                    editmode = false;                               //can input or change value 
                     EditMode[index] = "แก้ไขข้อมูล";
-                    MetroTile edit = new MetroTile();
-                    //edit.Location = new Point(1185, 28);
-                    //edit.UseCustomBackColor = true;
-                    //edit.BackColor = Color.Transparent;
-                    //edit.BackgroundImage = OrderManagement.Properties.Resources.edit2_48;
-                    //edit.Size = new Size(48, 48);
-                    //edit.Click += new System.EventHandler(btnOrderEdit_Click);
-                    //edit.Name = "btnOrderEdit";
-                    //edit.BackgroundImageLayout = ImageLayout.Center;
-
-                        orderUC.ShowHideEditButton(dayTab, true);
-
-
-                    bool orderstatus = (bool)ds[0].OrderStatus;
-                    orderUC.ToggleOrder(dayTab, orderstatus);
+                    daytoggle.Visible = (bool)ds[0].OrderStatus;    //on off toggle in database order value
                     return HelperCS.ToDataTable(ds);
                 }
                 else
                 {
-                    orderUC.ShowHideEditButton(dayTab, false);
+                    editbtn.Visible = false;
+                    daytoggle.Visible = false;
+                    editmode = true;                                //can input or change value 
                     EditMode[index] = "";
+                    
                     var ds2 = dailydb.GetDailyOrder(day, customerid).ToList();
                     return HelperCS.ToDataTable(ds2);
                     //return new DataTable();
@@ -243,6 +241,8 @@ namespace OrderManagement.Class
         #region DAILY PANEL TABLE
         public static void CreatePanelTable(MetroPanel MainHeadPanel, MetroPanel MainPanel, string day, int customerid)
         {
+            //bool editmode = true; //"New";
+
             Customerid = customerid;
             MainPanel.BackColor = Color.Transparent;
             metropanel = MainPanel;
@@ -295,7 +295,7 @@ namespace OrderManagement.Class
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
-           
+
             //DataTable dt = GetDailyOrderTable(day, customerid);
             if (dt == null)
             {
@@ -338,6 +338,7 @@ namespace OrderManagement.Class
                         txtprice.TextAlign = HorizontalAlignment.Center;
                         txtprice.BorderStyle = BorderStyle.None;
                         txtprice.Dock = DockStyle.Fill;
+                        txtprice.Enabled = editmode;
                         txtprice.TextChanged += new EventHandler(TextBoxPrice_TextChanged);
                         txtprice.Leave += new EventHandler(TextBoxPriceInput_Leave);
                         Panel pnlprice = new Panel();
@@ -353,22 +354,23 @@ namespace OrderManagement.Class
                         txtamount.Text = dr["OrderAmount"].ToString();
                         txtamount.MaxLength = 10;
                         txtamount.Width = 60;
-                        txtamount.Margin = new Padding(0); 
+                        txtamount.Margin = new Padding(0);
                         txtamount.Height = 25;
+                        txtamount.Enabled = editmode;
                         txtamount.TextAlign = HorizontalAlignment.Center;
                         txtamount.BorderStyle = BorderStyle.None;
                         txtamount.Dock = DockStyle.Fill;
                         txtamount.Leave += new EventHandler(TextBoxInput_Leave);
-                        
+
                         Panel pnl = new Panel();
                         pnl.BorderStyle = BorderStyle.Fixed3D;
                         pnl.Width = 60;
                         pnl.Height = 25;
-                        pnl.Padding = new Padding(5,0,5,0);
+                        pnl.Padding = new Padding(5, 0, 5, 0);
                         //pnl.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
                         //pnl.Dock = DockStyle.Fill;
                         pnl.Controls.Add(txtamount);
-                        
+
                         //Add Control to cell table
                         tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
                         tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
@@ -378,7 +380,7 @@ namespace OrderManagement.Class
                         tablepanel.Controls.Add(pnlprice, 3, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(pnl, 5, tablepanel.RowCount - 1);
-                        
+
                         decimal total = Convert.ToDecimal(dr["OrderPrice"].ToString()) * Convert.ToDecimal(dr["OrderAmount"].ToString());
                         dr["OrderTotal"] = total.ToString("0.00");
                         tablepanel.Controls.Add(new Label() { Text = total.ToString("0.00") }, 6, tablepanel.RowCount - 1);
@@ -393,7 +395,7 @@ namespace OrderManagement.Class
                         productNew.SelectedIndexChanged += new EventHandler(ComboProductSelect_IndexChanged);
                         MetroTile btAdd = new MetroTile();
                         btAdd.UseCustomBackColor = true;
-                       // btAdd.BackColor = Color.Honeydew;
+                        // btAdd.BackColor = Color.Honeydew;
                         btAdd.BackgroundImage = OrderManagement.Properties.Resources.add_22;
                         btAdd.Size = new Size(24, 24);
                         btAdd.BackgroundImageLayout = ImageLayout.Center;
@@ -407,7 +409,7 @@ namespace OrderManagement.Class
                         pnl.Controls.Add(productNew);
                         pnl.Controls.Add(btAdd);
 
-                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute,100F));
+                        tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
 
                         //tableheadpanel.BackColor = Color.LightGray;
 
@@ -538,13 +540,13 @@ namespace OrderManagement.Class
                     {
                         Form frm = txt.FindForm();
                         MessageBox.Show("จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                       // MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                        // MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                         txt.Text = amount.ToString();
                         txt.Focus();
                     }
                     else if (Convert.ToDecimal(txt.Text) <= 0)
                     {
-                        MessageBox.Show("จำนวนสินค้าต้องมากกว่า 0" , "จำนวนสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("จำนวนสินค้าต้องมากกว่า 0", "จำนวนสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
@@ -554,7 +556,7 @@ namespace OrderManagement.Class
                 }
             }
         }
-        private static void ComboProductSelect_IndexChanged(object sender,EventArgs e)
+        private static void ComboProductSelect_IndexChanged(object sender, EventArgs e)
         {
             ComboBox combo = (ComboBox)sender;
             string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
@@ -571,7 +573,7 @@ namespace OrderManagement.Class
                 //MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        private static void UpdatePriceTotal(int productid,string amount)
+        private static void UpdatePriceTotal(int productid, string amount)
         {
             if (dt.Rows.Count > 0) {
                 foreach (DataRow dr in dt.Rows)
@@ -610,7 +612,7 @@ namespace OrderManagement.Class
                 //{
                 //    //if (e.KeyChar == 40) { }
                 //    e.Handled = true;
-                    
+
                 //}
                 if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46 && e.KeyChar != 40))
                 {
@@ -746,7 +748,7 @@ namespace OrderManagement.Class
             Form frm = btn.FindForm();
             //string key = ((KeyValuePair<string, string>)productNew.SelectedItem).Key;
             //string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
-            if(!string.IsNullOrEmpty(ProductIdSelect))
+            if (!string.IsNullOrEmpty(ProductIdSelect))
             {
                 NewrowProductOrder(int.Parse(ProductIdSelect), ProductTextSelect);
             }
@@ -769,7 +771,7 @@ namespace OrderManagement.Class
                 #region Save Sunday
                 if (dayOrder[0] == "true")
                 {
-                    
+
                     foreach (DataRow dr in dtSun.Rows)
                     {
                         int pid = int.Parse(dr["ProductID"].ToString());
@@ -822,7 +824,7 @@ namespace OrderManagement.Class
                         decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
                         string description = EditMode[2];
                         bool status = true;
-                        
+
                         allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
                     }
                 }
@@ -844,7 +846,7 @@ namespace OrderManagement.Class
                         decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
                         string description = EditMode[3];
                         bool status = true;
-                        
+
                         allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
                     }
                 }
@@ -866,7 +868,7 @@ namespace OrderManagement.Class
                         decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
                         string description = EditMode[4];
                         bool status = true;
-                        
+
                         allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
                     }
                 }
@@ -888,7 +890,7 @@ namespace OrderManagement.Class
                         decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
                         string description = EditMode[5];
                         bool status = true;
-                        
+
                         allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
                     }
                 }
@@ -910,7 +912,7 @@ namespace OrderManagement.Class
                         decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
                         string description = EditMode[6];
                         bool status = true;
-                        
+
                         allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
                     }
                 }
@@ -970,7 +972,7 @@ namespace OrderManagement.Class
             }
             catch (Exception ex)
             {
-                MessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:"+ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:" + ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -980,10 +982,10 @@ namespace OrderManagement.Class
 
             using (var db = new DailyOrderEntities())
             {
-                if(EditMode[IndexDateofWeek(orderdate)] == "")
+                if (EditMode[IndexDateofWeek(orderdate)] == "")
                 {
                     //Insert
-                    var ds = db.InsertOrder(orderdate, updatedate, customerid, pid,pprice,oprice,oamount,ototal,description,status,userName).ToList();
+                    var ds = db.InsertOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
                     if (ds.Count() > 0)
                     {
                         result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
@@ -1007,7 +1009,7 @@ namespace OrderManagement.Class
                     }
                 }
                 // Get result from Stored Procedure
-                
+
 
 
             }
@@ -1017,7 +1019,7 @@ namespace OrderManagement.Class
 
         private static int IndexDateofWeek(DateTime date)
         {
-            int dw = (int)date.DayOfWeek; 
+            int dw = (int)date.DayOfWeek;
             return dw;
         }
 
@@ -1082,14 +1084,14 @@ namespace OrderManagement.Class
             DataTable pd = QueryAllResult("Product");
             //DataInfo.ProductList model = new DataInfo.ProductList();
             var objprice = (from DataRow dr in pd.Rows
-                             where (int)dr["ProductID"] == productid
-                             select dr["Price"]).FirstOrDefault();
+                            where (int)dr["ProductID"] == productid
+                            select dr["Price"]).FirstOrDefault();
             var objunit = (from DataRow dr in pd.Rows
-                        where (int)dr["ProductID"] == productid
-                        select dr["Unit"]).FirstOrDefault();
+                           where (int)dr["ProductID"] == productid
+                           select dr["Unit"]).FirstOrDefault();
             var objamount = (from DataRow dr in pd.Rows
-                        where (int)dr["ProductID"] == productid
-                        select dr["Amount"]).FirstOrDefault();
+                             where (int)dr["ProductID"] == productid
+                             select dr["Amount"]).FirstOrDefault();
             int unit = objunit.ToString() != "" ? int.Parse(objunit.ToString()) : 0;
             decimal price = objprice.ToString() != "" ? Convert.ToDecimal(objprice.ToString()) : 0;
             int amount = objamount.ToString() != "" ? int.Parse(objamount.ToString()) : 0;
@@ -1124,5 +1126,13 @@ namespace OrderManagement.Class
 
         }
         #endregion METHOD
+
+        public static void toggleButton(MetroTile btn,bool status)
+        {
+            //OrderUC order;
+            btn.Visible = status;
+            //order.ShowHideEditButton(dayTab, status);
+            //order.Show(;)
+        }
     }
 }

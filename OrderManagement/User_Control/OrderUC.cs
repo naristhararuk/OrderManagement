@@ -16,94 +16,111 @@ namespace OrderManagement.User_Control
     public partial class OrderUC : UserControl
     {
         private int customerid = 0;
+
         //private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
         public OrderUC()
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ComboOrderCustomer, "Customer");
             CheckDate();
-            
-            
+            lblEditmode.Text = "";
+            //btnOrderEdit.Visible = false;
         }
+        /*
         public void ToggleOrder(string name, bool status)
         {
             if (name == "Sunday")
             {
-                SundayToggle.Visible = status;
+                this.SundayToggle.Checked = status;
+                this.SundayToggle.Invalidate();
+                this.SundayToggle.Update();
             }
             else if (name == "Monday")
             {
                 MondayToggle.Checked = status;
+                this.MondayToggle.Invalidate();
+                this.MondayToggle.Update();
             }
             else if (name == "Tueday")
             {
                 TuesdayToggle.Checked = status;
+                this.TuesdayToggle.Invalidate();
+                this.TuesdayToggle.Update();
             }
             else if (name == "Wednesday")
             {
                 WednesdayToggle.Checked = status;
+                this.WednesdayToggle.Invalidate();
+                this.WednesdayToggle.Update();
             }
             else if (name == "Thursday")
             {
-                ThursdayToggle.Visible = status;
+                ThursdayToggle.Checked = status;
+                this.ThursdayToggle.Invalidate();
+                this.ThursdayToggle.Update();
             }
             else if (name == "Friday")
             {
                 FridayToggle.Checked = status;
+                this.FridayToggle.Invalidate();
+                this.FridayToggle.Update();
             }
             else if (name == "Saturday")
             {
                 SaturdayToggle.Checked = status;
+                this.SaturdayToggle.Invalidate();
+                this.SaturdayToggle.Update();
             }
+            
         }
         public void ShowHideEditButton(string name,bool status)
         {
             if(name == "Sunday")
             {
-                btnEditOrderSunday.Visible = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Monday")
             {
-                MondayToggle.Checked = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Tueday")
             {
-                TuesdayToggle.Checked = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Wednesday")
             {
-                WednesdayToggle.Checked = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Thursday")
             {
-                btnEditOrderThursday.Visible = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Friday")
             {
-                FridayToggle.Checked = status;
+                this.btnOrderEdit.Visible = status;
             }
             else if (name == "Saturday")
             {
-                SaturdayToggle.Checked = status;
+                this.btnOrderEdit.Visible = status;
             }
+            this.btnOrderEdit.Invalidate();
+            this.btnOrderEdit.Update();
         }
+        */
         private void OrderUC_Load(object sender, EventArgs e)
         {
+            btnOrderEdit.Visible = false;
             //HelperCS.FormMain = new Form1();
             
             //CreateTemplateTable();
             //CheckTabBindGrid();
         }
 
-        //private void checkfrm1(Form1 form1)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         private void btnOrderSave_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
             HelperCS.SaveAllOrder(btn);
+            lblEditmode.Text = "";
         }
 
         //private void BindGrid()
@@ -319,10 +336,13 @@ namespace OrderManagement.User_Control
             //check select customer beform bind data
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
+                HelperCS.editlabel = lblEditmode;
+                HelperCS.editbtn = btnOrderEdit;
                 if (OrderTab.SelectedTab == OrderTab.TabPages["SundayTab"])
                 {   
                     if (SundayToggle.Checked == true)
                     {
+                        HelperCS.daytoggle = SundayToggle;
                         HelperCS.CreatePanelTable(pnlSundayHead, pnlMainSundayBody, "Sunday", customerid);
                     }
                     else
@@ -365,10 +385,9 @@ namespace OrderManagement.User_Control
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["ThursdayTab"])
                 {
-                    btnEditOrderThursday.Visible = false;
-                    //HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
                     if (ThursdayToggle.Checked == true)
                     {
+                        HelperCS.daytoggle = ThursdayToggle;
                         HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
                     }
                     else
@@ -488,10 +507,11 @@ namespace OrderManagement.User_Control
 
         private void CheckDate()
         {
-            if (DatePicker.Value != null)
+            DateTime date;
+            string formatdate = "dddd dd MMMM yyyy"; ;
+            if (HelperCS.currentdate != null)
             {
-                DateTime date = DatePicker.Value;
-                string formatdate = "dddd dd MMMM yyyy";
+                date = HelperCS.currentdate;
                 switch (date.DayOfWeek)
                 {
                     case DayOfWeek.Sunday:
@@ -579,15 +599,105 @@ namespace OrderManagement.User_Control
                             break;
                         }
                 }
-
-                lblDateSunday.Text = HelperCS.sundate.ToString(formatdate);
-                lblDateMonday.Text = HelperCS.mondate.ToString(formatdate);
-                lblDateTuesday.Text = HelperCS.tuedate.ToString(formatdate);
-                lblDateWednesday.Text = HelperCS.weddate.ToString(formatdate);
-                lblDateThursday.Text = HelperCS.thudate.ToString(formatdate);
-                lblDateFriday.Text = HelperCS.fridate.ToString(formatdate);
-                lblDateSaturday.Text = HelperCS.satdate.ToString(formatdate);
             }
+            else // if(DatePicker.Value != null)
+            {
+                date = DatePicker.Value;
+                switch (date.DayOfWeek)
+                {
+                    case DayOfWeek.Sunday:
+                        {
+                            HelperCS.sundate = date;
+                            HelperCS.mondate = date.AddDays(1);
+                            HelperCS.tuedate = date.AddDays(2);
+                            HelperCS.weddate = date.AddDays(3);
+                            HelperCS.thudate = date.AddDays(4);
+                            HelperCS.fridate = date.AddDays(5);
+                            HelperCS.satdate = date.AddDays(6);
+                            OrderTab.SelectedTab = SundayTab;
+                            break;
+                        }
+                    case DayOfWeek.Monday:
+                        {
+                            HelperCS.sundate = date.AddDays(-1);
+                            HelperCS.mondate = date;
+                            HelperCS.tuedate = date.AddDays(1);
+                            HelperCS.weddate = date.AddDays(2);
+                            HelperCS.thudate = date.AddDays(3);
+                            HelperCS.fridate = date.AddDays(4);
+                            HelperCS.satdate = date.AddDays(5);
+                            OrderTab.SelectedTab = MondayTab;
+                            break;
+                        }
+                    case DayOfWeek.Tuesday:
+                        {
+                            HelperCS.sundate = date.AddDays(-2);
+                            HelperCS.mondate = date.AddDays(-1);
+                            HelperCS.tuedate = date;
+                            HelperCS.weddate = date.AddDays(1);
+                            HelperCS.thudate = date.AddDays(2);
+                            HelperCS.fridate = date.AddDays(3);
+                            HelperCS.satdate = date.AddDays(4);
+                            OrderTab.SelectedTab = TuesdayTab;
+                            break;
+                        }
+                    case DayOfWeek.Wednesday:
+                        {
+                            HelperCS.sundate = date.AddDays(-3);
+                            HelperCS.mondate = date.AddDays(-2);
+                            HelperCS.tuedate = date.AddDays(-1);
+                            HelperCS.weddate = date;
+                            HelperCS.thudate = date.AddDays(1);
+                            HelperCS.fridate = date.AddDays(2);
+                            HelperCS.satdate = date.AddDays(3);
+                            OrderTab.SelectedTab = WednesdayTab;
+                            break;
+                        }
+                    case DayOfWeek.Thursday:
+                        {
+                            HelperCS.sundate = date.AddDays(-4);
+                            HelperCS.mondate = date.AddDays(-3);
+                            HelperCS.tuedate = date.AddDays(-2);
+                            HelperCS.weddate = date.AddDays(-1);
+                            HelperCS.thudate = date;
+                            HelperCS.fridate = date.AddDays(1);
+                            HelperCS.satdate = date.AddDays(2);
+                            OrderTab.SelectedTab = ThursdayTab;
+                            break;
+                        }
+                    case DayOfWeek.Friday:
+                        {
+                            HelperCS.sundate = date.AddDays(-5);
+                            HelperCS.mondate = date.AddDays(-4);
+                            HelperCS.tuedate = date.AddDays(-3);
+                            HelperCS.weddate = date.AddDays(-2);
+                            HelperCS.thudate = date.AddDays(-1);
+                            HelperCS.fridate = date;
+                            HelperCS.satdate = date.AddDays(1);
+                            OrderTab.SelectedTab = FridayTab;
+                            break;
+                        }
+                    case DayOfWeek.Saturday:
+                        {
+                            HelperCS.sundate = date.AddDays(-6);
+                            HelperCS.mondate = date.AddDays(-5);
+                            HelperCS.tuedate = date.AddDays(-4);
+                            HelperCS.weddate = date.AddDays(-3);
+                            HelperCS.thudate = date.AddDays(-2);
+                            HelperCS.fridate = date.AddDays(-1);
+                            HelperCS.satdate = date;
+                            OrderTab.SelectedTab = SaturdayTab;
+                            break;
+                        }
+                }
+            }
+            lblDateSunday.Text = HelperCS.sundate.ToString(formatdate);
+            lblDateMonday.Text = HelperCS.mondate.ToString(formatdate);
+            lblDateTuesday.Text = HelperCS.tuedate.ToString(formatdate);
+            lblDateWednesday.Text = HelperCS.weddate.ToString(formatdate);
+            lblDateThursday.Text = HelperCS.thudate.ToString(formatdate);
+            lblDateFriday.Text = HelperCS.fridate.ToString(formatdate);
+            lblDateSaturday.Text = HelperCS.satdate.ToString(formatdate);
         }
         #endregion Method
 
@@ -598,6 +708,7 @@ namespace OrderManagement.User_Control
             Form frm = OrderTab.FindForm();
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
+                HelperCS.dt = null;
                 CheckTabActive();
             }
             else
@@ -626,6 +737,7 @@ namespace OrderManagement.User_Control
 
         private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
+            HelperCS.currentdate = DatePicker.Value;
             CheckDate();
             HelperCS.dt = null;
             CheckTabActive();
@@ -651,11 +763,12 @@ namespace OrderManagement.User_Control
             CheckTabActive();
         }
 
-        private void btnEditOrder_Click(object sender, EventArgs e)
+        private void btnOrderEdit_Click(object sender, EventArgs e)
         {
-
+            lblEditmode.Text = "แก้ไขข้อมูล";
+            HelperCS.editmode = true;
+            CheckTabActive();
         }
-
 
         #endregion IndexChanged
 

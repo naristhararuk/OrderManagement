@@ -81,9 +81,8 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.btnOrderCalculate = new MetroFramework.Controls.MetroTile();
             this.pnl = new MetroFramework.Controls.MetroPanel();
-            this.PnlEditOrder = new MetroFramework.Controls.MetroPanel();
-            this.btnEditOrderThursday = new MetroFramework.Controls.MetroTile();
-            this.btnEditOrderSunday = new MetroFramework.Controls.MetroTile();
+            this.lblEditmode = new MetroFramework.Controls.MetroLabel();
+            this.btnOrderEdit = new MetroFramework.Controls.MetroTile();
             this.OrderTab.SuspendLayout();
             this.SundayTab.SuspendLayout();
             this.pnlMainSundayBody.SuspendLayout();
@@ -134,7 +133,6 @@
             // SundayTab
             // 
             this.SundayTab.AutoScroll = true;
-            this.SundayTab.Controls.Add(this.btnEditOrderSunday);
             this.SundayTab.Controls.Add(this.pnlMainSundayBody);
             this.SundayTab.Controls.Add(this.pnlSundayHead);
             this.SundayTab.Controls.Add(this.lblDateSunday);
@@ -503,7 +501,6 @@
             // ThursdayTab
             // 
             this.ThursdayTab.AutoScroll = true;
-            this.ThursdayTab.Controls.Add(this.btnEditOrderThursday);
             this.ThursdayTab.Controls.Add(this.pnlMainThursdayBody);
             this.ThursdayTab.Controls.Add(this.pnlThursdayHead);
             this.ThursdayTab.Controls.Add(this.lblDateThursday);
@@ -852,7 +849,8 @@
             this.pnl.AutoScroll = true;
             this.pnl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pnl.Controls.Add(this.PnlEditOrder);
+            this.pnl.Controls.Add(this.lblEditmode);
+            this.pnl.Controls.Add(this.btnOrderEdit);
             this.pnl.Controls.Add(this.btnOrderCalculate);
             this.pnl.Controls.Add(this.metroLabel2);
             this.pnl.Controls.Add(this.btnOrderSave);
@@ -874,48 +872,31 @@
             this.pnl.VerticalScrollbarHighlightOnWheel = false;
             this.pnl.VerticalScrollbarSize = 10;
             // 
-            // PnlEditOrder
+            // lblEditmode
             // 
-            this.PnlEditOrder.HorizontalScrollbarBarColor = true;
-            this.PnlEditOrder.HorizontalScrollbarHighlightOnWheel = false;
-            this.PnlEditOrder.HorizontalScrollbarSize = 10;
-            this.PnlEditOrder.Location = new System.Drawing.Point(1185, 28);
-            this.PnlEditOrder.Name = "PnlEditOrder";
-            this.PnlEditOrder.Size = new System.Drawing.Size(48, 48);
-            this.PnlEditOrder.TabIndex = 16;
-            this.PnlEditOrder.VerticalScrollbarBarColor = true;
-            this.PnlEditOrder.VerticalScrollbarHighlightOnWheel = false;
-            this.PnlEditOrder.VerticalScrollbarSize = 10;
+            this.lblEditmode.AutoSize = true;
+            this.lblEditmode.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblEditmode.Location = new System.Drawing.Point(1018, 94);
+            this.lblEditmode.Name = "lblEditmode";
+            this.lblEditmode.Size = new System.Drawing.Size(83, 19);
+            this.lblEditmode.TabIndex = 18;
+            this.lblEditmode.Text = "metroLabel3";
+            this.lblEditmode.UseCustomForeColor = true;
             // 
-            // btnEditOrderThursday
+            // btnOrderEdit
             // 
-            this.btnEditOrderThursday.ActiveControl = null;
-            this.btnEditOrderThursday.BackColor = System.Drawing.Color.Transparent;
-            this.btnEditOrderThursday.Location = new System.Drawing.Point(1200, 10);
-            this.btnEditOrderThursday.Name = "btnEditOrderThursday";
-            this.btnEditOrderThursday.Size = new System.Drawing.Size(32, 32);
-            this.btnEditOrderThursday.TabIndex = 17;
-            this.btnEditOrderThursday.TileImage = global::OrderManagement.Properties.Resources.Pencil_icon;
-            this.btnEditOrderThursday.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditOrderThursday.UseCustomBackColor = true;
-            this.btnEditOrderThursday.UseSelectable = true;
-            this.btnEditOrderThursday.UseTileImage = true;
-            this.btnEditOrderThursday.Click += new System.EventHandler(this.btnEditOrder_Click);
-            // 
-            // btnEditOrderSunday
-            // 
-            this.btnEditOrderSunday.ActiveControl = null;
-            this.btnEditOrderSunday.BackColor = System.Drawing.Color.Transparent;
-            this.btnEditOrderSunday.Location = new System.Drawing.Point(1199, 10);
-            this.btnEditOrderSunday.Name = "btnEditOrderSunday";
-            this.btnEditOrderSunday.Size = new System.Drawing.Size(32, 32);
-            this.btnEditOrderSunday.TabIndex = 18;
-            this.btnEditOrderSunday.TileImage = global::OrderManagement.Properties.Resources.Pencil_icon;
-            this.btnEditOrderSunday.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditOrderSunday.UseCustomBackColor = true;
-            this.btnEditOrderSunday.UseSelectable = true;
-            this.btnEditOrderSunday.UseTileImage = true;
-            this.btnEditOrderSunday.Click += new System.EventHandler(this.btnEditOrder_Click);
+            this.btnOrderEdit.ActiveControl = null;
+            this.btnOrderEdit.BackColor = System.Drawing.Color.Transparent;
+            this.btnOrderEdit.Location = new System.Drawing.Point(1185, 28);
+            this.btnOrderEdit.Name = "btnOrderEdit";
+            this.btnOrderEdit.Size = new System.Drawing.Size(48, 48);
+            this.btnOrderEdit.TabIndex = 17;
+            this.btnOrderEdit.TileImage = global::OrderManagement.Properties.Resources.edit2_48;
+            this.btnOrderEdit.TileImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrderEdit.UseCustomBackColor = true;
+            this.btnOrderEdit.UseSelectable = true;
+            this.btnOrderEdit.UseTileImage = true;
+            this.btnOrderEdit.Click += new System.EventHandler(this.btnOrderEdit_Click);
             // 
             // OrderUC
             // 
@@ -1005,7 +986,6 @@
         private MetroFramework.Controls.MetroPanel pnlMainSaturdayBody;
         private MetroFramework.Controls.MetroPanel metroPanel18;
         private MetroFramework.Controls.MetroPanel pnlSaturdayHead;
-        private MetroFramework.Controls.MetroLabel lblDateSaturday;
         private MetroFramework.Controls.MetroToggle SaturdayToggle;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private System.Windows.Forms.ComboBox ComboOrderCustomer;
@@ -1014,8 +994,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroTile btnOrderCalculate;
         private MetroFramework.Controls.MetroPanel pnl;
-        private MetroFramework.Controls.MetroPanel PnlEditOrder;
-        private MetroFramework.Controls.MetroTile btnEditOrderThursday;
-        private MetroFramework.Controls.MetroTile btnEditOrderSunday;
+        private MetroFramework.Controls.MetroTile btnOrderEdit;
+        private MetroFramework.Controls.MetroLabel lblDateSaturday;
+        private MetroFramework.Controls.MetroLabel lblEditmode;
     }
 }
