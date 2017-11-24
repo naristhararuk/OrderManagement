@@ -30,7 +30,7 @@ namespace OrderManagement.Class
         public static MetroLabel editlabel;
         public static MetroTile editbtn;
         public static MetroToggle daytoggle;
-
+        public static MetroCheckBox daycheckbox;
         public static bool editmode;
         private static int Customerid;
         private static string dayTab;
@@ -40,6 +40,7 @@ namespace OrderManagement.Class
         public static string UserName;
         public static string[] EditMode = { "", "", "", "", "", "", "" };
         public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
+        public static bool[] WeekOrder = { false, false, false, false, false, false, false };
         #region DATATABLE
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -219,20 +220,22 @@ namespace OrderManagement.Class
                 {
                     editbtn.Visible = true;
                     editmode = false;                               //can input or change value 
+                    WeekOrder[index] = (bool)ds[0].OrderStatus;
                     EditMode[index] = "แก้ไขข้อมูล";
-                    daytoggle.Visible = (bool)ds[0].OrderStatus;    //on off toggle in database order value
+                    daycheckbox.Checked = (bool)ds[0].OrderStatus;    //on off toggle in database order value
                     return HelperCS.ToDataTable(ds);
                 }
                 else
                 {
                     editbtn.Visible = false;
-                    daytoggle.Visible = false;
+                    //daycheckbox.Checked = false;
                     editmode = true;                                //can input or change value 
                     EditMode[index] = "";
                     
                     var ds2 = dailydb.GetDailyOrder(day, customerid).ToList();
                     return HelperCS.ToDataTable(ds2);
                     //return new DataTable();
+                    
                 }
             }
         }
@@ -360,7 +363,7 @@ namespace OrderManagement.Class
                         txtamount.TextAlign = HorizontalAlignment.Center;
                         txtamount.BorderStyle = BorderStyle.None;
                         txtamount.Dock = DockStyle.Fill;
-                        txtamount.Leave += new EventHandler(TextBoxInput_Leave);
+                        txtamount.Leave += new EventHandler(TextBoxAmountInput_Leave);
 
                         Panel pnl = new Panel();
                         pnl.BorderStyle = BorderStyle.Fixed3D;
@@ -518,43 +521,93 @@ namespace OrderManagement.Class
                 }
             }
         }
-        private static void TextBoxInput_Leave(object sender, EventArgs e)
+        private static void TextBoxAmountInput_Leave(object sender, EventArgs e)
         {
             TextBox txt = (TextBox)sender;
             int productid;
             if (Int32.TryParse(txt.Name, out productid))
             {
                 DataTable dtamount = QueryAllResult("Product");
-                //int amount = (from DataRow dr in dtamount.Rows
-                //              where (int)dr["ProductID"] == productid
-                //              select (int)dr["Amount"]).FirstOrDefault();
 
                 var objamount = (from DataRow dr in dtamount.Rows
                                  where (int)dr["ProductID"] == productid
                                  select dr["Amount"]).FirstOrDefault();
+
+                int orderamount = GetOrderAmount(productid);
                 int amount = objamount.ToString() != "" ? int.Parse(objamount.ToString()) : 0;
 
                 if (!string.IsNullOrEmpty(txt.Text))
                 {
-                    if (Convert.ToDecimal(txt.Text) > amount)
+                    amount = (editmode) ? amount + orderamount : amount;
+                    if (int.Parse(txt.Text) > amount)
                     {
                         Form frm = txt.FindForm();
                         MessageBox.Show("จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        // MetroMessageBox.Show(frm, "จำนวนสินค้าไม่พอ!! สินค้ามีจำนวน " + amount.ToString() + " ชิ้น", "จำนวนไม่พอ", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                         txt.Text = amount.ToString();
                         txt.Focus();
                     }
-                    else if (Convert.ToDecimal(txt.Text) <= 0)
+                    else if (int.Parse(txt.Text) <= 0)
                     {
                         MessageBox.Show("จำนวนสินค้าต้องมากกว่า 0", "จำนวนสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
-                        //Update Total
-                        UpdatePriceTotal(productid, txt.Text);
+                        UpdatePriceTotal(productid,amount , txt.Text);
                     }
                 }
             }
+        }
+        private static int GetOrderAmount(int productid)
+        {
+            int result = 0;
+            DateTime datewhere;
+            if (dayTab == "Sunday")
+            {
+                datewhere = sundate;
+            }
+            else if (dayTab == "Monday")
+            {
+                datewhere = mondate;
+            }
+            else if (dayTab == "Tuesday")
+            {
+                datewhere = tuedate;
+            }
+            else if (dayTab == "Wednesday")
+            {
+                datewhere = weddate;
+            }
+            else if (dayTab == "Thursday")
+            {
+                datewhere = thudate;
+            }
+            else if (dayTab == "Friday")
+            {
+                datewhere = fridate;
+            }
+            else if (dayTab == "Saturday")
+            {
+                datewhere = satdate;
+            }
+            else
+            {
+                datewhere = DateTime.Now;
+            }
+            using (var dailydb = new DailyOrderEntities())
+            {
+                // Get result from Stored Procedure
+                var ds = dailydb.GetOrderbyDay(datewhere, Customerid).ToList();
+                DataTable dttemp = HelperCS.ToDataTable(ds);
+
+                if (ds.Count() > 0)
+                {
+                    var objorderamount = (from DataRow dr in dttemp.Rows
+                                          where (int)dr["ProductID"] == productid  
+                                          select dr["OrderAmount"]).FirstOrDefault();
+                    result = objorderamount.ToString() != "" ? int.Parse(objorderamount.ToString()) : 0;
+                }
+            }
+            return result;
         }
         private static void ComboProductSelect_IndexChanged(object sender, EventArgs e)
         {
@@ -573,14 +626,14 @@ namespace OrderManagement.Class
                 //MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        private static void UpdatePriceTotal(int productid, string amount)
+        private static void UpdatePriceTotal(int productid,int amount, string orderamount)
         {
             if (dt.Rows.Count > 0) {
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["ProductID"].ToString() == productid.ToString())
                     {
-                        dr["OrderAmount"] = Convert.ToDecimal(amount);
+                        dr["OrderAmount"] = int.Parse(orderamount);
                     }
                 }
             }
@@ -769,20 +822,23 @@ namespace OrderManagement.Class
             try
             {
                 #region Save Sunday
-                if (dayOrder[0] == "true")
+                //if (dayOrder[0] == "true")
+                if (WeekOrder[0])
                 {
-
-                    foreach (DataRow dr in dtSun.Rows)
+                    if (dtSun != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[0];
-                        bool status = true;
+                        foreach (DataRow dr in dtSun.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[0];
+                            bool status = true;
 
-                        allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -792,18 +848,22 @@ namespace OrderManagement.Class
                 #endregion Save Sunday
 
                 #region Save Monday
-                if (dayOrder[1] == "true")
+                //if (dayOrder[1] == "true")
+                if (WeekOrder[1])
                 {
-                    foreach (DataRow dr in dtMon.Rows)
+                    if (dtMon != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[1];
-                        bool status = true;
-                        allresult[1] = SaveOrderToDatabase(mondate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        foreach (DataRow dr in dtMon.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[1];
+                            bool status = true;
+                            allresult[1] = SaveOrderToDatabase(mondate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -813,19 +873,23 @@ namespace OrderManagement.Class
                 #endregion Save Monday
 
                 #region Save Tuesday
-                if (dayOrder[2] == "true")
+                //if (dayOrder[2] == "true")
+                if (WeekOrder[2])
                 {
-                    foreach (DataRow dr in dtTue.Rows)
+                    if (dtTue != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[2];
-                        bool status = true;
+                        foreach (DataRow dr in dtTue.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[2];
+                            bool status = true;
 
-                        allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -835,19 +899,23 @@ namespace OrderManagement.Class
                 #endregion Save Tuesday
 
                 #region Save Wednesday
-                if (dayOrder[3] == "true")
+                //if (dayOrder[3] == "true")
+                if (WeekOrder[3])
                 {
-                    foreach (DataRow dr in dtWed.Rows)
+                    if (dtWed != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[3];
-                        bool status = true;
+                        foreach (DataRow dr in dtWed.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[3];
+                            bool status = true;
 
-                        allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -857,19 +925,23 @@ namespace OrderManagement.Class
                 #endregion Save Wednesday
 
                 #region Save Thursday
-                if (dayOrder[4] == "true")
+                //if (dayOrder[4] == "true")
+                if (WeekOrder[4])
                 {
-                    foreach (DataRow dr in dtThu.Rows)
+                    if (dtThu != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[4];
-                        bool status = true;
+                        foreach (DataRow dr in dtThu.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[4];
+                            bool status = true;
 
-                        allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -879,19 +951,23 @@ namespace OrderManagement.Class
                 #endregion Save Thursday
 
                 #region Save Friday
-                if (dayOrder[5] == "true")
+                //if (dayOrder[5] == "true")
+                if (WeekOrder[5])
                 {
-                    foreach (DataRow dr in dtFri.Rows)
+                    if (dtFri != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[5];
-                        bool status = true;
+                        foreach (DataRow dr in dtFri.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[5];
+                            bool status = true;
 
-                        allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -901,19 +977,23 @@ namespace OrderManagement.Class
                 #endregion Save Friday
 
                 #region Save Saturday
-                if (dayOrder[6] == "true")
+                //if (dayOrder[6] == "true")
+                if (WeekOrder[6])
                 {
-                    foreach (DataRow dr in dtSat.Rows)
+                    if (dtSat != null)
                     {
-                        int pid = int.Parse(dr["ProductID"].ToString());
-                        decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                        decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                        int oamount = int.Parse(dr["OrderAmount"].ToString());
-                        decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                        string description = EditMode[6];
-                        bool status = true;
+                        foreach (DataRow dr in dtSat.Rows)
+                        {
+                            int pid = int.Parse(dr["ProductID"].ToString());
+                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                            int oamount = int.Parse(dr["OrderAmount"].ToString());
+                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                            string description = EditMode[6];
+                            bool status = true;
 
-                        allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                        }
                     }
                 }
                 else
@@ -967,6 +1047,7 @@ namespace OrderManagement.Class
                 else
                 {
                     MessageBox.Show(frm, "Data has been Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    HelperCS.editmode = false;
                 }
 
             }
@@ -1033,49 +1114,49 @@ namespace OrderManagement.Class
                 dtSun = null;
                 //for tablepanel to dtSun
                 dtSun = dt;
-                dayOrder[0] = "true";
+                //dayOrder[0] = "true";
             }
             else if (dayTab == "Monday")
             {
                 dtMon = null;
                 //for tablepanel to dtMon
                 dtMon = dt;
-                dayOrder[1] = "true";
+                //dayOrder[1] = "true";
             }
             else if (dayTab == "Tuesday")
             {
                 dtTue = null;
                 //for tablepanel to dtTue
                 dtTue = dt;
-                dayOrder[2] = "true";
+                //dayOrder[2] = "true";
             }
             else if (dayTab == "Wednesday")
             {
                 dtWed = null;
                 //for tablepanel to dtWed
                 dtWed = dt;
-                dayOrder[3] = "true";
+                //dayOrder[3] = "true";
             }
             else if (dayTab == "Thursday")
             {
                 dtThu = null;
                 //for tablepanel to dtThu
                 dtThu = dt;
-                dayOrder[4] = "true";
+                //dayOrder[4] = "true";
             }
             else if (dayTab == "Friday")
             {
                 dtFri = null;
                 //for tablepanel to dtFri
                 dtFri = dt;
-                dayOrder[5] = "true";
+                //dayOrder[5] = "true";
             }
             else if (dayTab == "Saturday")
             {
                 dtSat = null;
                 //for tablepanel to dtSat
                 dtSat = dt;
-                dayOrder[6] = "true";
+                //dayOrder[6] = "true";
             }
         }
         private static void NewrowProductOrder(int productid, string productname)

@@ -24,7 +24,6 @@ namespace OrderManagement.User_Control
             HelperCS.AutoCompleteLoadValues(ComboOrderCustomer, "Customer");
             CheckDate();
             lblEditmode.Text = "";
-            //btnOrderEdit.Visible = false;
         }
         /*
         public void ToggleOrder(string name, bool status)
@@ -110,17 +109,7 @@ namespace OrderManagement.User_Control
         private void OrderUC_Load(object sender, EventArgs e)
         {
             btnOrderEdit.Visible = false;
-            //HelperCS.FormMain = new Form1();
-            
-            //CreateTemplateTable();
-            //CheckTabBindGrid();
-        }
-
-        private void btnOrderSave_Click(object sender, EventArgs e)
-        {
-            MetroTile btn = (MetroTile)sender;
-            HelperCS.SaveAllOrder(btn);
-            lblEditmode.Text = "";
+            HelperCS.editmode = false;
         }
 
         //private void BindGrid()
@@ -339,83 +328,123 @@ namespace OrderManagement.User_Control
                 HelperCS.editlabel = lblEditmode;
                 HelperCS.editbtn = btnOrderEdit;
                 if (OrderTab.SelectedTab == OrderTab.TabPages["SundayTab"])
-                {   
-                    if (SundayToggle.Checked == true)
-                    {
-                        HelperCS.daytoggle = SundayToggle;
-                        HelperCS.CreatePanelTable(pnlSundayHead, pnlMainSundayBody, "Sunday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Sunday");
-                    }
+                {
+                    //if (chkbOrderSunday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[0] = true;
+                    //    HelperCS.CreatePanelTable(pnlSundayHead, pnlMainSundayBody, "Sunday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[0] = false;
+                    //    //ClearPanel("Sunday");
+                    //}
+                    chkbOrderSunday.Checked = HelperCS.editmode ? true : chkbOrderSunday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderSunday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderSunday;
+                    HelperCS.CreatePanelTable(pnlSundayHead, pnlMainSundayBody, "Sunday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["MondayTab"])
                 {
-                    if (MondayToggle.Checked == true)
-                    {
-                        HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Monday");
-                    }
+                    //if (chkbOrderMonday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[1] = true;
+                    //    HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[1] = false;
+                    //    //ClearPanel("Monday");
+                    //}
+                    chkbOrderMonday.Checked = HelperCS.editmode ? true : chkbOrderMonday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderMonday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderMonday;
+                    HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["TuesdayTab"])
                 {
-                    if (TuesdayToggle.Checked == true)
-                    {
-                        HelperCS.CreatePanelTable(pnlTuesdayHead, pnlMainTuesdayBody, "Tuesday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Tuesday");
-                    }
+                    //if (chkbOrderTuesday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[2] = true;
+                    //    HelperCS.CreatePanelTable(pnlTuesdayHead, pnlMainTuesdayBody, "Tuesday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[2] = false;
+                    //    //ClearPanel("Tuesday");
+                    //}
+                    chkbOrderTuesday.Checked = HelperCS.editmode ? true : chkbOrderTuesday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderTuesday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderTuesday;
+                    HelperCS.CreatePanelTable(pnlTuesdayHead, pnlMainTuesdayBody, "Tuesday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["WednesdayTab"])
                 {
-                    if (WednesdayToggle.Checked == true)
-                    {
-                        HelperCS.CreatePanelTable(pnlWednesdayHead, pnlMainWednesdayBody, "Wednesday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Wednesday");
-                    }
+                    //if (chkbOrderWednesday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[3] = true;
+                    //    HelperCS.CreatePanelTable(pnlWednesdayHead, pnlMainWednesdayBody, "Wednesday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[3] = false;
+                    //    //ClearPanel("Wednesday");
+                    //}
+                    chkbOrderWednesday.Checked = HelperCS.editmode ? true : chkbOrderWednesday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderWednesday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderWednesday;
+                    HelperCS.CreatePanelTable(pnlWednesdayHead, pnlMainWednesdayBody, "Wednesday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["ThursdayTab"])
                 {
-                    if (ThursdayToggle.Checked == true)
-                    {
-                        HelperCS.daytoggle = ThursdayToggle;
-                        HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Thursday");
-                    }
+                    //if (chkbOrderThursday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[4] = true;
+                    //    HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[4] = false;
+                    //    //ClearPanel("Thursday");
+                    //}
+                    chkbOrderThursday.Checked = HelperCS.editmode ? true : chkbOrderThursday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderThursday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderThursday;
+                    HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["FridayTab"])
                 {
-                    if (FridayToggle.Checked == true)
-                    {
-                        HelperCS.CreatePanelTable(pnlFridayHead, pnlMainFridayBody, "Friday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Friday");
-                    }
+                    //if (chkbOrderFriday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[5] = true;
+                    //    HelperCS.CreatePanelTable(pnlFridayHead, pnlMainFridayBody, "Friday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[5] = false;
+                    //    //ClearPanel("Friday");
+                    //}
+                    chkbOrderFriday.Checked = HelperCS.editmode ? true : chkbOrderFriday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderFriday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderFriday;
+                    HelperCS.CreatePanelTable(pnlFridayHead, pnlMainFridayBody, "Friday", customerid);
                 }
                 else if (OrderTab.SelectedTab == OrderTab.TabPages["SaturdayTab"])
                 {
-                    if (SaturdayToggle.Checked == true)
-                    {
-                        HelperCS.CreatePanelTable(pnlSaturdayHead, pnlMainSaturdayBody, "Saturday", customerid);
-                    }
-                    else
-                    {
-                        ClearPanel("Saturday");
-                    }
+                    //if (chkbOrderSaturday.Checked == true)
+                    //{
+                    //    HelperCS.WeekOrder[6] = true;
+                    //    HelperCS.CreatePanelTable(pnlSaturdayHead, pnlMainSaturdayBody, "Saturday", customerid);
+                    //}
+                    //else
+                    //{
+                    //    HelperCS.WeekOrder[6] = false;
+                    //    //ClearPanel("Saturday");
+                    //}
+                    chkbOrderSaturday.Checked = HelperCS.editmode ? true : chkbOrderSaturday.Checked;
+                    HelperCS.WeekOrder[0] = chkbOrderSaturday.Checked ? true : false;
+                    HelperCS.daycheckbox = chkbOrderSaturday;
+                    HelperCS.CreatePanelTable(pnlSaturdayHead, pnlMainSaturdayBody, "Saturday", customerid);
                 }
             }
             else
@@ -701,6 +730,30 @@ namespace OrderManagement.User_Control
         }
         #endregion Method
 
+        #region Event Click  
+        private void btnOrderEdit_Click(object sender, EventArgs e)
+        {
+            lblEditmode.Text = "แก้ไขข้อมูล";
+            HelperCS.editmode = true;
+            CheckTabActive();
+        }
+
+        private void btnOrderCalculate_Click(object sender, EventArgs e)
+        {
+            //CheckDate();
+            CheckTabActive();
+        }
+
+        private void btnOrderSave_Click(object sender, EventArgs e)
+        {
+            MetroTile btn = (MetroTile)sender;
+            HelperCS.SaveAllOrder(btn);
+            lblEditmode.Text = "";
+            CheckTabActive();
+        }
+
+        #endregion Event Click   
+
         #region IndexChanged  
         //TAB      
         private void OrderTab_SelectedIndexChanged(object sender, EventArgs e)
@@ -709,6 +762,7 @@ namespace OrderManagement.User_Control
             if (ComboOrderCustomer.SelectedIndex > 0)
             {
                 HelperCS.dt = null;
+                lblEditmode.Text = "";
                 CheckTabActive();
             }
             else
@@ -742,8 +796,7 @@ namespace OrderManagement.User_Control
             HelperCS.dt = null;
             CheckTabActive();
         }
-
-        //TOGGLE DAY
+        //TOGGLE DAY 'Not Use' change to checkbox *******************************************************
         private void DayToggle_CheckedChanged(object sender, EventArgs e)
         {
             CheckTabActive();
@@ -756,17 +809,18 @@ namespace OrderManagement.User_Control
             //    MessageBox.Show("Please Select Customer Before", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             //}
         }
-
-        private void btnOrderCalculate_Click(object sender, EventArgs e)
+        //Check Order
+        private void chkbOrderDay_CheckedChanged(object sender, EventArgs e)
         {
-            //CheckDate();
-            CheckTabActive();
-        }
-
-        private void btnOrderEdit_Click(object sender, EventArgs e)
-        {
-            lblEditmode.Text = "แก้ไขข้อมูล";
-            HelperCS.editmode = true;
+            MetroCheckBox chk = (MetroCheckBox)sender;
+            if (chk.Checked)
+            {
+                chk.ForeColor = Color.Green;
+            }
+            else
+            {
+                chk.ForeColor = Color.Gray;
+            }
             CheckTabActive();
         }
 

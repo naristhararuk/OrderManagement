@@ -57,6 +57,7 @@
             this.lblDateWednesday = new MetroFramework.Controls.MetroLabel();
             this.WednesdayToggle = new MetroFramework.Controls.MetroToggle();
             this.ThursdayTab = new MetroFramework.Controls.MetroTabPage();
+            this.chkbOrderThursday = new MetroFramework.Controls.MetroCheckBox();
             this.pnlMainThursdayBody = new MetroFramework.Controls.MetroPanel();
             this.metroPanel12 = new MetroFramework.Controls.MetroPanel();
             this.pnlThursdayHead = new MetroFramework.Controls.MetroPanel();
@@ -83,6 +84,12 @@
             this.pnl = new MetroFramework.Controls.MetroPanel();
             this.lblEditmode = new MetroFramework.Controls.MetroLabel();
             this.btnOrderEdit = new MetroFramework.Controls.MetroTile();
+            this.chkbOrderSunday = new MetroFramework.Controls.MetroCheckBox();
+            this.chkbOrderMonday = new MetroFramework.Controls.MetroCheckBox();
+            this.chkbOrderTuesday = new MetroFramework.Controls.MetroCheckBox();
+            this.chkbOrderWednesday = new MetroFramework.Controls.MetroCheckBox();
+            this.chkbOrderFriday = new MetroFramework.Controls.MetroCheckBox();
+            this.chkbOrderSaturday = new MetroFramework.Controls.MetroCheckBox();
             this.OrderTab.SuspendLayout();
             this.SundayTab.SuspendLayout();
             this.pnlMainSundayBody.SuspendLayout();
@@ -133,6 +140,7 @@
             // SundayTab
             // 
             this.SundayTab.AutoScroll = true;
+            this.SundayTab.Controls.Add(this.chkbOrderSunday);
             this.SundayTab.Controls.Add(this.pnlMainSundayBody);
             this.SundayTab.Controls.Add(this.pnlSundayHead);
             this.SundayTab.Controls.Add(this.lblDateSunday);
@@ -225,6 +233,7 @@
             // MondayTab
             // 
             this.MondayTab.AutoScroll = true;
+            this.MondayTab.Controls.Add(this.chkbOrderMonday);
             this.MondayTab.Controls.Add(this.pnlMainMondayBody);
             this.MondayTab.Controls.Add(this.lblDateMonday);
             this.MondayTab.Controls.Add(this.MondayToggle);
@@ -317,6 +326,7 @@
             // TuesdayTab
             // 
             this.TuesdayTab.AutoScroll = true;
+            this.TuesdayTab.Controls.Add(this.chkbOrderTuesday);
             this.TuesdayTab.Controls.Add(this.pnlMainTuesdayBody);
             this.TuesdayTab.Controls.Add(this.pnlTuesdayHead);
             this.TuesdayTab.Controls.Add(this.lblDateTuesday);
@@ -409,6 +419,7 @@
             // WednesdayTab
             // 
             this.WednesdayTab.AutoScroll = true;
+            this.WednesdayTab.Controls.Add(this.chkbOrderWednesday);
             this.WednesdayTab.Controls.Add(this.pnlMainWednesdayBody);
             this.WednesdayTab.Controls.Add(this.pnlWednesdayHead);
             this.WednesdayTab.Controls.Add(this.lblDateWednesday);
@@ -501,6 +512,7 @@
             // ThursdayTab
             // 
             this.ThursdayTab.AutoScroll = true;
+            this.ThursdayTab.Controls.Add(this.chkbOrderThursday);
             this.ThursdayTab.Controls.Add(this.pnlMainThursdayBody);
             this.ThursdayTab.Controls.Add(this.pnlThursdayHead);
             this.ThursdayTab.Controls.Add(this.lblDateThursday);
@@ -513,11 +525,27 @@
             this.ThursdayTab.Name = "ThursdayTab";
             this.ThursdayTab.Size = new System.Drawing.Size(1412, 645);
             this.ThursdayTab.TabIndex = 4;
-            this.ThursdayTab.Text = "   Thursday   ";
+            this.ThursdayTab.Text = "Thursday   ";
             this.ThursdayTab.VerticalScrollbar = true;
             this.ThursdayTab.VerticalScrollbarBarColor = true;
             this.ThursdayTab.VerticalScrollbarHighlightOnWheel = false;
             this.ThursdayTab.VerticalScrollbarSize = 20;
+            // 
+            // chkbOrderThursday
+            // 
+            this.chkbOrderThursday.AutoSize = true;
+            this.chkbOrderThursday.Checked = true;
+            this.chkbOrderThursday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderThursday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderThursday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderThursday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderThursday.Name = "chkbOrderThursday";
+            this.chkbOrderThursday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderThursday.TabIndex = 23;
+            this.chkbOrderThursday.Text = "สั่งของ";
+            this.chkbOrderThursday.UseCustomForeColor = true;
+            this.chkbOrderThursday.UseSelectable = true;
+            this.chkbOrderThursday.CheckedChanged += new System.EventHandler(this.chkbOrderDay_CheckedChanged);
             // 
             // pnlMainThursdayBody
             // 
@@ -593,6 +621,7 @@
             // FridayTab
             // 
             this.FridayTab.AutoScroll = true;
+            this.FridayTab.Controls.Add(this.chkbOrderFriday);
             this.FridayTab.Controls.Add(this.pnlMainFridayBody);
             this.FridayTab.Controls.Add(this.pnlFridayHead);
             this.FridayTab.Controls.Add(this.lblDateFriday);
@@ -685,6 +714,7 @@
             // SaturdayTab
             // 
             this.SaturdayTab.AutoScroll = true;
+            this.SaturdayTab.Controls.Add(this.chkbOrderSaturday);
             this.SaturdayTab.Controls.Add(this.pnlMainSaturdayBody);
             this.SaturdayTab.Controls.Add(this.pnlSaturdayHead);
             this.SaturdayTab.Controls.Add(this.lblDateSaturday);
@@ -898,6 +928,96 @@
             this.btnOrderEdit.UseTileImage = true;
             this.btnOrderEdit.Click += new System.EventHandler(this.btnOrderEdit_Click);
             // 
+            // chkbOrderSunday
+            // 
+            this.chkbOrderSunday.AutoSize = true;
+            this.chkbOrderSunday.Checked = true;
+            this.chkbOrderSunday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderSunday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderSunday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderSunday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderSunday.Name = "chkbOrderSunday";
+            this.chkbOrderSunday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderSunday.TabIndex = 24;
+            this.chkbOrderSunday.Text = "สั่งของ";
+            this.chkbOrderSunday.UseCustomForeColor = true;
+            this.chkbOrderSunday.UseSelectable = true;
+            // 
+            // chkbOrderMonday
+            // 
+            this.chkbOrderMonday.AutoSize = true;
+            this.chkbOrderMonday.Checked = true;
+            this.chkbOrderMonday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderMonday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderMonday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderMonday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderMonday.Name = "chkbOrderMonday";
+            this.chkbOrderMonday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderMonday.TabIndex = 24;
+            this.chkbOrderMonday.Text = "สั่งของ";
+            this.chkbOrderMonday.UseCustomForeColor = true;
+            this.chkbOrderMonday.UseSelectable = true;
+            // 
+            // chkbOrderTuesday
+            // 
+            this.chkbOrderTuesday.AutoSize = true;
+            this.chkbOrderTuesday.Checked = true;
+            this.chkbOrderTuesday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderTuesday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderTuesday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderTuesday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderTuesday.Name = "chkbOrderTuesday";
+            this.chkbOrderTuesday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderTuesday.TabIndex = 24;
+            this.chkbOrderTuesday.Text = "สั่งของ";
+            this.chkbOrderTuesday.UseCustomForeColor = true;
+            this.chkbOrderTuesday.UseSelectable = true;
+            // 
+            // chkbOrderWednesday
+            // 
+            this.chkbOrderWednesday.AutoSize = true;
+            this.chkbOrderWednesday.Checked = true;
+            this.chkbOrderWednesday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderWednesday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderWednesday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderWednesday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderWednesday.Name = "chkbOrderWednesday";
+            this.chkbOrderWednesday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderWednesday.TabIndex = 24;
+            this.chkbOrderWednesday.Text = "สั่งของ";
+            this.chkbOrderWednesday.UseCustomForeColor = true;
+            this.chkbOrderWednesday.UseSelectable = true;
+            // 
+            // chkbOrderFriday
+            // 
+            this.chkbOrderFriday.AutoSize = true;
+            this.chkbOrderFriday.Checked = true;
+            this.chkbOrderFriday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderFriday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderFriday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderFriday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderFriday.Name = "chkbOrderFriday";
+            this.chkbOrderFriday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderFriday.TabIndex = 24;
+            this.chkbOrderFriday.Text = "สั่งของ";
+            this.chkbOrderFriday.UseCustomForeColor = true;
+            this.chkbOrderFriday.UseSelectable = true;
+            // 
+            // chkbOrderSaturday
+            // 
+            this.chkbOrderSaturday.AutoSize = true;
+            this.chkbOrderSaturday.Checked = true;
+            this.chkbOrderSaturday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbOrderSaturday.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.chkbOrderSaturday.ForeColor = System.Drawing.Color.Green;
+            this.chkbOrderSaturday.Location = new System.Drawing.Point(9, 12);
+            this.chkbOrderSaturday.Name = "chkbOrderSaturday";
+            this.chkbOrderSaturday.Size = new System.Drawing.Size(73, 25);
+            this.chkbOrderSaturday.TabIndex = 24;
+            this.chkbOrderSaturday.Text = "สั่งของ";
+            this.chkbOrderSaturday.UseCustomForeColor = true;
+            this.chkbOrderSaturday.UseSelectable = true;
+            // 
             // OrderUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -997,5 +1117,12 @@
         private MetroFramework.Controls.MetroTile btnOrderEdit;
         private MetroFramework.Controls.MetroLabel lblDateSaturday;
         private MetroFramework.Controls.MetroLabel lblEditmode;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderThursday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderSunday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderMonday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderTuesday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderWednesday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderFriday;
+        private MetroFramework.Controls.MetroCheckBox chkbOrderSaturday;
     }
 }
