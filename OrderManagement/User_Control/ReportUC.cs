@@ -33,6 +33,8 @@ namespace OrderManagement.User_Control
             //    if (txtUserName.Text == item.UserName)
             //        validuser = true;
             //}
+            ReceiveForm reportreceive = new ReceiveForm();
+            reportreceive.ShowDialog();
         }
 
 

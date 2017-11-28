@@ -144,6 +144,13 @@ namespace OrderManagement.Class
                             select new { x.Value, x.Name };
                 return HelperCS.ToDataTable(query.ToList());
             }
+            else if (tableName == "Config-ReportName")
+            {
+                var query = from x in db.Config
+                            where x.Module == "ReportName"
+                            select new { x.Value, x.Name };
+                return HelperCS.ToDataTable(query.ToList());
+            }
             else
             {
                 return new DataTable();

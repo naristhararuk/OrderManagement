@@ -87,11 +87,14 @@
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -198,6 +201,12 @@
     </Compile>
     <Compile Include="LoginModelCS.cs" />
     <Compile Include="Model\DataInfo.cs" />
+    <Compile Include="ReceiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceiveForm.Designer.cs">
+      <DependentUpon>ReceiveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="User_Control\CustomerUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -271,6 +280,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form5.resx">
       <DependentUpon>Form5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiveForm.resx">
+      <DependentUpon>ReceiveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceiveRpt.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
