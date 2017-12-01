@@ -75,6 +75,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GreatFriends.ThaiBahtText, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThaiBahtText.0.9.0\lib\net40\GreatFriends.ThaiBahtText.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
       <Private>True</Private>
@@ -115,32 +119,22 @@
     <Compile Include="CustomerManagement.Designer.cs">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\ReportDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Config.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\DailyOrderEN.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderEN.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\DailyOrderEN.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderEN.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\DailyOrderEN.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Entity\GetDailyOrder_Result.cs">
-      <DependentUpon>DailyOrderEN.tt</DependentUpon>
+      <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetOrderbyDay_Result.cs">
-      <DependentUpon>DailyOrderEN.tt</DependentUpon>
+      <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Login.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
@@ -167,7 +161,16 @@
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\SelectGridPaging_Result.cs">
-      <DependentUpon>DailyOrderEN.tt</DependentUpon>
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\vwCustomerDetail.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\vwOrder.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
@@ -201,6 +204,11 @@
     </Compile>
     <Compile Include="LoginModelCS.cs" />
     <Compile Include="Model\DataInfo.cs" />
+    <Compile Include="OrderDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReceiveForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,6 +295,7 @@
     <EmbeddedResource Include="ReceiveRpt.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\Invoice.rdlc" />
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -322,22 +331,56 @@
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Dataset\ReportDS.xsc">
+      <DependentUpon>ReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Dataset\ReportDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReportDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Dataset\ReportDS.xss">
+      <DependentUpon>ReportDS.xsd</DependentUpon>
+    </None>
     <EntityDeploy Include="Entity\OrderEN.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OrderEN.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Entity\DailyOrderEN.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DailyOrderEN.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entity\DailyOrderEN.edmx.diagram">
-      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
-    </None>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
     </None>
+    <None Include="OrderDataSet.xsc">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OrderDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OrderDataSet.xss">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </None>
     <None Include="OrderManagement_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+ConfigDataTable.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+ConfigRow.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+ConfigRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+ConfigRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+CustomerDataTable.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+CustomerRow.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+CustomerRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+CustomerRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayDataTable.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRow.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailDataTable.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRow.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDSTableAdapters.GetOrderbyDayTableAdapter.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDSTableAdapters.vwCustomerDetailTableAdapter.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Customer.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Order.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Product.datasource" />
@@ -468,26 +511,6 @@
     <None Include="Resources\chart-481.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entity\DailyOrderEN.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
-      <LastGenOutput>DailyOrderEN.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\DailyOrderEN.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DailyOrderEN.edmx</DependentUpon>
-      <LastGenOutput>DailyOrderEN.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\OrderEN.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderEN.edmx</DependentUpon>
-      <LastGenOutput>OrderEN.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\OrderEN.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrderEN.edmx</DependentUpon>
-      <LastGenOutput>OrderEN.cs</LastGenOutput>
-    </Content>
     <None Include="Resources\edit2-48.png" />
     <None Include="Resources\Pencil-icon48.png" />
     <None Include="Resources\Pencil-icon.png" />
@@ -502,6 +525,18 @@
     <None Include="Resources\accessories-calculator-icon.png" />
     <None Include="Resources\Female-Face-FA-5-icon %281%29.png" />
     <None Include="Resources\Female-Face-FA-5-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entity\OrderEN.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderEN.edmx</DependentUpon>
+      <LastGenOutput>OrderEN.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entity\OrderEN.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrderEN.edmx</DependentUpon>
+      <LastGenOutput>OrderEN.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

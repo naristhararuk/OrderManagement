@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="OrderEntities">
-    <EntitySetMapping Name="Configs">
+    <EntitySetMapping Name="Config">
       <EntityTypeMapping TypeName="OrderModel.Config">
         <MappingFragment StoreEntitySet="Config">
           <ScalarProperty Name="run" ColumnName="run" />
@@ -14,7 +14,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Customers">
+    <EntitySetMapping Name="Customer">
       <EntityTypeMapping TypeName="OrderModel.Customer">
         <MappingFragment StoreEntitySet="Customer">
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -33,7 +33,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Logins">
+    <EntitySetMapping Name="Login">
       <EntityTypeMapping TypeName="OrderModel.Login">
         <MappingFragment StoreEntitySet="Login">
           <ScalarProperty Name="run" ColumnName="run" />
@@ -46,7 +46,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
+    <EntitySetMapping Name="Order">
       <EntityTypeMapping TypeName="OrderModel.Order">
         <MappingFragment StoreEntitySet="Order">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -64,7 +64,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Products">
+    <EntitySetMapping Name="Product">
       <EntityTypeMapping TypeName="OrderModel.Product">
         <MappingFragment StoreEntitySet="Product">
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -81,11 +81,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vwOrders">
+    <EntitySetMapping Name="vwCustomerDetail">
+      <EntityTypeMapping TypeName="OrderModel.vwCustomerDetail">
+        <MappingFragment StoreEntitySet="vwCustomerDetail">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
+          <ScalarProperty Name="Zone" ColumnName="Zone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwOrder">
       <EntityTypeMapping TypeName="OrderModel.vwOrder">
         <MappingFragment StoreEntitySet="vwOrder">
-          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -97,10 +113,12 @@
           <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vwOrderDetails">
+    <EntitySetMapping Name="vwOrderDetail">
       <EntityTypeMapping TypeName="OrderModel.vwOrderDetail">
         <MappingFragment StoreEntitySet="vwOrderDetail">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -131,5 +149,97 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteRecord" FunctionName="OrderModel.Store.DeleteRecord" />
+    <FunctionImportMapping FunctionImportName="GetDailyOrder" FunctionName="OrderModel.Store.GetDailyOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrderModel.GetDailyOrder_Result">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+          <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+          <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetOrderbyDay" FunctionName="OrderModel.Store.GetOrderbyDay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrderModel.GetOrderbyDay_Result">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+          <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+          <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertCustomer" FunctionName="OrderModel.Store.InsertCustomer" />
+    <FunctionImportMapping FunctionImportName="InsertOrder" FunctionName="OrderModel.Store.InsertOrder" />
+    <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="OrderModel.Store.InsertProduct" />
+    <FunctionImportMapping FunctionImportName="SelectGridPaging" FunctionName="OrderModel.Store.SelectGridPaging">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrderModel.SelectGridPaging_Result">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="OrderModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="OrderModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="OrderModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="OrderModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrderModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="OrderModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrderModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="OrderModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="OrderModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="OrderModel.Store.UpdateCustomer" />
+    <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="OrderModel.Store.UpdateOrder" />
+    <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="OrderModel.Store.UpdateProduct" />
   </EntityContainerMapping>
 </Mapping>

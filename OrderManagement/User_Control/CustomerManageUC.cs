@@ -77,7 +77,7 @@ namespace OrderManagement.User_Control
                 if (customerid > 0)
                 {
                     //edit customer
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.UpdateCustomer(customerid,txtbCustomerCitizenID.Text, txtbCustomerName.Text, txtbCustomerAbbr.Text, zone, txtbCustomerAddress1.Text, txtbCustomerAddress2.Text, txtbCustomerPhone.Text, txtbCustomerDescription.Text, chkCustomerShowPrice.Checked, true, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
@@ -101,7 +101,7 @@ namespace OrderManagement.User_Control
                 else
                 {
                     //add new customer
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.InsertCustomer(txtbCustomerCitizenID.Text,txtbCustomerName.Text,txtbCustomerAbbr.Text, zone, txtbCustomerAddress1.Text,txtbCustomerAddress2.Text,txtbCustomerPhone.Text,txtbCustomerDescription.Text,chkCustomerShowPrice.Checked,true,DateTime.Now,HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
@@ -146,7 +146,7 @@ namespace OrderManagement.User_Control
                 {
                     //delete customer set status = 0 (false)
                     int queryresult = 0;
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.DeleteRecord("Customer", customerid, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)

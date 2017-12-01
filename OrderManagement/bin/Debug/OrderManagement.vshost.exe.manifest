@@ -81,6 +81,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GreatFriends.ThaiBahtText.dll" size="9216">
+      <assemblyIdentity name="GreatFriends.ThaiBahtText" version="0.2.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>vTy/29+wFuiksChE4r3YydfA0OCCwfgoY4AyTlBzIgM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MetroFramework.dll" size="353280">
       <assemblyIdentity name="MetroFramework" version="1.4.0.0" publicKeyToken="5F91A84759BF584A" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -261,35 +273,17 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="416720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="655824">
       <assemblyIdentity name="OrderManagement" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8WtpgS+XXd1jCw2vQPsgCyAOeJLmxisNZCG0MBxzKn4=</dsig:DigestValue>
+        <dsig:DigestValue>fXRLvZF0d6mhABiagVbjCpD0K3LyijERboWIW0RVZQs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Entity\DailyOrderEN.Context.tt" size="22936">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>I+g6YdwWBfCyVfkllR7G39oPHMrtX94Yz2MQC1LT02U=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Entity\DailyOrderEN.tt" size="25281">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>SNGsURSpkIWa2AdfpPTkhT7cpfNa6YnINXEIBlHUwRk=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="Entity\OrderEN.Context.tt" size="22931">
     <hash>
       <dsig:Transforms>
@@ -308,13 +302,13 @@
       <dsig:DigestValue>n7xFyZPzwgt1zsIPFxwhfWPvUcs1ZKkWaSCydil9Qbg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrderManagement.exe.config" size="2591">
+  <file name="OrderManagement.exe.config" size="1680">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>5x2G8T99kVQv9yyBB571oO5mMizRb5ppbhNodMHzpP8=</dsig:DigestValue>
+      <dsig:DigestValue>Mrlij9PCasFVhHoK8enK91reQW3yz5Xy1pVHhrnKz2U=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

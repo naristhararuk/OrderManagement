@@ -76,6 +76,25 @@
     <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'Order.dbo.vwCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vwCustomerDetail">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+    <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
+    <Property Name="Zone" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Address1" Type="nvarchar(max)" />
+    <Property Name="Address2" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ShowPrice" Type="bit" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vwOrder">
     <Key>
@@ -127,12 +146,158 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Property Name="Phone" Type="nvarchar" MaxLength="50" />
     <Property Name="ShowPrice" Type="bit" />
   </EntityType>
+  <Function Name="DeleteRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="table" Type="nvarchar" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="day" Type="varchar" Mode="In" />
+    <Parameter Name="customer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetOrderbyDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="customer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
+    <Parameter Name="customername" Type="nvarchar" Mode="In" />
+    <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
+    <Parameter Name="zone" Type="int" Mode="In" />
+    <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="showprice" Type="bit" Mode="In" />
+    <Parameter Name="status" Type="bit" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="InsertOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="orderdate" Type="datetime" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="customerid" Type="int" Mode="In" />
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderamount" Type="int" Mode="In" />
+    <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="orderStatus" Type="bit" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productname" Type="nvarchar" Mode="In" />
+    <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
+    <Parameter Name="category" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="unit" Type="int" Mode="In" />
+    <Parameter Name="productamount" Type="int" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="status" Type="bit" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SelectGridPaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablename" Type="nvarchar" Mode="In" />
+    <Parameter Name="minpagesize" Type="int" Mode="In" />
+    <Parameter Name="intskip" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="customerid" Type="int" Mode="In" />
+    <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
+    <Parameter Name="customername" Type="nvarchar" Mode="In" />
+    <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
+    <Parameter Name="zone" Type="int" Mode="In" />
+    <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="showprice" Type="bit" Mode="In" />
+    <Parameter Name="status" Type="bit" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="orderdate" Type="datetime" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="customerid" Type="int" Mode="In" />
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderprice" Type="decimal" Mode="In" />
+    <Parameter Name="orderamount" Type="int" Mode="In" />
+    <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="status" Type="bit" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productname" Type="nvarchar" Mode="In" />
+    <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
+    <Parameter Name="category" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="unit" Type="int" Mode="In" />
+    <Parameter Name="productamount" Type="int" Mode="In" />
+    <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="status" Type="bit" Mode="In" />
+    <Parameter Name="updatedate" Type="datetime" Mode="In" />
+    <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="OrderModelStoreContainer">
     <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vwCustomerDetail].[CustomerID] AS [CustomerID], 
+    [vwCustomerDetail].[CitizenID] AS [CitizenID], 
+    [vwCustomerDetail].[CustomerName] AS [CustomerName], 
+    [vwCustomerDetail].[CustomerAbbr] AS [CustomerAbbr], 
+    [vwCustomerDetail].[Zone] AS [Zone], 
+    [vwCustomerDetail].[Name] AS [Name], 
+    [vwCustomerDetail].[Address1] AS [Address1], 
+    [vwCustomerDetail].[Address2] AS [Address2], 
+    [vwCustomerDetail].[Phone] AS [Phone], 
+    [vwCustomerDetail].[Description] AS [Description], 
+    [vwCustomerDetail].[ShowPrice] AS [ShowPrice], 
+    [vwCustomerDetail].[Status] AS [Status]
+    FROM [dbo].[vwCustomerDetail] AS [vwCustomerDetail]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 

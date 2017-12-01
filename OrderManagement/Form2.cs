@@ -168,7 +168,7 @@ namespace OrderManagement
         }
         private DataTable DataEntity()
         {
-            using (var dailydb = new DailyOrderEntities())
+            using (var dailydb = new OrderEntities())
             {
                 // Get result from Stored Procedure
 

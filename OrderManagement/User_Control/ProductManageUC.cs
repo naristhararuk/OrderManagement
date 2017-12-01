@@ -72,7 +72,7 @@ namespace OrderManagement.User_Control
                 if (productid > 0)
                 {
                     //edit product
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.UpdateProduct(productid, txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), int.Parse(txtbProductUnit.Text), int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
@@ -96,7 +96,7 @@ namespace OrderManagement.User_Control
                 else
                 {
                     //add new product
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.InsertProduct(txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), int.Parse(txtbProductUnit.Text), int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
@@ -141,7 +141,7 @@ namespace OrderManagement.User_Control
                 {
                     //delete customer set status = 0 (false)
                     int queryresult = 0;
-                    using (var db = new DailyOrderEntities())
+                    using (var db = new OrderEntities())
                     {
                         var ds = db.DeleteRecord("Product", productid, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)

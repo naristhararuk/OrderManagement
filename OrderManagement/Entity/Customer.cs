@@ -18,7 +18,7 @@ namespace OrderManagement.Entity
         public string CitizenID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerAbbr { get; set; }
-        public Nullable<byte> Zone { get; set; }
+        public Nullable<int> Zone { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Phone { get; set; }

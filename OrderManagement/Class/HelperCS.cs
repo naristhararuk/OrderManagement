@@ -159,7 +159,7 @@ namespace OrderManagement.Class
 
         public static DataTable GetDailyOrderTable(string day, int customerid)
         {
-            using (var dailydb = new DailyOrderEntities())
+            using (var dailydb = new OrderEntities())
             {
                 // Get result from Stored Procedure
                 var ds = dailydb.GetDailyOrder(day, customerid).ToList();
@@ -218,7 +218,7 @@ namespace OrderManagement.Class
             {
                 datewhere = DateTime.Now;
             }
-            using (var dailydb = new DailyOrderEntities())
+            using (var dailydb = new OrderEntities())
             {
                 // Get result from Stored Procedure
                 var ds = dailydb.GetOrderbyDay(datewhere, customerid).ToList();
@@ -600,7 +600,7 @@ namespace OrderManagement.Class
             {
                 datewhere = DateTime.Now;
             }
-            using (var dailydb = new DailyOrderEntities())
+            using (var dailydb = new OrderEntities())
             {
                 // Get result from Stored Procedure
                 var ds = dailydb.GetOrderbyDay(datewhere, Customerid).ToList();
@@ -1068,7 +1068,7 @@ namespace OrderManagement.Class
         {
             int result = 1;
 
-            using (var db = new DailyOrderEntities())
+            using (var db = new OrderEntities())
             {
                 if (EditMode[IndexDateofWeek(orderdate)] == "")
                 {

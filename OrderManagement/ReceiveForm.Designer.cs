@@ -40,7 +40,9 @@
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.OrderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.CustomerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.OrderBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // metroLabel2
@@ -162,6 +164,7 @@
             this.Text = "ReceiveForm";
             this.Load += new System.EventHandler(this.ReceiveForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.OrderBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +181,6 @@
         private System.Windows.Forms.ComboBox ddlReportName;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private System.Windows.Forms.BindingSource CustomerBindingSource;
     }
 }

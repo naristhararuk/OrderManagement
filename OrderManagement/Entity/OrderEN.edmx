@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="run" />
@@ -81,6 +81,25 @@
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Order.dbo.vwCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwCustomerDetail">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
+          <Property Name="Zone" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address1" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ShowPrice" Type="bit" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwOrder">
           <Key>
@@ -132,12 +151,158 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="ShowPrice" Type="bit" />
         </EntityType>
+        <Function Name="DeleteRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="table" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="day" Type="varchar" Mode="In" />
+          <Parameter Name="customer" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetOrderbyDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="customer" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
+          <Parameter Name="customername" Type="nvarchar" Mode="In" />
+          <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
+          <Parameter Name="zone" Type="int" Mode="In" />
+          <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="showprice" Type="bit" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderdate" Type="datetime" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="customerid" Type="int" Mode="In" />
+          <Parameter Name="productid" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderamount" Type="int" Mode="In" />
+          <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="orderStatus" Type="bit" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="productname" Type="nvarchar" Mode="In" />
+          <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="unit" Type="int" Mode="In" />
+          <Parameter Name="productamount" Type="int" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SelectGridPaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tablename" Type="nvarchar" Mode="In" />
+          <Parameter Name="minpagesize" Type="int" Mode="In" />
+          <Parameter Name="intskip" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerid" Type="int" Mode="In" />
+          <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
+          <Parameter Name="customername" Type="nvarchar" Mode="In" />
+          <Parameter Name="customerabbr" Type="nvarchar" Mode="In" />
+          <Parameter Name="zone" Type="int" Mode="In" />
+          <Parameter Name="address1" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="address2" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="showprice" Type="bit" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderdate" Type="datetime" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="customerid" Type="int" Mode="In" />
+          <Parameter Name="productid" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderprice" Type="decimal" Mode="In" />
+          <Parameter Name="orderamount" Type="int" Mode="In" />
+          <Parameter Name="ordertotal" Type="decimal" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="productid" Type="int" Mode="In" />
+          <Parameter Name="productname" Type="nvarchar" Mode="In" />
+          <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="unit" Type="int" Mode="In" />
+          <Parameter Name="productamount" Type="int" Mode="In" />
+          <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+          <Parameter Name="updatedate" Type="datetime" Mode="In" />
+          <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="OrderModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwCustomerDetail].[CustomerID] AS [CustomerID], 
+    [vwCustomerDetail].[CitizenID] AS [CitizenID], 
+    [vwCustomerDetail].[CustomerName] AS [CustomerName], 
+    [vwCustomerDetail].[CustomerAbbr] AS [CustomerAbbr], 
+    [vwCustomerDetail].[Zone] AS [Zone], 
+    [vwCustomerDetail].[Name] AS [Name], 
+    [vwCustomerDetail].[Address1] AS [Address1], 
+    [vwCustomerDetail].[Address2] AS [Address2], 
+    [vwCustomerDetail].[Phone] AS [Phone], 
+    [vwCustomerDetail].[Description] AS [Description], 
+    [vwCustomerDetail].[ShowPrice] AS [ShowPrice], 
+    [vwCustomerDetail].[Status] AS [Status]
+    FROM [dbo].[vwCustomerDetail] AS [vwCustomerDetail]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwOrder].[OrderID] AS [OrderID], 
@@ -185,7 +350,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     FROM [dbo].[vwOrderDetail] AS [vwOrderDetail]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -209,7 +375,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Zone" Type="Byte" />
+          <Property Name="Zone" Type="Int32" />
           <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -255,7 +421,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ProductAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Category" Type="Byte" />
+          <Property Name="Category" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
           <Property Name="Unit" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
@@ -263,6 +429,23 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Status" Type="Boolean" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vwCustomerDetail">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Zone" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShowPrice" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="vwOrder">
           <Key>
@@ -313,21 +496,211 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ShowPrice" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Configs" EntityType="Self.Config" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Logins" EntityType="Self.Login" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="vwOrders" EntityType="Self.vwOrder" />
-          <EntitySet Name="vwOrderDetails" EntityType="Self.vwOrderDetail" />
+          <EntitySet Name="Config" EntityType="Self.Config" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" />
+          <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
+          <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
+          <FunctionImport Name="DeleteRecord" ReturnType="Collection(Int32)">
+            <Parameter Name="table" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDailyOrder" ReturnType="Collection(OrderModel.GetDailyOrder_Result)">
+            <Parameter Name="day" Mode="In" Type="String" />
+            <Parameter Name="customer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderbyDay" ReturnType="Collection(OrderModel.GetOrderbyDay_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="customer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertCustomer" ReturnType="Collection(Int32)">
+            <Parameter Name="citizenid" Mode="In" Type="String" />
+            <Parameter Name="customername" Mode="In" Type="String" />
+            <Parameter Name="customerabbr" Mode="In" Type="String" />
+            <Parameter Name="zone" Mode="In" Type="Int32" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="showprice" Mode="In" Type="Boolean" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertOrder" ReturnType="Collection(Int32)">
+            <Parameter Name="orderdate" Mode="In" Type="DateTime" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="customerid" Mode="In" Type="Int32" />
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderamount" Mode="In" Type="Int32" />
+            <Parameter Name="ordertotal" Mode="In" Type="Decimal" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="orderStatus" Mode="In" Type="Boolean" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertProduct" ReturnType="Collection(Int32)">
+            <Parameter Name="productname" Mode="In" Type="String" />
+            <Parameter Name="productabbr" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="unit" Mode="In" Type="Int32" />
+            <Parameter Name="productamount" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SelectGridPaging" ReturnType="Collection(OrderModel.SelectGridPaging_Result)">
+            <Parameter Name="tablename" Mode="In" Type="String" />
+            <Parameter Name="minpagesize" Mode="In" Type="Int32" />
+            <Parameter Name="intskip" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(OrderModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(OrderModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="UpdateCustomer" ReturnType="Collection(Int32)">
+            <Parameter Name="customerid" Mode="In" Type="Int32" />
+            <Parameter Name="citizenid" Mode="In" Type="String" />
+            <Parameter Name="customername" Mode="In" Type="String" />
+            <Parameter Name="customerabbr" Mode="In" Type="String" />
+            <Parameter Name="zone" Mode="In" Type="Int32" />
+            <Parameter Name="address1" Mode="In" Type="String" />
+            <Parameter Name="address2" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="showprice" Mode="In" Type="Boolean" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateOrder" ReturnType="Collection(Int32)">
+            <Parameter Name="orderdate" Mode="In" Type="DateTime" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="customerid" Mode="In" Type="Int32" />
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderprice" Mode="In" Type="Decimal" />
+            <Parameter Name="orderamount" Mode="In" Type="Int32" />
+            <Parameter Name="ordertotal" Mode="In" Type="Decimal" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProduct" ReturnType="Collection(Int32)">
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productname" Mode="In" Type="String" />
+            <Parameter Name="productabbr" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="unit" Mode="In" Type="Int32" />
+            <Parameter Name="productamount" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+            <Parameter Name="updatedate" Mode="In" Type="DateTime" />
+            <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetDailyOrder_Result">
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CustomerID" Nullable="true" />
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetOrderbyDay_Result">
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CustomerID" Nullable="true" />
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SelectGridPaging_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ProductAbbr" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Category" Nullable="true" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="Unit" Nullable="true" />
+          <Property Type="Int32" Name="Amount" Nullable="true" />
+          <Property Type="String" Name="Descripiton" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="OrderEntities">
-          <EntitySetMapping Name="Configs">
+          <EntitySetMapping Name="Config">
             <EntityTypeMapping TypeName="OrderModel.Config">
               <MappingFragment StoreEntitySet="Config">
                 <ScalarProperty Name="run" ColumnName="run" />
@@ -340,7 +713,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
+          <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="OrderModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -359,7 +732,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logins">
+          <EntitySetMapping Name="Login">
             <EntityTypeMapping TypeName="OrderModel.Login">
               <MappingFragment StoreEntitySet="Login">
                 <ScalarProperty Name="run" ColumnName="run" />
@@ -372,7 +745,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
+          <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="OrderModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -390,7 +763,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Products">
+          <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="OrderModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -407,11 +780,27 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vwOrders">
+          <EntitySetMapping Name="vwCustomerDetail">
+            <EntityTypeMapping TypeName="OrderModel.vwCustomerDetail">
+              <MappingFragment StoreEntitySet="vwCustomerDetail">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAbbr" ColumnName="CustomerAbbr" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOrder">
             <EntityTypeMapping TypeName="OrderModel.vwOrder">
               <MappingFragment StoreEntitySet="vwOrder">
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -423,10 +812,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vwOrderDetails">
+          <EntitySetMapping Name="vwOrderDetail">
             <EntityTypeMapping TypeName="OrderModel.vwOrderDetail">
               <MappingFragment StoreEntitySet="vwOrderDetail">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -457,6 +848,98 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteRecord" FunctionName="OrderModel.Store.DeleteRecord" />
+          <FunctionImportMapping FunctionImportName="GetDailyOrder" FunctionName="OrderModel.Store.GetDailyOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetDailyOrder_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderbyDay" FunctionName="OrderModel.Store.GetOrderbyDay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetOrderbyDay_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertCustomer" FunctionName="OrderModel.Store.InsertCustomer" />
+          <FunctionImportMapping FunctionImportName="InsertOrder" FunctionName="OrderModel.Store.InsertOrder" />
+          <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="OrderModel.Store.InsertProduct" />
+          <FunctionImportMapping FunctionImportName="SelectGridPaging" FunctionName="OrderModel.Store.SelectGridPaging">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.SelectGridPaging_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="OrderModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="OrderModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="OrderModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="OrderModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="OrderModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="OrderModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="OrderModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="OrderModel.Store.UpdateCustomer" />
+          <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="OrderModel.Store.UpdateOrder" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="OrderModel.Store.UpdateProduct" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -471,7 +954,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
