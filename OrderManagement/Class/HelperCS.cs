@@ -29,7 +29,7 @@ namespace OrderManagement.Class
         private static MetroPanel metroHeadpanel;
         public static MetroLabel editlabel;
         public static MetroTile editbtn;
-        public static MetroToggle daytoggle;
+        //public static MetroToggle daytoggle;
         public static MetroCheckBox daycheckbox;
         public static bool editmode;
         private static int Customerid;

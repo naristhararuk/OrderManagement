@@ -133,14 +133,14 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Property Name="OrderDay" Type="nvarchar" MaxLength="30" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
     <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
-    <Property Name="Category" Type="tinyint" />
+    <Property Name="Category" Type="int" />
     <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
     <Property Name="Unit" Type="int" />
     <Property Name="Amount" Type="int" />
     <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
     <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
     <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
-    <Property Name="Zone" Type="tinyint" />
+    <Property Name="Zone" Type="int" />
     <Property Name="Address1" Type="nvarchar(max)" />
     <Property Name="Address2" Type="nvarchar(max)" />
     <Property Name="Phone" Type="nvarchar" MaxLength="50" />
@@ -152,7 +152,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Parameter Name="updatedate" Type="datetime" Mode="In" />
     <Parameter Name="updateby" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="day" Type="varchar" Mode="In" />
     <Parameter Name="customer" Type="int" Mode="In" />
@@ -160,6 +159,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
   <Function Name="GetOrderbyDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="date" Type="date" Mode="In" />
     <Parameter Name="customer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductTransport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="date" Mode="In" />
+    <Parameter Name="zone" Type="int" Mode="In" />
   </Function>
   <Function Name="InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
@@ -205,36 +208,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <Parameter Name="minpagesize" Type="int" Mode="In" />
     <Parameter Name="intskip" Type="int" Mode="In" />
   </Function>
-  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="version" Type="int" Mode="In" />
-    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-  </Function>
-  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-    <Parameter Name="owner_id" Type="int" Mode="In" />
-    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-  </Function>
-  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="customerid" Type="int" Mode="In" />
     <Parameter Name="citizenid" Type="nvarchar" Mode="In" />

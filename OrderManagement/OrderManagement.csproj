@@ -136,6 +136,9 @@
     <Compile Include="Entity\GetOrderbyDay_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\GetProductTransport_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Login.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -274,6 +277,12 @@
     <Compile Include="User_Control\ReportUC.Designer.cs">
       <DependentUpon>ReportUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Control\ReportViewerUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Control\ReportViewerUC.Designer.cs">
+      <DependentUpon>ReportViewerUC.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CustomerManagement.resx">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
     </EmbeddedResource>
@@ -296,6 +305,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\Invoice.rdlc" />
+    <EmbeddedResource Include="Report\ProductTransport.rdlc" />
+    <EmbeddedResource Include="Report\Receive.rdlc" />
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -330,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Control\ReportViewerUC.resx">
+      <DependentUpon>ReportViewerUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Dataset\ReportDS.xsc">
       <DependentUpon>ReportDS.xsd</DependentUpon>
@@ -374,6 +388,7 @@
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRow.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRowChangeEvent.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetOrderbyDayRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+GetProductTransportDataTable.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailDataTable.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRow.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRowChangeEvent.datasource" />
@@ -383,6 +398,7 @@
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDSTableAdapters.vwCustomerDetailTableAdapter.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Customer.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Order.datasource" />
+    <None Include="Properties\DataSources\OrderManagement.Entity.OrderEntities.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Product.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

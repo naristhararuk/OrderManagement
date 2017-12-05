@@ -36,10 +36,10 @@ D:\Project\OrderManagement\OrderManagement\bin\Debug\OrderManagement.exe
 D:\Project\OrderManagement\OrderManagement\bin\Debug\OrderManagement.pdb
 D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\OrderManagement\OrderManagement\bin\Debug\GreatFriends.ThaiBahtText.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\MetroFramework.Design.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\MetroFramework.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\MetroFramework.Fonts.dll
-D:\Project\OrderManagement\OrderManagement\bin\Debug\Microsoft.ReportViewer.WinForms.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\Microsoft.SqlServer.Types.dll
 D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.xml
 D:\Project\OrderManagement\OrderManagement\bin\Debug\EntityFramework.SqlServer.xml
@@ -71,11 +71,11 @@ D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Contro
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ProductUC.resources
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ReportUC.resources
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.csproj.GenerateResource.Cache
-D:\Project\OrderManagement\OrderManagement\obj\Debug\RdlCompile.cache
-D:\Project\OrderManagement\OrderManagement\obj\Debug\RdlCompile.compiled
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.exe.manifest
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.application
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.exe
 D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.pdb
-D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.csprojResolveAssemblyReference.cache
-D:\Project\OrderManagement\OrderManagement\bin\Debug\GreatFriends.ThaiBahtText.dll
+D:\Project\OrderManagement\OrderManagement\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\Project\OrderManagement\OrderManagement\obj\Debug\RdlCompile.cache
+D:\Project\OrderManagement\OrderManagement\obj\Debug\RdlCompile.compiled
+D:\Project\OrderManagement\OrderManagement\obj\Debug\OrderManagement.User_Control.ReportViewerUC.resources

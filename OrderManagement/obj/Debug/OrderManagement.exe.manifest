@@ -273,14 +273,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="655824">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="762320">
       <assemblyIdentity name="OrderManagement" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fXRLvZF0d6mhABiagVbjCpD0K3LyijERboWIW0RVZQs=</dsig:DigestValue>
+        <dsig:DigestValue>EJFNNfcp3n9B6o0VeMWgKRqF6omCBihugl2+0c42ppk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -302,13 +302,13 @@
       <dsig:DigestValue>n7xFyZPzwgt1zsIPFxwhfWPvUcs1ZKkWaSCydil9Qbg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrderManagement.exe.config" size="1680">
+  <file name="OrderManagement.exe.config" size="1878">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Mrlij9PCasFVhHoK8enK91reQW3yz5Xy1pVHhrnKz2U=</dsig:DigestValue>
+      <dsig:DigestValue>i4nVAx6LyCkmpV6kBGa9dGAJSQDcpUK4LP25SSeNVu0=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

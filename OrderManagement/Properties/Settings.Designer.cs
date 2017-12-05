@@ -34,5 +34,15 @@ namespace OrderManagement.Properties {
                 return ((string)(this["OrderConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=TILAPINA-PC;Initial Catalog=Order;Integrated Security=True")]
+        public string OrderConnectionString1 {
+            get {
+                return ((string)(this["OrderConnectionString1"]));
+            }
+        }
     }
 }

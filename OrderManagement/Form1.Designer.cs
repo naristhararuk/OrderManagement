@@ -53,7 +53,7 @@
             this.pnlMenu.HorizontalScrollbarSize = 10;
             this.pnlMenu.Location = new System.Drawing.Point(20, 60);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(1463, 53);
+            this.pnlMenu.Size = new System.Drawing.Size(1360, 53);
             this.pnlMenu.TabIndex = 40;
             this.pnlMenu.VerticalScrollbarBarColor = true;
             this.pnlMenu.VerticalScrollbarHighlightOnWheel = false;
@@ -63,9 +63,9 @@
             // 
             this.UserTile.ActiveControl = null;
             this.UserTile.BackColor = System.Drawing.Color.Transparent;
-            this.UserTile.Location = new System.Drawing.Point(1301, 3);
+            this.UserTile.Location = new System.Drawing.Point(1133, 3);
             this.UserTile.Name = "UserTile";
-            this.UserTile.Size = new System.Drawing.Size(150, 44);
+            this.UserTile.Size = new System.Drawing.Size(220, 44);
             this.UserTile.TabIndex = 42;
             this.UserTile.Text = "User";
             this.UserTile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -84,9 +84,9 @@
             this.SettingMenuTile.ActiveControl = null;
             this.SettingMenuTile.AutoSize = true;
             this.SettingMenuTile.BackColor = System.Drawing.Color.DarkOrchid;
-            this.SettingMenuTile.Location = new System.Drawing.Point(1023, 3);
+            this.SettingMenuTile.Location = new System.Drawing.Point(907, 3);
             this.SettingMenuTile.Name = "SettingMenuTile";
-            this.SettingMenuTile.Size = new System.Drawing.Size(249, 44);
+            this.SettingMenuTile.Size = new System.Drawing.Size(220, 44);
             this.SettingMenuTile.TabIndex = 40;
             this.SettingMenuTile.Text = "Setting";
             this.SettingMenuTile.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -105,7 +105,7 @@
             this.OrderMenuTile.BackColor = System.Drawing.Color.Tomato;
             this.OrderMenuTile.Location = new System.Drawing.Point(3, 3);
             this.OrderMenuTile.Name = "OrderMenuTile";
-            this.OrderMenuTile.Size = new System.Drawing.Size(249, 44);
+            this.OrderMenuTile.Size = new System.Drawing.Size(220, 44);
             this.OrderMenuTile.TabIndex = 1;
             this.OrderMenuTile.Text = "Order";
             this.OrderMenuTile.TileImage = global::OrderManagement.Properties.Resources.invoice_48;
@@ -122,9 +122,9 @@
             this.ProductMenuTile.ActiveControl = null;
             this.ProductMenuTile.AutoSize = true;
             this.ProductMenuTile.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.ProductMenuTile.Location = new System.Drawing.Point(513, 3);
+            this.ProductMenuTile.Location = new System.Drawing.Point(455, 3);
             this.ProductMenuTile.Name = "ProductMenuTile";
-            this.ProductMenuTile.Size = new System.Drawing.Size(249, 44);
+            this.ProductMenuTile.Size = new System.Drawing.Size(220, 44);
             this.ProductMenuTile.TabIndex = 2;
             this.ProductMenuTile.Text = "Product";
             this.ProductMenuTile.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -142,9 +142,9 @@
             this.ReportMenuTile.ActiveControl = null;
             this.ReportMenuTile.AutoSize = true;
             this.ReportMenuTile.BackColor = System.Drawing.Color.DodgerBlue;
-            this.ReportMenuTile.Location = new System.Drawing.Point(768, 3);
+            this.ReportMenuTile.Location = new System.Drawing.Point(681, 3);
             this.ReportMenuTile.Name = "ReportMenuTile";
-            this.ReportMenuTile.Size = new System.Drawing.Size(249, 44);
+            this.ReportMenuTile.Size = new System.Drawing.Size(220, 44);
             this.ReportMenuTile.TabIndex = 5;
             this.ReportMenuTile.Text = "Report";
             this.ReportMenuTile.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -160,9 +160,9 @@
             // CustomerMenuTile
             // 
             this.CustomerMenuTile.ActiveControl = null;
-            this.CustomerMenuTile.Location = new System.Drawing.Point(258, 3);
+            this.CustomerMenuTile.Location = new System.Drawing.Point(229, 3);
             this.CustomerMenuTile.Name = "CustomerMenuTile";
-            this.CustomerMenuTile.Size = new System.Drawing.Size(249, 44);
+            this.CustomerMenuTile.Size = new System.Drawing.Size(220, 44);
             this.CustomerMenuTile.TabIndex = 0;
             this.CustomerMenuTile.Text = "Customer";
             this.CustomerMenuTile.TileImage = global::OrderManagement.Properties.Resources.group_48;
@@ -175,21 +175,18 @@
             // 
             // pnlMain
             // 
-            this.pnlMain.AutoScroll = true;
             this.pnlMain.AutoSize = true;
             this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.HorizontalScrollbar = true;
-            this.pnlMain.HorizontalScrollbarBarColor = true;
+            this.pnlMain.HorizontalScrollbarBarColor = false;
             this.pnlMain.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlMain.HorizontalScrollbarSize = 10;
             this.pnlMain.Location = new System.Drawing.Point(20, 113);
             this.pnlMain.MaximumSize = new System.Drawing.Size(1900, 795);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1463, 795);
+            this.pnlMain.Size = new System.Drawing.Size(1360, 787);
             this.pnlMain.TabIndex = 41;
-            this.pnlMain.VerticalScrollbar = true;
-            this.pnlMain.VerticalScrollbarBarColor = true;
+            this.pnlMain.VerticalScrollbarBarColor = false;
             this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
             this.pnlMain.VerticalScrollbarSize = 10;
             // 
@@ -199,7 +196,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1503, 928);
+            this.ClientSize = new System.Drawing.Size(1400, 920);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlMenu);
             this.MaximumSize = new System.Drawing.Size(2400, 1200);

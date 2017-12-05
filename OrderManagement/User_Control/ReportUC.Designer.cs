@@ -28,16 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pnlMainReport = new MetroFramework.Controls.MetroPanel();
             this.ReportSummaryTile = new MetroFramework.Controls.MetroTile();
+            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnlMainReport
+            // 
+            this.pnlMainReport.HorizontalScrollbarBarColor = false;
+            this.pnlMainReport.HorizontalScrollbarHighlightOnWheel = true;
+            this.pnlMainReport.HorizontalScrollbarSize = 10;
+            this.pnlMainReport.Location = new System.Drawing.Point(3, -1);
+            this.pnlMainReport.Name = "pnlMainReport";
+            this.pnlMainReport.Size = new System.Drawing.Size(1045, 706);
+            this.pnlMainReport.TabIndex = 1;
+            this.pnlMainReport.VerticalScrollbarBarColor = false;
+            this.pnlMainReport.VerticalScrollbarHighlightOnWheel = false;
+            this.pnlMainReport.VerticalScrollbarSize = 10;
             // 
             // ReportSummaryTile
             // 
             this.ReportSummaryTile.ActiveControl = null;
             this.ReportSummaryTile.BackColor = System.Drawing.Color.MediumPurple;
-            this.ReportSummaryTile.Location = new System.Drawing.Point(91, 81);
+            this.ReportSummaryTile.Location = new System.Drawing.Point(62, 25);
             this.ReportSummaryTile.Name = "ReportSummaryTile";
-            this.ReportSummaryTile.Size = new System.Drawing.Size(222, 138);
+            this.ReportSummaryTile.Size = new System.Drawing.Size(156, 108);
             this.ReportSummaryTile.TabIndex = 0;
             this.ReportSummaryTile.Text = "Summary Report";
             this.ReportSummaryTile.TileImage = global::OrderManagement.Properties.Resources.chart_481;
@@ -49,14 +65,35 @@
             this.ReportSummaryTile.UseTileImage = true;
             this.ReportSummaryTile.Click += new System.EventHandler(this.ReportSummaryTile_Click);
             // 
+            // metroPanel1
+            // 
+            this.metroPanel1.AutoScroll = true;
+            this.metroPanel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.metroPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.metroPanel1.Controls.Add(this.pnlMainReport);
+            this.metroPanel1.HorizontalScrollbar = true;
+            this.metroPanel1.HorizontalScrollbarBarColor = true;
+            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = true;
+            this.metroPanel1.HorizontalScrollbarSize = 15;
+            this.metroPanel1.Location = new System.Drawing.Point(286, 3);
+            this.metroPanel1.Name = "metroPanel1";
+            this.metroPanel1.Size = new System.Drawing.Size(1053, 731);
+            this.metroPanel1.TabIndex = 2;
+            this.metroPanel1.VerticalScrollbar = true;
+            this.metroPanel1.VerticalScrollbarBarColor = true;
+            this.metroPanel1.VerticalScrollbarHighlightOnWheel = true;
+            this.metroPanel1.VerticalScrollbarSize = 15;
+            // 
             // ReportUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.ReportSummaryTile);
             this.Name = "ReportUC";
-            this.Size = new System.Drawing.Size(1039, 691);
+            this.Size = new System.Drawing.Size(1354, 737);
             this.Load += new System.EventHandler(this.ReportUC_Load);
+            this.metroPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -64,5 +101,7 @@
         #endregion
 
         private MetroFramework.Controls.MetroTile ReportSummaryTile;
+        private MetroFramework.Controls.MetroPanel pnlMainReport;
+        private MetroFramework.Controls.MetroPanel metroPanel1;
     }
 }

@@ -504,5 +504,18 @@ namespace OrderManagement.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateProduct", productidParameter, productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
         }
+    
+        public virtual ObjectResult<GetProductTransport_Result> GetProductTransport(Nullable<System.DateTime> date, Nullable<int> zone)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var zoneParameter = zone.HasValue ?
+                new ObjectParameter("zone", zone) :
+                new ObjectParameter("zone", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductTransport_Result>("GetProductTransport", dateParameter, zoneParameter);
+        }
     }
 }

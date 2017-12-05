@@ -14,7 +14,7 @@ namespace OrderManagement
         static MaskedDialog mask;
         static Form frmContainer;
 
-        private Form dialog;
+        //private Form dialog;
         private UserControl ucDialog;
 
         private MaskedDialog(Form parent, UserControl ucDialog)

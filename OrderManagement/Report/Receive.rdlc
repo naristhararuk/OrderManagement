@@ -611,7 +611,7 @@
     <Height>7.35555in</Height>
     <Style />
   </Body>
-  <Width>7.67171in</Width>
+  <Width>7.70296in</Width>
   <Page>
     <PageHeader>
       <Height>5.8056cm</Height>
@@ -964,7 +964,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>ลงชื่อผู้ส่งสินค้า   .......................................</Value>
+                  <Value>ลงชื่อผู้จ่ายเงิน    .......................................</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                   </Style>
@@ -1017,7 +1017,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>ลงชื่อผู้รับสินค้า   .......................................</Value>
+                  <Value>ลงชื่อผู้รับเงิน      .......................................</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                   </Style>

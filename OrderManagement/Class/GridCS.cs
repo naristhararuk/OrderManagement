@@ -69,7 +69,7 @@ namespace OrderManagement.Class
         }
         public static void loadGrid(string tablename, MetroGrid grid, MetroLabel txt)
         {
-            string strSql = "";
+            //string strSql = "";
             int intSkip = 0;
 
             intSkip = (mintCurrentPage * mintPageSize);

@@ -278,6 +278,10 @@
       <Parameter Name="updatedate" Mode="In" Type="DateTime" />
       <Parameter Name="updateby" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="GetProductTransport" ReturnType="Collection(OrderModel.GetProductTransport_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+      <Parameter Name="zone" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetDailyOrder_Result">
     <Property Type="Int32" Name="OrderID" Nullable="false" />
@@ -338,5 +342,11 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetProductTransport_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="TotalAmount" Nullable="true" />
+    <Property Type="Int32" Name="Unit" Nullable="true" />
   </ComplexType>
 </Schema>
