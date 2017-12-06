@@ -143,37 +143,28 @@ namespace OrderManagement.User_Control
                 }
             }
         }
-        private void GetCustomerTransportReportData(DateTime date, int customer)
+        private void GetCustomerTransportReportData(DateTime date)
         {
-            //string ReportName = ((KeyValuePair<string, string>)ddlReportName.SelectedItem).Value;
+            string ReportName = ((KeyValuePair<string, string>)ddlReportName.SelectedItem).Value;
 
-            //using (var dailydb = new OrderEntities())
-            //{
-            //    var ds1 = (from x in dailydb.vwCustomerDetail
-            //               where x.CustomerID == customer
-            //               select x).ToList();
-            //    var ds2 = dailydb.GetOrderbyDay(date, customer).ToList();
-            //    if (ds1.Count() > 0 && ds2.Count() > 0)
-            //    {
-            //        ReportParameter p1 = new ReportParameter("ReportType", ReportName);
-            //        ReportParameter p2 = new ReportParameter("Date", RptDatePicker.Value.ToLongDateString());
-            //        ReportParameter p3 = new ReportParameter("DocumentNo", "INV");
-
-
-            //        reportViewer1.LocalReport.SetParameters(new ReportParameter[] { p1, p2, p3 });
-
-            //        CustomerBindingSource.DataSource = HelperCS.ToDataTable(ds1);
-            //        OrderBindingSource.DataSource = HelperCS.ToDataTable(ds2);
-            //        ReportDataSource rtpsource1 = new ReportDataSource("DataSet1", CustomerBindingSource);
-            //        ReportDataSource rtpsource2 = new ReportDataSource("DataSet2", OrderBindingSource);
-            //        reportViewer1.LocalReport.DataSources.Add(rtpsource1);
-            //        reportViewer1.LocalReport.DataSources.Add(rtpsource2);
-            //    }
-            //    else
-            //    {
-            //        OrderBindingSource.DataSource = null;
-            //    }
-            //}
+            using (var dailydb = new OrderEntities())
+            {
+                var ds = dailydb.GetCustomerTransport(date).ToList();
+                if (ds.Count() > 0 )
+                {
+                    //ReportParameter p1 = new ReportParameter("ReportType", ReportName);
+                    //ReportParameter p2 = new ReportParameter("Date", RptDatePicker.Value.ToLongDateString());
+                    //ReportParameter p3 = new ReportParameter("DocumentNo", "INV");
+                    //reportViewer1.LocalReport.SetParameters(new ReportParameter[] { p1, p2, p3 });
+                    OrderBindingSource.DataSource = HelperCS.ToDataTable(ds);
+                    ReportDataSource rtpsource1 = new ReportDataSource("DataSet1", OrderBindingSource);
+                    reportViewer1.LocalReport.DataSources.Add(rtpsource1);
+                }
+                else
+                {
+                    OrderBindingSource.DataSource = null;
+                }
+            }
         }
         #endregion GET REPORT DATA
 
@@ -184,9 +175,12 @@ namespace OrderManagement.User_Control
             CustomerBindingSource.DataSource = null;
             OrderBindingSource.DataSource = null;
             //string value = ((KeyValuePair<string, string>)RptCustomer.SelectedItem).Value;
-            if (Customerkey == "")
+            if (Customerkey == "" && ddlReportName.SelectedIndex != 3)
             {
-                MessageBox.Show("กรุณาเลือกลูกค้าก่อน", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if(ddlReportName.SelectedIndex == 4)
+                    MessageBox.Show("กรุณาเลือกพื้นที่ส่งสินค้าก่อน", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MessageBox.Show("กรุณาเลือกลูกค้าก่อน", "Select Customer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (RptDatePicker.Text == "")
             {
@@ -198,8 +192,9 @@ namespace OrderManagement.User_Control
             }
             else
             {
+
                 DateTime currentdate = RptDatePicker.Value;
-                int cusid = int.Parse(Customerkey);
+                int cusid = ddlReportName.SelectedIndex != 3 ? int.Parse(Customerkey) : 0;
                 ChooseReport(int.Parse(ReportNamekey), currentdate, cusid);
                 reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
                 reportViewer1.RefreshReport();
@@ -226,8 +221,8 @@ namespace OrderManagement.User_Control
                     }
                 case 3:
                     {
-                        //reportViewer1.LocalReport.ReportEmbeddedResource = "OrderManagement.Report.InvoiceTransport.rdlc";
-                        //GetInvoiceTransportReportData(date, cid);
+                        reportViewer1.LocalReport.ReportEmbeddedResource = "OrderManagement.Report.CustomerTransport.rdlc";
+                        GetCustomerTransportReportData(date);
                         break;
                     }
                 case 4:
@@ -246,20 +241,25 @@ namespace OrderManagement.User_Control
             {
                 if(ddlReportName.SelectedIndex == 1 || ddlReportName.SelectedIndex == 2)
                 {
+                    lblCustomer.Visible = true;
+                    ddlCustomer.Visible = true;
                     lblCustomer.Text = "รายชื่อลูกค้า";
                     HelperCS.AutoCompleteLoadValues(ddlCustomer, "Customer");
+                }
+                else if (ddlReportName.SelectedIndex == 3)
+                {
+                    lblCustomer.Visible = false;
+                    ddlCustomer.Visible = false;
+                    //lblCustomer.Text = "รายชื่อลูกค้า";
+                    //HelperCS.AutoCompleteLoadValues(ddlCustomer, "Customer");
                 }
                 else if (ddlReportName.SelectedIndex == 4 )
                 {
+                    lblCustomer.Visible = true;
+                    ddlCustomer.Visible = true;
                     lblCustomer.Text = "พื้นที่ส่งสินค้า";
                     HelperCS.AutoCompleteLoadValues(ddlCustomer, "Config-Zone");
                 }
-                else
-                {
-                    lblCustomer.Text = "รายชื่อลูกค้า";
-                    HelperCS.AutoCompleteLoadValues(ddlCustomer, "Customer");
-                }
-
 
             }
             else

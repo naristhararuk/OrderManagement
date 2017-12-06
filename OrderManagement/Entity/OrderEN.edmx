@@ -157,6 +157,9 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Parameter Name="updatedate" Type="datetime" Mode="In" />
           <Parameter Name="updateby" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetCustomerTransport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
         <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="day" Type="varchar" Mode="In" />
           <Parameter Name="customer" Type="int" Mode="In" />
@@ -609,6 +612,9 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
             <Parameter Name="date" Mode="In" Type="DateTime" />
             <Parameter Name="zone" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GetCustomerTransport" ReturnType="Collection(OrderModel.GetCustomerTransport_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetDailyOrder_Result">
           <Property Type="Int32" Name="OrderID" Nullable="false" />
@@ -675,6 +681,12 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="TotalAmount" Nullable="true" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetCustomerTransport_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="true" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -905,6 +917,16 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCustomerTransport" FunctionName="OrderModel.Store.GetCustomerTransport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetCustomerTransport_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

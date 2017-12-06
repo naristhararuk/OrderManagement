@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OrderManagement.Class;
 using OrderManagement.Entity;
+using OrderManagement.User_Control;
 
 namespace OrderManagement
 {
@@ -388,5 +389,12 @@ namespace OrderManagement
             return (DataGridView1.Columns[columnIndex] == outOfOfficeColumn);
         }
         #endregion
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            ReportViewerUC report = new ReportViewerUC();
+            metroPanel1.Controls.Clear();
+            metroPanel1.Controls.Add(report);
+        }
     }
 }

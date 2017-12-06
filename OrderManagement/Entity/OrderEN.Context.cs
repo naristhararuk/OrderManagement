@@ -517,5 +517,14 @@ namespace OrderManagement.Entity
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductTransport_Result>("GetProductTransport", dateParameter, zoneParameter);
         }
+    
+        public virtual ObjectResult<GetCustomerTransport_Result> GetCustomerTransport(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerTransport_Result>("GetCustomerTransport", dateParameter);
+        }
     }
 }

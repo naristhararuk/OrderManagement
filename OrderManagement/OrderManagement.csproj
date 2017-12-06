@@ -119,6 +119,9 @@
     <Compile Include="CustomerManagement.Designer.cs">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\ReportDS.cs">
+      <DependentUpon>ReportDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Dataset\ReportDS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,6 +131,9 @@
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Customer.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetCustomerTransport_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetDailyOrder_Result.cs">
@@ -304,6 +310,7 @@
     <EmbeddedResource Include="ReceiveRpt.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\CustomerTransport.rdlc" />
     <EmbeddedResource Include="Report\Invoice.rdlc" />
     <EmbeddedResource Include="Report\ProductTransport.rdlc" />
     <EmbeddedResource Include="Report\Receive.rdlc" />

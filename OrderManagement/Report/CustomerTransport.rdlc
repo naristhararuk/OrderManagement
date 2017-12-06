@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix15">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>5.52917cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>1.8cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Rectangle Name="Rectangle8">
+                      <ReportItems>
+                        <Tablix Name="Tablix16">
+                          <TablixCorner>
+                            <TablixCornerRows>
+                              <TablixCornerRow>
+                                <TablixCornerCell>
+                                  <CellContents>
+                                    <Textbox Name="Textbox48">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>Customer Name</Value>
+                                              <Style>
+                                                <FontSize>12pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Center</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox48</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixCornerCell>
+                              </TablixCornerRow>
+                            </TablixCornerRows>
+                          </TablixCorner>
+                          <TablixBody>
+                            <TablixColumns>
+                              <TablixColumn>
+                                <Width>1.78563cm</Width>
+                              </TablixColumn>
+                            </TablixColumns>
+                            <TablixRows>
+                              <TablixRow>
+                                <Height>0.6cm</Height>
+                                <TablixCells>
+                                  <TablixCell>
+                                    <CellContents>
+                                      <Textbox Name="OrderAmount">
+                                        <CanGrow>true</CanGrow>
+                                        <KeepTogether>true</KeepTogether>
+                                        <Paragraphs>
+                                          <Paragraph>
+                                            <TextRuns>
+                                              <TextRun>
+                                                <Value>=Sum(Fields!OrderAmount.Value)</Value>
+                                                <Style>
+                                                  <FontSize>12pt</FontSize>
+                                                </Style>
+                                              </TextRun>
+                                            </TextRuns>
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
+                                          </Paragraph>
+                                        </Paragraphs>
+                                        <rd:DefaultName>OrderAmount</rd:DefaultName>
+                                        <Style>
+                                          <Border>
+                                            <Color>LightGrey</Color>
+                                            <Style>Solid</Style>
+                                          </Border>
+                                          <PaddingLeft>2pt</PaddingLeft>
+                                          <PaddingRight>2pt</PaddingRight>
+                                          <PaddingTop>2pt</PaddingTop>
+                                          <PaddingBottom>2pt</PaddingBottom>
+                                        </Style>
+                                      </Textbox>
+                                    </CellContents>
+                                  </TablixCell>
+                                </TablixCells>
+                              </TablixRow>
+                              <TablixRow>
+                                <Height>0.6cm</Height>
+                                <TablixCells>
+                                  <TablixCell>
+                                    <CellContents>
+                                      <Textbox Name="OrderAmount1">
+                                        <CanGrow>true</CanGrow>
+                                        <KeepTogether>true</KeepTogether>
+                                        <Paragraphs>
+                                          <Paragraph>
+                                            <TextRuns>
+                                              <TextRun>
+                                                <Value>=Sum(Fields!OrderAmount.Value)</Value>
+                                                <Style>
+                                                  <FontSize>12pt</FontSize>
+                                                </Style>
+                                              </TextRun>
+                                            </TextRuns>
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
+                                          </Paragraph>
+                                        </Paragraphs>
+                                        <rd:DefaultName>OrderAmount1</rd:DefaultName>
+                                        <Style>
+                                          <Border>
+                                            <Color>LightGrey</Color>
+                                            <Style>Solid</Style>
+                                          </Border>
+                                          <PaddingLeft>2pt</PaddingLeft>
+                                          <PaddingRight>2pt</PaddingRight>
+                                          <PaddingTop>2pt</PaddingTop>
+                                          <PaddingBottom>2pt</PaddingBottom>
+                                        </Style>
+                                      </Textbox>
+                                    </CellContents>
+                                  </TablixCell>
+                                </TablixCells>
+                              </TablixRow>
+                            </TablixRows>
+                          </TablixBody>
+                          <TablixColumnHierarchy>
+                            <TablixMembers>
+                              <TablixMember>
+                                <Group Name="ProductName">
+                                  <GroupExpressions>
+                                    <GroupExpression>=Fields!ProductName.Value</GroupExpression>
+                                  </GroupExpressions>
+                                </Group>
+                                <SortExpressions>
+                                  <SortExpression>
+                                    <Value>=Fields!ProductName.Value</Value>
+                                  </SortExpression>
+                                </SortExpressions>
+                                <TablixHeader>
+                                  <Size>0.6cm</Size>
+                                  <CellContents>
+                                    <Textbox Name="ProductName">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>=Fields!ProductName.Value</Value>
+                                              <Style>
+                                                <FontSize>12pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Center</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>ProductName</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixHeader>
+                              </TablixMember>
+                            </TablixMembers>
+                          </TablixColumnHierarchy>
+                          <TablixRowHierarchy>
+                            <TablixMembers>
+                              <TablixMember>
+                                <Group Name="CustomerName">
+                                  <GroupExpressions>
+                                    <GroupExpression>=Fields!CustomerName.Value</GroupExpression>
+                                  </GroupExpressions>
+                                </Group>
+                                <SortExpressions>
+                                  <SortExpression>
+                                    <Value>=Fields!CustomerName.Value</Value>
+                                  </SortExpression>
+                                </SortExpressions>
+                                <TablixHeader>
+                                  <Size>3.74354cm</Size>
+                                  <CellContents>
+                                    <Textbox Name="CustomerName">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>=Fields!CustomerName.Value</Value>
+                                              <Style>
+                                                <FontSize>12pt</FontSize>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style />
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>CustomerName</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixHeader>
+                              </TablixMember>
+                              <TablixMember>
+                                <TablixHeader>
+                                  <Size>3.74354cm</Size>
+                                  <CellContents>
+                                    <Textbox Name="Textbox49">
+                                      <CanGrow>true</CanGrow>
+                                      <KeepTogether>true</KeepTogether>
+                                      <Paragraphs>
+                                        <Paragraph>
+                                          <TextRuns>
+                                            <TextRun>
+                                              <Value>รวม</Value>
+                                              <Style>
+                                                <FontSize>12pt</FontSize>
+                                                <FontWeight>Bold</FontWeight>
+                                              </Style>
+                                            </TextRun>
+                                          </TextRuns>
+                                          <Style>
+                                            <TextAlign>Right</TextAlign>
+                                          </Style>
+                                        </Paragraph>
+                                      </Paragraphs>
+                                      <rd:DefaultName>Textbox49</rd:DefaultName>
+                                      <Style>
+                                        <Border>
+                                          <Color>LightGrey</Color>
+                                          <Style>Solid</Style>
+                                        </Border>
+                                        <PaddingLeft>2pt</PaddingLeft>
+                                        <PaddingRight>2pt</PaddingRight>
+                                        <PaddingTop>2pt</PaddingTop>
+                                        <PaddingBottom>2pt</PaddingBottom>
+                                      </Style>
+                                    </Textbox>
+                                  </CellContents>
+                                </TablixHeader>
+                                <KeepWithGroup>Before</KeepWithGroup>
+                              </TablixMember>
+                            </TablixMembers>
+                          </TablixRowHierarchy>
+                          <DataSetName>DataSet1</DataSetName>
+                          <Height>1.8cm</Height>
+                          <Width>5.52917cm</Width>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Tablix>
+                      </ReportItems>
+                      <KeepTogether>true</KeepTogether>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                      </Style>
+                    </Rectangle>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="Details">
+                <GroupExpressions>
+                  <GroupExpression>=Ceiling(Code.MyFunc(Fields!ProductName.Value)/10)</GroupExpression>
+                </GroupExpressions>
+              </Group>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>DataSet1</DataSetName>
+        <Height>1.8cm</Height>
+        <Width>5.52917cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>12.01042in</Height>
+    <Style />
+  </Body>
+  <Width>8.59559in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>0.5cm</LeftMargin>
+    <RightMargin>0.5cm</RightMargin>
+    <TopMargin>0.5cm</TopMargin>
+    <BottomMargin>0.5cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="ReportDS">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>dae6d153-8e35-4f2b-ab9b-1adff8179b69</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>ReportDS</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CustomerID">
+          <DataField>CustomerID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CustomerName">
+          <DataField>CustomerName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductName">
+          <DataField>ProductName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OrderAmount">
+          <DataField>OrderAmount</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportDS</rd:DataSetName>
+        <rd:SchemaPath>D:\Project\OrderManagement\OrderManagement\Dataset\ReportDS.xsd</rd:SchemaPath>
+        <rd:TableName>GetCustomerTransport</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Code>Dim FlagTable As System.Collections.Hashtable
+
+Dim Flag AS Integer
+
+ Function MyFunc(ByVal NewValue As Object) As Integer
+
+If (FlagTable Is Nothing) Then
+
+FlagTable = New System.Collections.Hashtable
+
+End If
+
+If (NewValue Is Nothing) Then
+
+NewValue = "-"
+
+End If
+
+If (Not FlagTable .Contains(NewValue )) Then
+
+Flag =Flag + 1
+
+FlagTable.Add(NewValue, nothing)
+
+End If
+
+MyFunc = Flag
+
+End Function</Code>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>f24bca9a-661d-47e4-84bc-fd3fd4bf489f</rd:ReportID>
+</Report>
