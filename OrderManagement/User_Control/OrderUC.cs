@@ -357,7 +357,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Monday");
                     //}
                     chkbOrderMonday.Checked = HelperCS.editmode ? true : chkbOrderMonday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderMonday.Checked ? true : false;
+                    HelperCS.WeekOrder[1] = chkbOrderMonday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderMonday;
                     HelperCS.CreatePanelTable(pnlMondayHead, pnlMainMondayBody, "Monday", customerid);
                 }
@@ -374,7 +374,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Tuesday");
                     //}
                     chkbOrderTuesday.Checked = HelperCS.editmode ? true : chkbOrderTuesday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderTuesday.Checked ? true : false;
+                    HelperCS.WeekOrder[2] = chkbOrderTuesday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderTuesday;
                     HelperCS.CreatePanelTable(pnlTuesdayHead, pnlMainTuesdayBody, "Tuesday", customerid);
                 }
@@ -391,7 +391,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Wednesday");
                     //}
                     chkbOrderWednesday.Checked = HelperCS.editmode ? true : chkbOrderWednesday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderWednesday.Checked ? true : false;
+                    HelperCS.WeekOrder[3] = chkbOrderWednesday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderWednesday;
                     HelperCS.CreatePanelTable(pnlWednesdayHead, pnlMainWednesdayBody, "Wednesday", customerid);
                 }
@@ -408,7 +408,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Thursday");
                     //}
                     chkbOrderThursday.Checked = HelperCS.editmode ? true : chkbOrderThursday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderThursday.Checked ? true : false;
+                    HelperCS.WeekOrder[4] = chkbOrderThursday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderThursday;
                     HelperCS.CreatePanelTable(pnlThursdayHead, pnlMainThursdayBody, "Thursday", customerid);
                 }
@@ -425,7 +425,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Friday");
                     //}
                     chkbOrderFriday.Checked = HelperCS.editmode ? true : chkbOrderFriday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderFriday.Checked ? true : false;
+                    HelperCS.WeekOrder[5] = chkbOrderFriday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderFriday;
                     HelperCS.CreatePanelTable(pnlFridayHead, pnlMainFridayBody, "Friday", customerid);
                 }
@@ -442,7 +442,7 @@ namespace OrderManagement.User_Control
                     //    //ClearPanel("Saturday");
                     //}
                     chkbOrderSaturday.Checked = HelperCS.editmode ? true : chkbOrderSaturday.Checked;
-                    HelperCS.WeekOrder[0] = chkbOrderSaturday.Checked ? true : false;
+                    HelperCS.WeekOrder[6] = chkbOrderSaturday.Checked ? true : false;
                     HelperCS.daycheckbox = chkbOrderSaturday;
                     HelperCS.CreatePanelTable(pnlSaturdayHead, pnlMainSaturdayBody, "Saturday", customerid);
                 }
