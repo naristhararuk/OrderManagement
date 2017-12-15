@@ -133,6 +133,9 @@
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\GetCustomerSearch_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\GetCustomerTransport_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -140,6 +143,9 @@
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetOrderbyDay_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetProductSearch_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetProductTransport_Result.cs">
@@ -172,10 +178,7 @@
     <Compile Include="Entity\SelectGridPaging_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>OrderEN.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sp_helpdiagrams_Result.cs">
+    <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\vwCustomerDetail.cs">

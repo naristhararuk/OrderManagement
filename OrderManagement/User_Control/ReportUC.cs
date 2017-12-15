@@ -19,7 +19,9 @@ namespace OrderManagement.User_Control
         }
         private void ReportUC_Load(object sender, EventArgs e)
         {
-
+            ReportViewerUC report = new ReportViewerUC();
+            pnlMainReport.Controls.Clear();
+            pnlMainReport.Controls.Add(report);
         }
         private void ReportSummaryTile_Click(object sender, EventArgs e)
         {

@@ -32,6 +32,7 @@ namespace OrderManagement.Entity
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<vwCustomerDetail> vwCustomerDetail { get; set; }
         public virtual DbSet<vwOrder> vwOrder { get; set; }
         public virtual DbSet<vwOrderDetail> vwOrderDetail { get; set; }
@@ -55,6 +56,36 @@ namespace OrderManagement.Entity
                 new ObjectParameter("updateby", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DeleteRecord", tableParameter, idParameter, updatedateParameter, updatebyParameter);
+        }
+    
+        public virtual ObjectResult<GetCustomerSearch_Result> GetCustomerSearch(Nullable<int> customerid, Nullable<int> zone, Nullable<int> pageIndex, Nullable<int> pageSize)
+        {
+            var customeridParameter = customerid.HasValue ?
+                new ObjectParameter("customerid", customerid) :
+                new ObjectParameter("customerid", typeof(int));
+    
+            var zoneParameter = zone.HasValue ?
+                new ObjectParameter("zone", zone) :
+                new ObjectParameter("zone", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerSearch_Result>("GetCustomerSearch", customeridParameter, zoneParameter, pageIndexParameter, pageSizeParameter);
+        }
+    
+        public virtual ObjectResult<GetCustomerTransport_Result> GetCustomerTransport(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerTransport_Result>("GetCustomerTransport", dateParameter);
         }
     
         public virtual ObjectResult<GetDailyOrder_Result> GetDailyOrder(string day, Nullable<int> customer)
@@ -81,6 +112,40 @@ namespace OrderManagement.Entity
                 new ObjectParameter("customer", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderbyDay_Result>("GetOrderbyDay", dateParameter, customerParameter);
+        }
+    
+        public virtual ObjectResult<GetProductSearch_Result> GetProductSearch(Nullable<int> productid, Nullable<int> category, Nullable<int> pageIndex, Nullable<int> pageSize)
+        {
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            var categoryParameter = category.HasValue ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(int));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductSearch_Result>("GetProductSearch", productidParameter, categoryParameter, pageIndexParameter, pageSizeParameter);
+        }
+    
+        public virtual ObjectResult<GetProductTransport_Result> GetProductTransport(Nullable<System.DateTime> date, Nullable<int> zone)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var zoneParameter = zone.HasValue ?
+                new ObjectParameter("zone", zone) :
+                new ObjectParameter("zone", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductTransport_Result>("GetProductTransport", dateParameter, zoneParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> InsertCustomer(string citizenid, string customername, string customerabbr, Nullable<int> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
@@ -247,109 +312,6 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectGridPaging_Result>("SelectGridPaging", tablenameParameter, minpagesizeParameter, intskipParameter);
         }
     
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
         public virtual ObjectResult<Nullable<int>> UpdateCustomer(Nullable<int> customerid, string citizenid, string customername, string customerabbr, Nullable<int> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var customeridParameter = customerid.HasValue ?
@@ -503,28 +465,6 @@ namespace OrderManagement.Entity
                 new ObjectParameter("updateby", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateProduct", productidParameter, productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
-        }
-    
-        public virtual ObjectResult<GetProductTransport_Result> GetProductTransport(Nullable<System.DateTime> date, Nullable<int> zone)
-        {
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            var zoneParameter = zone.HasValue ?
-                new ObjectParameter("zone", zone) :
-                new ObjectParameter("zone", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductTransport_Result>("GetProductTransport", dateParameter, zoneParameter);
-        }
-    
-        public virtual ObjectResult<GetCustomerTransport_Result> GetCustomerTransport(Nullable<System.DateTime> date)
-        {
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerTransport_Result>("GetCustomerTransport", dateParameter);
         }
     }
 }

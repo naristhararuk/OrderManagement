@@ -26,5 +26,8 @@ namespace OrderManagement.Entity
         public Nullable<bool> OrderStatus { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string UpdateBy { get; set; }
+    
+        public virtual Customer Customer { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -41,13 +41,8 @@
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.CustomerGrid = new MetroFramework.Controls.MetroGrid();
-            this.btnFirstPage = new MetroFramework.Controls.MetroTile();
             this.btnNewCustomer = new MetroFramework.Controls.MetroTile();
-            this.btnBackPage = new MetroFramework.Controls.MetroTile();
-            this.btnLastPage = new MetroFramework.Controls.MetroTile();
-            this.btnNextPage = new MetroFramework.Controls.MetroTile();
-            this.lblStatusPage = new MetroFramework.Controls.MetroLabel();
-            this.lblValid = new MetroFramework.Controls.MetroLabel();
+            this.pnlPager = new MetroFramework.Drawing.Html.HtmlPanel();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).BeginInit();
             this.SuspendLayout();
@@ -193,24 +188,9 @@
             this.CustomerGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.CustomerGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.CustomerGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CustomerGrid.Size = new System.Drawing.Size(1334, 460);
+            this.CustomerGrid.Size = new System.Drawing.Size(1334, 464);
             this.CustomerGrid.TabIndex = 44;
             this.CustomerGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CustomerGrid_CellClick);
-            // 
-            // btnFirstPage
-            // 
-            this.btnFirstPage.ActiveControl = null;
-            this.btnFirstPage.BackColor = System.Drawing.Color.Transparent;
-            this.btnFirstPage.Location = new System.Drawing.Point(480, 727);
-            this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(24, 24);
-            this.btnFirstPage.TabIndex = 50;
-            this.btnFirstPage.TileImage = global::OrderManagement.Properties.Resources.first_record;
-            this.btnFirstPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnFirstPage.UseCustomBackColor = true;
-            this.btnFirstPage.UseSelectable = true;
-            this.btnFirstPage.UseTileImage = true;
-            this.btnFirstPage.Click += new System.EventHandler(this.btnFirstPage_Click);
             // 
             // btnNewCustomer
             // 
@@ -227,86 +207,29 @@
             this.btnNewCustomer.UseTileImage = true;
             this.btnNewCustomer.Click += new System.EventHandler(this.btnNewCustomer_Click);
             // 
-            // btnBackPage
+            // pnlPager
             // 
-            this.btnBackPage.ActiveControl = null;
-            this.btnBackPage.BackColor = System.Drawing.Color.Transparent;
-            this.btnBackPage.Location = new System.Drawing.Point(510, 727);
-            this.btnBackPage.Name = "btnBackPage";
-            this.btnBackPage.Size = new System.Drawing.Size(24, 24);
-            this.btnBackPage.TabIndex = 51;
-            this.btnBackPage.TileImage = global::OrderManagement.Properties.Resources.playback;
-            this.btnBackPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnBackPage.UseCustomBackColor = true;
-            this.btnBackPage.UseSelectable = true;
-            this.btnBackPage.UseTileImage = true;
-            // 
-            // btnLastPage
-            // 
-            this.btnLastPage.ActiveControl = null;
-            this.btnLastPage.BackColor = System.Drawing.Color.Transparent;
-            this.btnLastPage.Location = new System.Drawing.Point(660, 727);
-            this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(24, 24);
-            this.btnLastPage.TabIndex = 52;
-            this.btnLastPage.TileImage = global::OrderManagement.Properties.Resources.last_recor;
-            this.btnLastPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnLastPage.UseCustomBackColor = true;
-            this.btnLastPage.UseSelectable = true;
-            this.btnLastPage.UseTileImage = true;
-            // 
-            // btnNextPage
-            // 
-            this.btnNextPage.ActiveControl = null;
-            this.btnNextPage.BackColor = System.Drawing.Color.Transparent;
-            this.btnNextPage.Location = new System.Drawing.Point(630, 727);
-            this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(24, 24);
-            this.btnNextPage.TabIndex = 53;
-            this.btnNextPage.TileImage = global::OrderManagement.Properties.Resources.play;
-            this.btnNextPage.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnNextPage.UseCustomBackColor = true;
-            this.btnNextPage.UseSelectable = true;
-            this.btnNextPage.UseTileImage = true;
-            // 
-            // lblStatusPage
-            // 
-            this.lblStatusPage.AutoSize = true;
-            this.lblStatusPage.Location = new System.Drawing.Point(541, 727);
-            this.lblStatusPage.Name = "lblStatusPage";
-            this.lblStatusPage.Size = new System.Drawing.Size(83, 19);
-            this.lblStatusPage.TabIndex = 54;
-            this.lblStatusPage.Text = "metroLabel4";
-            // 
-            // lblValid
-            // 
-            this.lblValid.AutoSize = true;
-            this.lblValid.BackColor = System.Drawing.Color.Transparent;
-            this.lblValid.ForeColor = System.Drawing.Color.Red;
-            this.lblValid.Location = new System.Drawing.Point(16, 713);
-            this.lblValid.Name = "lblValid";
-            this.lblValid.Size = new System.Drawing.Size(0, 0);
-            this.lblValid.TabIndex = 60;
-            this.lblValid.UseCustomBackColor = true;
-            this.lblValid.UseCustomForeColor = true;
+            this.pnlPager.AutoScroll = true;
+            this.pnlPager.AutoScrollMinSize = new System.Drawing.Size(643, 18);
+            this.pnlPager.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlPager.Location = new System.Drawing.Point(304, 185);
+            this.pnlPager.Name = "pnlPager";
+            this.pnlPager.Size = new System.Drawing.Size(643, 23);
+            this.pnlPager.TabIndex = 45;
+            this.pnlPager.Text = "htmlPanel1";
             // 
             // CustomerUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblValid);
-            this.Controls.Add(this.lblStatusPage);
-            this.Controls.Add(this.btnNextPage);
-            this.Controls.Add(this.btnLastPage);
-            this.Controls.Add(this.btnBackPage);
-            this.Controls.Add(this.btnFirstPage);
+            this.Controls.Add(this.pnlPager);
             this.Controls.Add(this.CustomerGrid);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.btnNewCustomer);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroPanel1);
             this.Name = "CustomerUC";
-            this.Size = new System.Drawing.Size(1369, 785);
+            this.Size = new System.Drawing.Size(1370, 764);
             this.Load += new System.EventHandler(this.CustomerUC_Load);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
@@ -325,13 +248,8 @@
         private MetroFramework.Controls.MetroTile btnNewCustomer;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroGrid CustomerGrid;
-        private MetroFramework.Controls.MetroTile btnFirstPage;
-        private MetroFramework.Controls.MetroTile btnBackPage;
-        private MetroFramework.Controls.MetroTile btnLastPage;
-        private MetroFramework.Controls.MetroTile btnNextPage;
-        private MetroFramework.Controls.MetroLabel lblStatusPage;
-        private MetroFramework.Controls.MetroLabel lblValid;
         private System.Windows.Forms.ComboBox ddlCustomerZone;
         private System.Windows.Forms.ComboBox ddlCustomer;
+        private MetroFramework.Drawing.Html.HtmlPanel pnlPager;
     }
 }

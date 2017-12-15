@@ -126,13 +126,6 @@ namespace OrderManagement.User_Control
                 
                 if (ds.Count() > 0 )
                 {
-                    //ReportParameter p1 = new ReportParameter("ReportType", ReportName);
-                    //ReportParameter p2 = new ReportParameter("Date", RptDatePicker.Value.ToLongDateString());
-                    //ReportParameter p3 = new ReportParameter("DocumentNo", "INV");
-
-
-                    //reportViewer1.LocalReport.SetParameters(new ReportParameter[] { p1, p2, p3 });
-
                     OrderBindingSource.DataSource = HelperCS.ToDataTable(ds);
                     ReportDataSource rtpsource1 = new ReportDataSource("DataSet1", OrderBindingSource);
                     reportViewer1.LocalReport.DataSources.Add(rtpsource1);

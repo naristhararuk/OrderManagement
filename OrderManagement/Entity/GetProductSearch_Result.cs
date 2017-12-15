@@ -10,17 +10,10 @@
 namespace OrderManagement.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class GetProductSearch_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.Order = new HashSet<Order>();
-        }
-    
-        public int ProductID { get; set; }
+        public Nullable<int> ProductID { get; set; }
         public string ProductName { get; set; }
         public string ProductAbbr { get; set; }
         public Nullable<int> Category { get; set; }
@@ -31,8 +24,5 @@ namespace OrderManagement.Entity
         public Nullable<bool> Status { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string UpdateBy { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
     }
 }
