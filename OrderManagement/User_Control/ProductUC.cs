@@ -12,25 +12,45 @@ using OrderManagement.Class;
 using OrderManagement.Entity;
 using System.Data.Entity.Core.Objects;
 using MetroFramework.Controls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace OrderManagement.User_Control
 {
     public partial class ProductUC : UserControl
     {
         private object aa;
-        private int pagesize = 10;
+        private int pagesize = 3;
+
+        private int mintTotalRecords = 0;
+        private int mintPageSize = 0;
+        private int mintPageCount = 0;
+        private int mintCurrentPage = 1;
+        //protected const string CONNECTION_STRING = "Server=TILAPINA-PC;UID=sa;PWD=;Database=Sample";
+        //private string constring = @"Data Source=TILAPINA-PC;Initial Catalog=Order;Integrated Security=true";
+        private string constring = ConfigurationManager.ConnectionStrings["OrderConnectionString"].ConnectionString;
         public ProductUC()
         {
             InitializeComponent();
-            HelperCS.AutoCompleteLoadValues(ddlProduct, "Product");
-            HelperCS.AutoCompleteLoadValues(ddlProductCategory, "Config-ProductCategory");
+            
         }
         private void ProductUC_Load(object sender, EventArgs e)
         {
             //lblValid.Text = "";
-            BindProductData(1);
+            HelperCS.AutoCompleteLoadValues(ddlProduct, "Product");
+            HelperCS.AutoCompleteLoadValues(ddlProductCategory, "Config-ProductCategory");
+            //BindProductData(1);
+            BindPageSize();
+            fillGrid();
         }
-        
+
+        private void BindPageSize()
+        {
+            string[] sizevalue = { "5", "10", "15","20","25" };
+            ddlPageSize.Items.AddRange(sizevalue);
+            ddlPageSize.SelectedIndex = 0;
+        }
+
         //private void BindAllProductData()
         //{
         //    using (var db = new OrderEntities())
@@ -52,46 +72,181 @@ namespace OrderManagement.User_Control
         //    }
         //}
         #region BIND DATA
+
+        //private void BindGrid(int pageIndex)
+        //{
+        //    string constring = @"Data Source=TILAPINA-PC;Initial Catalog=Order;Integrated Security=true";
+        //    using (SqlConnection con = new SqlConnection(constring))
+        //    {
+        //        using (SqlCommand cmd = new SqlCommand("GetCustomersPageWise", con))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
+        //            cmd.Parameters.AddWithValue("@PageSize", pagesize);
+        //            cmd.Parameters.Add("@RecordCount", SqlDbType.Int, 4);
+        //            cmd.Parameters["@RecordCount"].Direction = ParameterDirection.Output;
+        //            con.Open();
+        //            DataTable dt = new DataTable();
+        //            dt.Load(cmd.ExecuteReader());
+        //            ProductGrid.DataSource = dt;
+        //            con.Close();
+        //            int recordCount = Convert.ToInt32(cmd.Parameters["@RecordCount"].Value);
+        //            this.PopulatePager(recordCount, pageIndex);
+        //        }
+        //    }
+        //}
+        private void fillGrid()
+        {
+            // For Page view.
+            string pagesize = (ddlPageSize.SelectedIndex > 0 ) ? ddlPageSize.SelectedItem.ToString() : "5";
+            this.mintPageSize = int.Parse(pagesize);
+            this.mintTotalRecords = getCount();
+            this.mintPageCount = this.mintTotalRecords / this.mintPageSize;
+
+            // Adjust page count if the last page contains partial page.
+            if (this.mintTotalRecords % this.mintPageSize > 0)
+                this.mintPageCount++;
+
+            this.mintCurrentPage = 0;
+
+            loadPage();
+        }
+        private int getCount()
+        {
+            string sql = "";
+            int intCount = 0;
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                //sql = "SELECT Rows FROM SYSINDEXES WHERE ID = OBJECT_ID('Product') AND IndId < 2";
+                con.Open();
+                sql = "SELECT COUNT(*)  FROM Product WHERE Status = 1";
+                if (ddlProduct.SelectedIndex > 0)
+                {
+                    string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
+                    sql += " AND ProductID = " + int.Parse(Productkey);
+                }
+                if (ddlProductCategory.SelectedIndex > 0)
+                {
+                    string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
+                    sql += " AND Category = " + int.Parse(Categorykey);
+                }
+                
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    intCount = (int)cmd.ExecuteScalar();
+                }
+                con.Close();
+            }
+            lblRecordCount.Text = intCount.ToString() + " ชิ้น";
+            return intCount;
+        }
+        private void loadPage()
+        {
+            string sql = "";
+            int intSkip = 0;
+
+            intSkip = (this.mintCurrentPage * this.mintPageSize);
+            
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                sql = "SELECT TOP " + this.mintPageSize + " * FROM Product WHERE Status = 1";
+                if (ddlProduct.SelectedIndex > 0)
+                {
+                    string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
+                    sql += " AND ProductID = " + int.Parse(Productkey);
+                }
+                if (ddlProductCategory.SelectedIndex > 0)
+                {
+                    string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
+                    sql += " AND Category = " + int.Parse(Categorykey);
+                }
+                sql += " AND ProductID NOT IN " +
+                "(SELECT TOP " + intSkip + " ProductID FROM Product)";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                 
+                    DataTable dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                    ProductGrid.DataSource = dt;
+
+                    // Show Status
+                    txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
+                }
+                con.Close();
+            }
+            //// Select only the n records.
+            //strSql = "SELECT TOP " + this.mintPageSize +
+            //    " * FROM tblEmp WHERE E_Id NOT IN " +
+            //    "(SELECT TOP " + intSkip + " E_Id FROM tblEmp)";
+
+            //bindquery to grid
+
+            //// Show Status
+            //txtPage.Text = (this.mintCurrentPage + 1).ToString() +
+            //  " / " + this.mintPageCount.ToString();
+
+            //string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
+            //string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
+            //List<GetProductSearch_Result> result;
+            //using (var db = new OrderEntities())
+            //{
+            //    if (Categorykey != "" && Productkey != "")
+            //    {
+            //        int id = int.Parse(Productkey);
+            //        int group = int.Parse(Categorykey);
+            //        var productid = db.GetProductSearch(id, group).Take(this.mintPageSize).ToList();
+            //        var query = db.GetProductSearch(id, group).Take(this.mintPageSize).ToList();
+            //        result = (from x in query
+            //                       where !productid.Any(p2 => p2.ProductID == x.ProductID)
+            //                       select x).ToList();
+            //    }
+ 
+        }
+      
+
         private void BindProductData(int pageindex)
         {
-            string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
-            string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
-            List<GetProductSearch_Result> result;
-            using (var db = new OrderEntities())
-            {
-                if (Categorykey != "" && Productkey != "")
-                {
-                    int id = int.Parse(Productkey);
-                    int group = int.Parse(Categorykey);
-                    result = db.GetProductSearch(id, group, pageindex, pagesize).ToList();
-                }
-                else if (Categorykey != "" && Productkey == "")
-                {
-                    int group = int.Parse(Categorykey);
-                    result = db.GetProductSearch(null, group, pageindex, pagesize).ToList();
-                }
-                else if (Categorykey == "" && Productkey != "")
-                {
-                    int id = int.Parse(Productkey);
-                    result = db.GetProductSearch(id, null, pageindex, pagesize).ToList();
-                }
-                else
-                {
-                    //find all record
-                    result = db.GetProductSearch(null, null, pageindex, pagesize).ToList();
-                }
+            //string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
+            //string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
+            //List<GetProductSearch_Result> result;
+            //using (var db = new OrderEntities())
+            //{
+            //    if (Categorykey != "" && Productkey != "")
+            //    {
+            //        int id = int.Parse(Productkey);
+            //        int group = int.Parse(Categorykey);
+            //        result = db.GetProductSearch(id, group, pageindex, pagesize).ToList();
+            //    }
+            //    else if (Categorykey != "" && Productkey == "")
+            //    {
+            //        int group = int.Parse(Categorykey);
+            //        result = db.GetProductSearch(null, group, pageindex, pagesize).ToList();
+            //    }
+            //    else if (Categorykey == "" && Productkey != "")
+            //    {
+            //        int id = int.Parse(Productkey);
+            //        result = db.GetProductSearch(id, null, pageindex, pagesize).ToList();
+            //    }
+            //    else
+            //    {
+            //        //find all record
+            //        result = db.GetProductSearch(null, null, pageindex, pagesize).ToList();
+            //    }
 
-                if (result.Count() > 0)
-                {
-                    ProductGrid.DataSource = HelperCS.ToDataTable(result);
-                    ProductGrid.AllowUserToAddRows = false;
-                    this.PopulatePager(result.Count(), pageindex);
-                }
-                else
-                {
-                    MessageBox.Show("ไม่พบข้อมูลสินค้าที่ค้นหา", "ค้นหาข้อมูลสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
+            //    if (result.Count() > 0)
+            //    {
+            //        ProductGrid.DataSource = HelperCS.ToDataTable(result);
+            //        ProductGrid.AllowUserToAddRows = false;
+            //        this.PopulatePager(result.Count(), pageindex);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("ไม่พบข้อมูลสินค้าที่ค้นหา", "ค้นหาข้อมูลสินค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
+            //}
         }
         #endregion BIND DATA
 
@@ -100,11 +255,13 @@ namespace OrderManagement.User_Control
         {
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ProductManageUC");
-            BindProductData(1);
+            //BindProductData(1);
+            fillGrid();
         }
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
-            BindProductData(1);
+            //BindProductData(1);
+            fillGrid();
         }
         private void ProductGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -119,7 +276,8 @@ namespace OrderManagement.User_Control
 
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ProductManageUC");
-            BindProductData(1);
+            //BindProductData(1);
+            fillGrid();
         }
         #endregion EVENT CLICK
 
@@ -175,10 +333,10 @@ namespace OrderManagement.User_Control
             }
 
             //Add Page Number
-            //for (int i = startIndex; i <= endIndex; i++)
-            //{
-            //    pages.Add(new Page { Text = i.ToString(), Value = i.ToString(), Selected = i == currentPage });
-            //}
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                pages.Add(new Page { Text = i.ToString(), Value = i.ToString(), Selected = i == currentPage });
+            }
 
             //Add the Next Button.
             if (currentPage < pageCount)
@@ -196,7 +354,7 @@ namespace OrderManagement.User_Control
             pnlPager.Controls.Clear();
 
             //Loop and add Buttons for Pager.
-            int count = 0;
+            int count = 0; MessageBox.Show(pages.Count.ToString());
             foreach (Page page in pages)
                 {
                     MetroButton btnPage = new MetroButton();
@@ -223,5 +381,47 @@ namespace OrderManagement.User_Control
         }
         #endregion PAGING
 
+        
+
+        
+
+        private void btnPageFirst_Click(object sender, EventArgs e)
+        {
+            this.mintCurrentPage = 0;
+            loadPage();
+        }
+        private void btnPagePrevious_Click(object sender, EventArgs e)
+        {
+            if (this.mintCurrentPage == this.mintPageCount)
+                this.mintCurrentPage = this.mintPageCount - 1;
+
+            this.mintCurrentPage--;
+
+            if (this.mintCurrentPage < 1)
+                this.mintCurrentPage = 0;
+
+            loadPage();
+        }
+        private void btnPageNext_Click(object sender, EventArgs e)
+        {
+            this.mintCurrentPage++;
+
+            if (this.mintCurrentPage > (this.mintPageCount - 1))
+                this.mintCurrentPage = this.mintPageCount - 1;
+
+            loadPage();
+        }
+
+        private void btnPageLast_Click(object sender, EventArgs e)
+        {
+            this.mintCurrentPage = this.mintPageCount - 1;
+
+            loadPage();
+        }
+
+        private void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillGrid();
+        }
     }
 }

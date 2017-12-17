@@ -11,86 +11,115 @@ using OrderManagement.User_Control;
 using OrderManagement.Class;
 using OrderManagement.Entity;
 using MetroFramework.Controls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace OrderManagement
 {
     public partial class CustomerUC :  UserControl
     {
-        //private object result;
-        private int pagesize = 2;
+        private int mintTotalRecords = 0;
+        private int mintPageSize = 0;
+        private int mintPageCount = 0;
+        private int mintCurrentPage = 1;
+        private string constring = ConfigurationManager.ConnectionStrings["OrderConnectionString"].ConnectionString;
         public CustomerUC()
         {
             InitializeComponent();
             HelperCS.AutoCompleteLoadValues(ddlCustomer, "Customer");
             HelperCS.AutoCompleteLoadValues(ddlCustomerZone, "Config-Zone");
-            BindProductData(1);
+            BindPageSize();
+            fillGrid();
         }
+
         private void CustomerUC_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
-            //lblValid.Text = "";
-            
         }
-       
-        #region BIND DATA
-        //private void BindAllCustomerData()
-        //{
-        //    using (var db = new OrderEntities())
-        //    {
-        //        List<Customer> result = (from x in db.Customer where x.Status == true select x).ToList();
-        //        if (result.Count() > 0)
-        //        {
-        //            CustomerGrid.DataSource = HelperCS.ToDataTable(result);
-        //            CustomerGrid.AllowUserToAddRows = false;
-        //            //lblValid.Text = "";
-        //        }
-        //        else
-        //        {
-        //            //lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
-        //        }
-        //    }
-        //}
-
-        private void BindProductData(int pageindex)
+        private void BindPageSize()
         {
-            string Customerkey = ((KeyValuePair<string, string>)ddlCustomer.SelectedItem).Key;
-            string Zonekey = ((KeyValuePair<string, string>)ddlCustomerZone.SelectedItem).Key;
-            List<GetCustomerSearch_Result> result;
-            using (var db = new OrderEntities())
-            {
-                if (Zonekey != "" && Customerkey != "")
-                {
-                    int id = int.Parse(Customerkey);
-                    int zone = int.Parse(Zonekey);
-                    result = db.GetCustomerSearch(id, zone, pageindex, pagesize).ToList();
-                }
-                else if (Zonekey != "" && Customerkey == "")
-                {
-                    int zone = int.Parse(Zonekey);
-                    result = db.GetCustomerSearch(null, zone, pageindex, pagesize).ToList();
-                }
-                else if (Zonekey == "" && Customerkey != "")
-                {
-                    int id = int.Parse(Customerkey);
-                    result = db.GetCustomerSearch(id, null, pageindex, pagesize).ToList();
-                }
-                else
-                {
-                    //search all
-                    result = db.GetCustomerSearch(null, null, pageindex, pagesize).ToList();
-                }
+            string[] sizevalue = { "5", "10", "15", "20", "25" };
+            ddlPageSize.Items.AddRange(sizevalue);
+            ddlPageSize.SelectedIndex = 0;
+        }
+        #region BIND DATA
+        private void fillGrid()
+        {
+            // For Page view.
+            string pagesize = (ddlPageSize.SelectedIndex > 0) ? ddlPageSize.SelectedItem.ToString() : "5";
+            this.mintPageSize = int.Parse(pagesize);
+            this.mintTotalRecords = getCount();
+            this.mintPageCount = this.mintTotalRecords / this.mintPageSize;
 
-                if (result.Count() > 0)
+            // Adjust page count if the last page contains partial page.
+            if (this.mintTotalRecords % this.mintPageSize > 0)
+                this.mintPageCount++;
+
+            this.mintCurrentPage = 0;
+            loadPage();
+        }
+        private int getCount()
+        {
+            string sql = "";
+            int intCount = 0;
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                sql = "SELECT COUNT(*)  FROM Customer WHERE Status = 1";
+                if (ddlCustomer.SelectedIndex > 0)
                 {
-                    CustomerGrid.DataSource = HelperCS.ToDataTable(result);
-                    CustomerGrid.AllowUserToAddRows = false;
-                    this.PopulatePager(result.Count(), pageindex);
+                    string cusid = ((KeyValuePair<string, string>)ddlCustomer.SelectedItem).Key;
+                    sql += " AND CustomerID = " + int.Parse(cusid);
                 }
-                else
+                if (ddlCustomerZone.SelectedIndex > 0)
                 {
-                    //lblValid.Text = "** ไม่พบข้อมูลที่ค้นหา";
-                    MessageBox.Show("ไม่พบข้อมูลลูกค้าที่ค้นหา", "ค้นหาข้อมูลลูกค้า", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    string zone = ((KeyValuePair<string, string>)ddlCustomerZone.SelectedItem).Key;
+                    sql += " AND Zone = " + int.Parse(zone);
                 }
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    intCount = (int)cmd.ExecuteScalar();
+                }
+                con.Close();
+            }
+            lblRecordCount.Text = intCount.ToString() + " คน";
+            return intCount;
+        }
+        private void loadPage()
+        {
+            string sql = "";
+            int intSkip = 0;
+
+            intSkip = (this.mintCurrentPage * this.mintPageSize);
+
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                sql = "SELECT TOP " + this.mintPageSize + " * FROM Customer WHERE Status = 1";
+                if (ddlCustomer.SelectedIndex > 0)
+                {
+                    string cusid = ((KeyValuePair<string, string>)ddlCustomer.SelectedItem).Key;
+                    sql += " AND CustomerID = " + int.Parse(cusid);
+                }
+                if (ddlCustomerZone.SelectedIndex > 0)
+                {
+                    string zone = ((KeyValuePair<string, string>)ddlCustomerZone.SelectedItem).Key;
+                    sql += " AND Zone = " + int.Parse(zone);
+                }
+                sql += " AND CustomerID NOT IN " +
+                "(SELECT TOP " + intSkip + " CustomerID FROM Customer)";
+                using (SqlCommand cmd = new SqlCommand(sql, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    DataTable dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                    CustomerGrid.DataSource = dt;
+                    // Show Status
+                    txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
+                }
+                con.Close();
             }
         }
         #endregion BIND DATA
@@ -98,16 +127,15 @@ namespace OrderManagement
         #region EVENT CLICK
         private void btnSearchCustomer_Click(object sender, EventArgs e)
         {
-            BindProductData(1);
+            fillGrid();
         }
         private void btnNewCustomer_Click(object sender, EventArgs e)
         {
             //call popup from parent Form
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("CustomerManageUC");
-            BindProductData(1);
+            fillGrid();
             //https://www.codeproject.com/Articles/16303/DataGrid-Paging-C-Windows-Forms link paging grid
-            //https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/how-to-bind-data-to-the-windows-forms-datagridview-control
         }
         private void CustomerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -116,116 +144,54 @@ namespace OrderManagement
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                //get if from grid column
-                //int id = Convert.ToInt32(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value);
+                //set customerid in user control from grid column click
                 CustomerManageUC.customerid = Convert.ToInt32(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value);
-                //do you staff.
             }
-            // get value customerid
-            //CustomerManageUC.customerid = 
+
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("CustomerManageUC");
-            BindProductData(1);
+            fillGrid();
         }
         #endregion EVENT CLICK
 
         #region PAGING
-        private void PopulatePager(int recordCount, int currentPage)
+        private void btnPageFirst_Click(object sender, EventArgs e)
         {
-            List<Page> pages = new List<Page>();
-            int startIndex, endIndex;
-            int pagerSpan = 5;
-
-            //Calculate the Start and End Index of pages to be displayed.
-            double dblPageCount = (double)((decimal)recordCount / Convert.ToDecimal(pagesize));
-            int pageCount = (int)Math.Ceiling(dblPageCount);
-            startIndex = currentPage > 1 && currentPage + pagerSpan - 1 < pagerSpan ? currentPage : 1;
-            endIndex = pageCount > pagerSpan ? pagerSpan : pageCount;
-            if (currentPage > pagerSpan % 2)
-            {
-                if (currentPage == 2)
-                {
-                    endIndex = 5;
-                }
-                else
-                {
-                    endIndex = currentPage + 2;
-                }
-            }
-            else
-            {
-                endIndex = (pagerSpan - currentPage) + 1;
-            }
-
-            if (endIndex - (pagerSpan - 1) > startIndex)
-            {
-                startIndex = endIndex - (pagerSpan - 1);
-            }
-
-            if (endIndex > pageCount)
-            {
-                endIndex = pageCount;
-                startIndex = ((endIndex - pagerSpan) + 1) > 0 ? (endIndex - pagerSpan) + 1 : 1;
-            }
-
-            //Add the First Page Button.
-            if (currentPage > 1)
-            {
-                pages.Add(new Page { Text = "First", Value = "1" });
-            }
-
-            //Add the Previous Button.
-            if (currentPage > 1)
-            {
-                pages.Add(new Page { Text = "<<", Value = (currentPage - 1).ToString() });
-            }
-
-            //Add Page Number
-            //for (int i = startIndex; i <= endIndex; i++)
-            //{
-            //    pages.Add(new Page { Text = i.ToString(), Value = i.ToString(), Selected = i == currentPage });
-            //}
-
-            //Add the Next Button.
-            if (currentPage < pageCount)
-            {
-                pages.Add(new Page { Text = ">>", Value = (currentPage + 1).ToString() });
-            }
-
-            //Add the Last Button.
-            if (currentPage != pageCount)
-            {
-                pages.Add(new Page { Text = "Last", Value = pageCount.ToString() });
-            }
-
-            //Clear existing Pager Buttons.
-            pnlPager.Controls.Clear();
-
-            //Loop and add Buttons for Pager.
-            int count = 0;
-            foreach (Page page in pages)
-            {
-                Button btnPage = new Button();
-                btnPage.Location = new System.Drawing.Point(38 * count, 5);
-                btnPage.Size = new System.Drawing.Size(35, 20);
-                btnPage.Name = page.Value;
-                btnPage.Text = page.Text;
-                btnPage.Enabled = !page.Selected;
-                btnPage.Click += new System.EventHandler(this.Page_Click);
-                pnlPager.Controls.Add(btnPage);
-                count++;
-            }
+            this.mintCurrentPage = 0;
+            loadPage();
         }
-        private void Page_Click(object sender, EventArgs e)
+        private void btnPagePrevious_Click(object sender, EventArgs e)
         {
-            Button btnPager = (sender as Button);
-            this.BindProductData(int.Parse(btnPager.Name));
+            if (this.mintCurrentPage == this.mintPageCount)
+                this.mintCurrentPage = this.mintPageCount - 1;
+
+            this.mintCurrentPage--;
+
+            if (this.mintCurrentPage < 1)
+                this.mintCurrentPage = 0;
+
+            loadPage();
         }
-        public class Page
+        private void btnPageNext_Click(object sender, EventArgs e)
         {
-            public string Text { get; set; }
-            public string Value { get; set; }
-            public bool Selected { get; set; }
+            this.mintCurrentPage++;
+
+            if (this.mintCurrentPage > (this.mintPageCount - 1))
+                this.mintCurrentPage = this.mintPageCount - 1;
+
+            loadPage();
+        }
+
+        private void btnPageLast_Click(object sender, EventArgs e)
+        {
+            this.mintCurrentPage = this.mintPageCount - 1;
+
+            loadPage();
+        }
+
+        private void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillGrid();
         }
         #endregion PAGING
     }
