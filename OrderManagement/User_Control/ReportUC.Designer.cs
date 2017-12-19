@@ -31,6 +31,7 @@
             this.pnlMainReport = new MetroFramework.Controls.MetroPanel();
             this.ReportSummaryTile = new MetroFramework.Controls.MetroTile();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.ReportTableTile = new MetroFramework.Controls.MetroTile();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +54,10 @@
             this.ReportSummaryTile.BackColor = System.Drawing.Color.MediumPurple;
             this.ReportSummaryTile.Location = new System.Drawing.Point(62, 25);
             this.ReportSummaryTile.Name = "ReportSummaryTile";
-            this.ReportSummaryTile.Size = new System.Drawing.Size(156, 108);
+            this.ReportSummaryTile.Size = new System.Drawing.Size(156, 107);
             this.ReportSummaryTile.TabIndex = 0;
             this.ReportSummaryTile.Text = "Summary Report";
+            this.ReportSummaryTile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ReportSummaryTile.TileImage = global::OrderManagement.Properties.Resources.chart_481;
             this.ReportSummaryTile.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ReportSummaryTile.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
@@ -84,10 +86,30 @@
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = true;
             this.metroPanel1.VerticalScrollbarSize = 15;
             // 
+            // ReportTableTile
+            // 
+            this.ReportTableTile.ActiveControl = null;
+            this.ReportTableTile.BackColor = System.Drawing.Color.RoyalBlue;
+            this.ReportTableTile.Location = new System.Drawing.Point(62, 159);
+            this.ReportTableTile.Name = "ReportTableTile";
+            this.ReportTableTile.Size = new System.Drawing.Size(156, 107);
+            this.ReportTableTile.TabIndex = 3;
+            this.ReportTableTile.Text = "Table Report";
+            this.ReportTableTile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ReportTableTile.TileImage = global::OrderManagement.Properties.Resources.chart3_48;
+            this.ReportTableTile.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ReportTableTile.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
+            this.ReportTableTile.UseCustomBackColor = true;
+            this.ReportTableTile.UseCustomForeColor = true;
+            this.ReportTableTile.UseSelectable = true;
+            this.ReportTableTile.UseTileImage = true;
+            this.ReportTableTile.Click += new System.EventHandler(this.ReportTableTile_Click);
+            // 
             // ReportUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ReportTableTile);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.ReportSummaryTile);
             this.Name = "ReportUC";
@@ -103,5 +125,6 @@
         private MetroFramework.Controls.MetroTile ReportSummaryTile;
         private MetroFramework.Controls.MetroPanel pnlMainReport;
         private MetroFramework.Controls.MetroPanel metroPanel1;
+        private MetroFramework.Controls.MetroTile ReportTableTile;
     }
 }

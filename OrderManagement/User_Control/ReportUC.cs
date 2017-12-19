@@ -43,5 +43,12 @@ namespace OrderManagement.User_Control
             pnlMainReport.Controls.Clear();
             pnlMainReport.Controls.Add(report);
         }
+
+        private void ReportTableTile_Click(object sender, EventArgs e)
+        {
+            ReportTable report = new ReportTable();
+            pnlMainReport.Controls.Clear();
+            pnlMainReport.Controls.Add(report);
+        }
     }
 }

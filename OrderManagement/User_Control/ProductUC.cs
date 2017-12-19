@@ -171,7 +171,7 @@ namespace OrderManagement.User_Control
                     DataTable dt = new DataTable();
                     dt.Load(cmd.ExecuteReader());
                     ProductGrid.DataSource = dt;
-
+                    ProductGrid.AllowUserToAddRows = false;
                     // Show Status
                     txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
                 }

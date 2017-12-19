@@ -95,6 +95,7 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -280,6 +281,12 @@
     <Compile Include="User_Control\ProductUC.Designer.cs">
       <DependentUpon>ProductUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Control\ReportTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Control\ReportTable.Designer.cs">
+      <DependentUpon>ReportTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="User_Control\ReportUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -348,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\ProductUC.resx">
       <DependentUpon>ProductUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Control\ReportTable.resx">
+      <DependentUpon>ReportTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\ReportUC.resx">
       <DependentUpon>ReportUC.cs</DependentUpon>
@@ -563,6 +573,8 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\printer.png" />
+    <Content Include="Resources\printer1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

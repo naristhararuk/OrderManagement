@@ -116,6 +116,7 @@ namespace OrderManagement
                     DataTable dt = new DataTable();
                     dt.Load(cmd.ExecuteReader());
                     CustomerGrid.DataSource = dt;
+                    CustomerGrid.AllowUserToAddRows = false;
                     // Show Status
                     txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
                 }
