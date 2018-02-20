@@ -29,6 +29,7 @@
     <Property Name="Status" Type="Boolean" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
   </EntityType>
   <EntityType Name="Login">
     <Key>
@@ -58,6 +59,8 @@
     <Property Name="OrderStatus" Type="Boolean" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -74,6 +77,17 @@
     <Property Name="Status" Type="Boolean" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Product" FromRole="Product" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="vwCustomerDetail">
     <Key>
@@ -127,33 +141,75 @@
     <Property Name="OrderDay" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ProductAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Category" Type="Byte" />
+    <Property Name="Category" Type="Int32" />
     <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
     <Property Name="Unit" Type="Int32" />
     <Property Name="Amount" Type="Int32" />
     <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Zone" Type="Byte" />
+    <Property Name="Zone" Type="Int32" />
     <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ShowPrice" Type="Boolean" />
   </EntityType>
+  <Association Name="FK_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Config" EntityType="Self.Config" />
     <EntitySet Name="Customer" EntityType="Self.Customer" />
     <EntitySet Name="Login" EntityType="Self.Login" />
     <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" />
     <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
     <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
+    <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
     <FunctionImport Name="DeleteRecord" ReturnType="Collection(Int32)">
       <Parameter Name="table" Mode="In" Type="String" />
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="updatedate" Mode="In" Type="DateTime" />
       <Parameter Name="updateby" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetCustomerSearch" ReturnType="Collection(OrderModel.GetCustomerSearch_Result)">
+      <Parameter Name="customerid" Mode="In" Type="Int32" />
+      <Parameter Name="zone" Mode="In" Type="Int32" />
+      <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+      <Parameter Name="PageSize" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetCustomerTransport" ReturnType="Collection(OrderModel.GetCustomerTransport_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>
     <FunctionImport Name="GetDailyOrder" ReturnType="Collection(OrderModel.GetDailyOrder_Result)">
       <Parameter Name="day" Mode="In" Type="String" />
@@ -162,6 +218,16 @@
     <FunctionImport Name="GetOrderbyDay" ReturnType="Collection(OrderModel.GetOrderbyDay_Result)">
       <Parameter Name="date" Mode="In" Type="DateTime" />
       <Parameter Name="customer" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductSearch" ReturnType="Collection(OrderModel.GetProductSearch_Result)">
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+      <Parameter Name="category" Mode="In" Type="Int32" />
+      <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+      <Parameter Name="PageSize" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductTransport" ReturnType="Collection(OrderModel.GetProductTransport_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+      <Parameter Name="zone" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="InsertCustomer" ReturnType="Collection(Int32)">
       <Parameter Name="citizenid" Mode="In" Type="String" />
@@ -207,36 +273,6 @@
       <Parameter Name="minpagesize" Mode="In" Type="Int32" />
       <Parameter Name="intskip" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_alterdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_creatediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_dropdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(OrderModel.sp_helpdiagramdefinition_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(OrderModel.sp_helpdiagrams_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_renamediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="new_diagramname" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_upgraddiagrams" />
     <FunctionImport Name="UpdateCustomer" ReturnType="Collection(Int32)">
       <Parameter Name="customerid" Mode="In" Type="Int32" />
       <Parameter Name="citizenid" Mode="In" Type="String" />
@@ -278,11 +314,28 @@
       <Parameter Name="updatedate" Mode="In" Type="DateTime" />
       <Parameter Name="updateby" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="GetProductTransport" ReturnType="Collection(OrderModel.GetProductTransport_Result)">
-      <Parameter Name="date" Mode="In" Type="DateTime" />
-      <Parameter Name="zone" Mode="In" Type="Int32" />
-    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="GetCustomerSearch_Result">
+    <Property Type="Int32" Name="CustomerID" Nullable="true" />
+    <Property Type="String" Name="CitizenID" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CustomerAbbr" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="Zone" Nullable="true" />
+    <Property Type="String" Name="Address1" Nullable="true" />
+    <Property Type="String" Name="Address2" Nullable="true" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Boolean" Name="ShowPrice" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+    <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetCustomerTransport_Result">
+    <Property Type="Int32" Name="CustomerID" Nullable="true" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="GetDailyOrder_Result">
     <Property Type="Int32" Name="OrderID" Nullable="false" />
     <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
@@ -319,6 +372,25 @@
     <Property Type="Int32" Name="Unit" Nullable="true" />
     <Property Type="Int32" Name="Amount" Nullable="true" />
   </ComplexType>
+  <ComplexType Name="GetProductSearch_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="ProductAbbr" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="Category" Nullable="true" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="14" Scale="2" />
+    <Property Type="Int32" Name="Unit" Nullable="true" />
+    <Property Type="Int32" Name="Amount" Nullable="true" />
+    <Property Type="String" Name="Descripiton" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
+    <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetProductTransport_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="TotalAmount" Nullable="true" />
+    <Property Type="Int32" Name="Unit" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="SelectGridPaging_Result">
     <Property Type="Int32" Name="ProductID" Nullable="false" />
     <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
@@ -331,22 +403,5 @@
     <Property Type="Boolean" Name="Status" Nullable="true" />
     <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
     <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="sp_helpdiagramdefinition_Result">
-    <Property Type="Int32" Name="version" Nullable="true" />
-    <Property Type="Binary" Name="definition" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_helpdiagrams_Result">
-    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-    <Property Type="Int32" Name="OwnerID" Nullable="false" />
-  </ComplexType>
-  <ComplexType Name="GetProductTransport_Result">
-    <Property Type="Int32" Name="ProductID" Nullable="true" />
-    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
-    <Property Type="Int32" Name="TotalAmount" Nullable="true" />
-    <Property Type="Int32" Name="Unit" Nullable="true" />
   </ComplexType>
 </Schema>

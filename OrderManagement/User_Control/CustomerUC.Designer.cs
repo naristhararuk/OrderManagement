@@ -43,15 +43,15 @@
             this.CustomerGrid = new MetroFramework.Controls.MetroGrid();
             this.btnNewCustomer = new MetroFramework.Controls.MetroTile();
             this.pnlPager = new MetroFramework.Controls.MetroPanel();
+            this.lblRecordCount = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.ddlPageSize = new System.Windows.Forms.ComboBox();
             this.txtPage = new MetroFramework.Controls.MetroTextBox();
             this.btnPageLast = new MetroFramework.Controls.MetroTile();
             this.btnPagePrevious = new MetroFramework.Controls.MetroTile();
             this.btnPageNext = new MetroFramework.Controls.MetroTile();
             this.btnPageFirst = new MetroFramework.Controls.MetroTile();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this.lblRecordCount = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerGrid)).BeginInit();
             this.pnlPager.SuspendLayout();
@@ -65,7 +65,7 @@
             this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel3.Location = new System.Drawing.Point(16, 2);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(99, 25);
+            this.metroLabel3.Size = new System.Drawing.Size(105, 25);
             this.metroLabel3.TabIndex = 43;
             this.metroLabel3.Text = "ค้นหาข้อมูล";
             this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -128,7 +128,7 @@
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel1.Location = new System.Drawing.Point(355, 25);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(68, 25);
+            this.metroLabel1.Size = new System.Drawing.Size(71, 25);
             this.metroLabel1.TabIndex = 30;
             this.metroLabel1.Text = "ชื่อลูกค้า";
             this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -139,7 +139,7 @@
             this.metroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel7.Location = new System.Drawing.Point(21, 25);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(37, 25);
+            this.metroLabel7.Size = new System.Drawing.Size(38, 25);
             this.metroLabel7.TabIndex = 30;
             this.metroLabel7.Text = "เขต";
             this.metroLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -152,7 +152,7 @@
             this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel2.Location = new System.Drawing.Point(16, 141);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(103, 25);
+            this.metroLabel2.Size = new System.Drawing.Size(110, 25);
             this.metroLabel2.TabIndex = 41;
             this.metroLabel2.Text = "รายชื่อลูกค้า";
             this.metroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -238,6 +238,33 @@
             this.pnlPager.VerticalScrollbarBarColor = true;
             this.pnlPager.VerticalScrollbarHighlightOnWheel = false;
             this.pnlPager.VerticalScrollbarSize = 10;
+            // 
+            // lblRecordCount
+            // 
+            this.lblRecordCount.AutoSize = true;
+            this.lblRecordCount.Location = new System.Drawing.Point(122, 14);
+            this.lblRecordCount.Name = "lblRecordCount";
+            this.lblRecordCount.Size = new System.Drawing.Size(25, 19);
+            this.lblRecordCount.TabIndex = 70;
+            this.lblRecordCount.Text = "คน";
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.Location = new System.Drawing.Point(10, 14);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(112, 19);
+            this.metroLabel5.TabIndex = 69;
+            this.metroLabel5.Text = "จำนวนข้อมูลทั้งหมด";
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.Location = new System.Drawing.Point(774, 14);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(68, 19);
+            this.metroLabel4.TabIndex = 68;
+            this.metroLabel4.Text = "แสดงข้อมูล";
             // 
             // ddlPageSize
             // 
@@ -341,33 +368,6 @@
             this.btnPageFirst.UseSelectable = true;
             this.btnPageFirst.UseTileImage = true;
             this.btnPageFirst.Click += new System.EventHandler(this.btnPageFirst_Click);
-            // 
-            // metroLabel4
-            // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(774, 14);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(68, 19);
-            this.metroLabel4.TabIndex = 68;
-            this.metroLabel4.Text = "แสดงข้อมูล";
-            // 
-            // metroLabel5
-            // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(10, 14);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(116, 19);
-            this.metroLabel5.TabIndex = 69;
-            this.metroLabel5.Text = "จำนวนข้อมูลทั้งหมด";
-            // 
-            // lblRecordCount
-            // 
-            this.lblRecordCount.AutoSize = true;
-            this.lblRecordCount.Location = new System.Drawing.Point(122, 14);
-            this.lblRecordCount.Name = "lblRecordCount";
-            this.lblRecordCount.Size = new System.Drawing.Size(26, 19);
-            this.lblRecordCount.TabIndex = 70;
-            this.lblRecordCount.Text = "คน";
             // 
             // CustomerUC
             // 

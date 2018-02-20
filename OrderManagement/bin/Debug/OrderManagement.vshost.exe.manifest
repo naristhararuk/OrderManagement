@@ -57,6 +57,11 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.ReportViewer.WinForms" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EntityFramework.dll" size="5225168">
       <assemblyIdentity name="EntityFramework" version="6.0.0.0" publicKeyToken="B77A5C561934E089" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -125,18 +130,6 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>yEOGmqylE1wtRylphfNcccqK9EMSiNBNSBxORsyT7iY=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.ReportViewer.WinForms.dll" size="563392">
-      <assemblyIdentity name="Microsoft.ReportViewer.WinForms" version="12.0.0.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>sQraLWiB7q2Q3DGfeRq9DV1vAo41MrfXZBrd0AGvuTw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -273,14 +266,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="762320">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrderManagement.exe" size="828368">
       <assemblyIdentity name="OrderManagement" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EJFNNfcp3n9B6o0VeMWgKRqF6omCBihugl2+0c42ppk=</dsig:DigestValue>
+        <dsig:DigestValue>XJYLO0yhJWroKPUYXCRmC572Wrptzv6aCdHOgxInWaU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -302,13 +295,22 @@
       <dsig:DigestValue>n7xFyZPzwgt1zsIPFxwhfWPvUcs1ZKkWaSCydil9Qbg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrderManagement.exe.config" size="1878">
+  <file name="OrderManagement.exe.config" size="2238">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>i4nVAx6LyCkmpV6kBGa9dGAJSQDcpUK4LP25SSeNVu0=</dsig:DigestValue>
+      <dsig:DigestValue>R5o1nb4zqZ7hVDygCsXhlgp2ZDbIolJfWfkXuzTbx5s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\printer1.png" size="889">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BH726EM/Z5KJ+tmzF1g5OqLay3h1fefNuvVKAykN+C0=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

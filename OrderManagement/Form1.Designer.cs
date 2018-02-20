@@ -67,7 +67,7 @@
             this.UserTile.Name = "UserTile";
             this.UserTile.Size = new System.Drawing.Size(220, 44);
             this.UserTile.TabIndex = 42;
-            this.UserTile.Text = "User";
+            this.UserTile.Text = "ไม่ล็อคอิน";
             this.UserTile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.UserTile.TileImage = global::OrderManagement.Properties.Resources.Female_Face_FA_5_icon__1_;
             this.UserTile.TileImageAlign = System.Drawing.ContentAlignment.MiddleRight;

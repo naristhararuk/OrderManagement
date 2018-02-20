@@ -780,6 +780,13 @@
                     <FontWeight>Normal</FontWeight>
                   </Style>
                 </TextRun>
+                <TextRun>
+                  <Value>=Fields!OrderID.Value</Value>
+                  <Style>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>Normal</FontWeight>
+                  </Style>
+                </TextRun>
               </TextRuns>
               <Style>
                 <TextAlign>Right</TextAlign>
@@ -788,9 +795,9 @@
           </Paragraphs>
           <rd:DefaultName>DocumentNo</rd:DefaultName>
           <Top>1.67457cm</Top>
-          <Left>13.70241cm</Left>
+          <Left>12.99411cm</Left>
           <Height>0.8559cm</Height>
-          <Width>5.57206cm</Width>
+          <Width>6.26135cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>

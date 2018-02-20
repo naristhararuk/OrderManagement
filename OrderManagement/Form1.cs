@@ -29,7 +29,7 @@ namespace OrderManagement
         {
             this.FormBorderStyle = FormBorderStyle.None;
            //this.WindowState = FormWindowState.Maximized;
-            HelperCS.UserName = "Admin";
+            HelperCS.UserName = "";
             CheckUserLogin();
         }
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -44,23 +44,50 @@ namespace OrderManagement
         #region MenuClick
         private void CustomerMenuTile_Click(object sender, EventArgs e)
         {
-            CustomerUC cusUC = new CustomerUC();
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(cusUC);
+            if (HelperCS.UserName != "")
+            {
+                CustomerUC cusUC = new CustomerUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(cusUC);
+            }
+            else
+            {
+                LoginUC login = new LoginUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(login);
+            }
         }
 
         private void OrderMenuTile_Click(object sender, EventArgs e)
         {
-            OrderUC order = new OrderUC();
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(order);
+            if (HelperCS.UserName != "")
+            {
+                OrderUC order = new OrderUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(order);
+            }
+            else
+            {
+                LoginUC login = new LoginUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(login);
+            }
         }
 
         private void ProductMenuTile_Click(object sender, EventArgs e)
         {
-            ProductUC productUC = new ProductUC();
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(productUC);
+            if (HelperCS.UserName != "")
+            {
+                ProductUC productUC = new ProductUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(productUC);
+            }
+            else
+            {
+                LoginUC login = new LoginUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(login);
+            }
             //CustomerManageUC cusmanage = new CustomerManageUC();
             //MaskedDialog.ShowDialog(this, cusmanage);
 
@@ -92,19 +119,23 @@ namespace OrderManagement
             {
                 uc = new ProductUC();
             }
+            else if (usercontrolname == "ReportServiceUC")
+            {
+                uc = new ReportServiceUC();
+            }
             MaskedDialog.ShowDialog(this, uc);
         }
         public void CheckUserLogin()
         {
             string username = HelperCS.UserName;
-            if (username == "Admin")
+            if (username == "ADMIN")
             {
                 ReportUC report = new ReportUC();
                 pnlMain.Controls.Clear();
                 pnlMain.Controls.Add(report);
                 UserTile.Text = username;
             }
-            else if (username == "Account")
+            else if (username == "ACCOUNT")
             {
                 OrderUC order = new OrderUC();
                 pnlMain.Controls.Clear();
@@ -133,14 +164,29 @@ namespace OrderManagement
         private void UserTile_Click(object sender, EventArgs e)
         {
             //logout and login different accoun
-            LoginUC login = new LoginUC();
-            pnlMain.Controls.Clear();
-            pnlMain.Controls.Add(login);
+            if (HelperCS.UserName != "")
+            {
+                DialogResult result = MessageBox.Show(this, "ต้องการออกจากระบบหรือไม่ ", "Sign out", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                if (result.Equals(DialogResult.OK))
+                {
+                    HelperCS.UserName = "";
+                    UserTile.Text = "ไม่ล็อคอิน";
+                    LoginUC login = new LoginUC();
+                    pnlMain.Controls.Clear();
+                    pnlMain.Controls.Add(login);
+                }
+            }
+            else
+            {
+                LoginUC login = new LoginUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(login);
+            }
         }
 
         private void ReportMenuTile_Click(object sender, EventArgs e)
         {
-            if (HelperCS.UserName != "Admin")
+            if (HelperCS.UserName != "ADMIN")
             {
                 DialogResult result = MessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result.Equals(DialogResult.OK))
@@ -153,7 +199,6 @@ namespace OrderManagement
                 {
                     pnlMain.Controls.Clear();
                 }
-
             }
             else
             {

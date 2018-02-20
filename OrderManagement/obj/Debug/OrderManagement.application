@@ -7,14 +7,14 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="OrderManagement.exe.manifest" size="18019">
+    <dependentAssembly dependencyType="install" codebase="OrderManagement.exe.manifest" size="18011">
       <assemblyIdentity name="OrderManagement.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>meqtu3c2OT2JVcYQelb2JeIaOfVdoddPkomWSpty6js=</dsig:DigestValue>
+        <dsig:DigestValue>K7SJ9HF5VGFnajAtl1c/FteI6mfeArdPlOZ4ksCErgA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

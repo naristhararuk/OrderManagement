@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportTable));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -50,8 +51,12 @@
             this.btnPageFirst = new MetroFramework.Controls.MetroTile();
             this.ddlCustomer = new System.Windows.Forms.ComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.CustomerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.OrderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ReportGrid)).BeginInit();
             this.pnlPager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrderBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSearchReport
@@ -347,6 +352,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ReportGrid)).EndInit();
             this.pnlPager.ResumeLayout(false);
             this.pnlPager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CustomerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrderBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,5 +378,7 @@
         private MetroFramework.Controls.MetroTile btnPageFirst;
         private System.Windows.Forms.ComboBox ddlCustomer;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private System.Windows.Forms.BindingSource CustomerBindingSource;
+        private System.Windows.Forms.BindingSource OrderBindingSource;
     }
 }

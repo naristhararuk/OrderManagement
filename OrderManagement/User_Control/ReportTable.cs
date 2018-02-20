@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using OrderManagement.Class;
 using MetroFramework.Controls;
+using OrderManagement.Entity;
 
 namespace OrderManagement.User_Control
 {
@@ -21,6 +22,7 @@ namespace OrderManagement.User_Control
         private int mintPageCount = 0;
         private int mintCurrentPage = 1;
         private string constring = ConfigurationManager.ConnectionStrings["OrderConnectionString"].ConnectionString;
+
         public ReportTable()
         {
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace OrderManagement.User_Control
             HelperCS.AutoCompleteLoadValues(ddlCustomerZone, "Config-Zone");
             BindPageSize();
         }
+
+        #region DATA GRID
         private void BindPageSize()
         {
             string[] sizevalue = { "5", "10", "15", "20", "25" };
@@ -74,8 +78,6 @@ namespace OrderManagement.User_Control
             //create an event:
             //ReportGrid.CellClick += new DataGridViewCellEventHandler(ReportGrid_CellClick);
         }
-
-        #region BIND GRID
         private void fillGrid()
         {
             // For Page view.
@@ -175,7 +177,7 @@ namespace OrderManagement.User_Control
                 con.Close();
             }
         }
-        #endregion BIND GRID
+        #endregion DATA GRID
 
         #region PAGING
         private void btnPageFirst_Click(object sender, EventArgs e)
@@ -231,23 +233,40 @@ namespace OrderManagement.User_Control
                 if (e.ColumnIndex == dgv.Columns["Receive"].Index)
                 {
                     MessageBox.Show("Do you want to print Receive the row?" + date.ToShortDateString() + cusid.ToString());
+                    PrepareReport("Receive",date, cusid);
                 }
                 else if (e.ColumnIndex == dgv.Columns["Invoice"].Index)
                 {
                     MessageBox.Show("Do you want to print Invoice the row?" + date.ToShortDateString() + cusid.ToString());
+                    PrepareReport("Invoice", date, cusid);
                 }
                 else if (e.ColumnIndex == dgv.Columns["Delivery"].Index)
                 {
                     MessageBox.Show("Do you want to print Delivery the row?" + date.ToShortDateString() + cusid.ToString());
+                    PrepareReport("Delivery", date, cusid);
                 }
                 else if (e.ColumnIndex == dgv.Columns["Transport"].Index)
                 {
                     MessageBox.Show("Do you want to print Transport the row?" + date.ToShortDateString() + cusid.ToString());
+                    PrepareReport("Transport", date, cusid);
                 }
             }
         }
         #endregion EVENT CLICK
 
-        
+        #region PRINT DATA
+        private void PrepareReport(string reporttype, DateTime date, int cusid)
+        {
+            //set variable in user control
+            ReportServiceUC.date = date;
+            ReportServiceUC.customerid = cusid;
+            ReportServiceUC.reporttype = reporttype;
+
+            //call popup from parent Form
+            Form1 frm = this.FindForm() as Form1;
+            frm.callControlPopup("ReportServiceUC");
+        }
+        #endregion PRINT DATA
+
     }
 }

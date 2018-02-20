@@ -281,6 +281,12 @@
     <Compile Include="User_Control\ProductUC.Designer.cs">
       <DependentUpon>ProductUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Control\ReportServiceUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Control\ReportServiceUC.Designer.cs">
+      <DependentUpon>ReportServiceUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="User_Control\ReportTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -355,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\ProductUC.resx">
       <DependentUpon>ProductUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Control\ReportServiceUC.resx">
+      <DependentUpon>ReportServiceUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Control\ReportTable.resx">
       <DependentUpon>ReportTable.cs</DependentUpon>

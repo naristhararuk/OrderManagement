@@ -38,7 +38,7 @@ namespace OrderManagement
         }
         private void BindPageSize()
         {
-            string[] sizevalue = { "5", "10", "15", "20", "25" };
+            string[] sizevalue = { "10", "15", "20", "30", "50" };
             ddlPageSize.Items.AddRange(sizevalue);
             ddlPageSize.SelectedIndex = 0;
         }
@@ -46,7 +46,7 @@ namespace OrderManagement
         private void fillGrid()
         {
             // For Page view.
-            string pagesize = (ddlPageSize.SelectedIndex > 0) ? ddlPageSize.SelectedItem.ToString() : "5";
+            string pagesize = (ddlPageSize.SelectedIndex > 0) ? ddlPageSize.SelectedItem.ToString() : "10";
             this.mintPageSize = int.Parse(pagesize);
             this.mintTotalRecords = getCount();
             this.mintPageCount = this.mintTotalRecords / this.mintPageSize;

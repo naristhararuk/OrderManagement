@@ -256,14 +256,60 @@
         <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <DataSetName>DataSet1</DataSetName>
+        <Top>1.27cm</Top>
         <Height>1.2cm</Height>
-        <Width>9.7102cm</Width>
+        <Width>9.71019cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="date">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!ReportName.Value</Value>
+                <Style />
+              </TextRun>
+              <TextRun>
+                <Value> วันที่ </Value>
+                <Style />
+              </TextRun>
+              <TextRun>
+                <Value>=Parameters!Date.Value</Value>
+                <Style />
+              </TextRun>
+              <TextRun>
+                <Value> พื้นที่ </Value>
+                <Style />
+              </TextRun>
+              <TextRun>
+                <Value>=Parameters!Zone.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>date</rd:DefaultName>
+        <Top>0.23495cm</Top>
+        <Height>0.6cm</Height>
+        <Width>9.71019cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>8.875in</Height>
     <Style />
@@ -324,6 +370,20 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Date">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Zone">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ReportName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>dd2becdc-f25a-4eb0-b94f-c2db5ccf16f7</rd:ReportID>
 </Report>
