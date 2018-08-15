@@ -94,8 +94,27 @@ namespace OrderManagement
         }
         private void SettingMenuTile_Click(object sender, EventArgs e)
         {
+            if (HelperCS.UserName != "ADMIN")
+            {
+                DialogResult result = MessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                if (result.Equals(DialogResult.OK))
+                {
+                    LoginUC login = new LoginUC();
+                    pnlMain.Controls.Clear();
+                    pnlMain.Controls.Add(login);
+                }
+                else
+                {
+                    pnlMain.Controls.Clear();
+                }
+            }
+            else
+            {
+                SettingUC set = new SettingUC();
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(set);
+            }
 
-          
         }
         #endregion MenuClick
 
@@ -127,6 +146,9 @@ namespace OrderManagement
         }
         public void CheckUserLogin()
         {
+            /*dev test only*/
+            HelperCS.UserName = "ADMIN";
+
             string username = HelperCS.UserName;
             if (username == "ADMIN")
             {
@@ -186,7 +208,7 @@ namespace OrderManagement
 
         private void ReportMenuTile_Click(object sender, EventArgs e)
         {
-            if (HelperCS.UserName != "ADMIN")
+            if (HelperCS.UserName != "ADMIN" && HelperCS.UserName != "ACCOUNT")
             {
                 DialogResult result = MessageBox.Show(this, "You Not have Permission Administrator can Access this Menu \r\n Login Menu Click OK ", "Access to Report", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
                 if (result.Equals(DialogResult.OK))

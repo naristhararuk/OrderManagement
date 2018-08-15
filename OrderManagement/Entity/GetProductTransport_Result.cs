@@ -16,6 +16,7 @@ namespace OrderManagement.Entity
         public Nullable<int> ProductID { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> TotalAmount { get; set; }
+        public Nullable<int> UnitCarry { get; set; }
         public Nullable<int> Unit { get; set; }
     }
 }

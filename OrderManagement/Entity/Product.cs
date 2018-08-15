@@ -14,25 +14,17 @@ namespace OrderManagement.Entity
     
     public partial class Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.Order = new HashSet<Order>();
-        }
-    
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string ProductAbbr { get; set; }
         public Nullable<int> Category { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<int> UnitCarry { get; set; }
         public Nullable<int> Unit { get; set; }
         public Nullable<int> Amount { get; set; }
         public string Descripiton { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string UpdateBy { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
     }
 }

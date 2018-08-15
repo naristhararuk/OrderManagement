@@ -10,9 +10,8 @@
 namespace OrderManagement.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Order
+    public partial class FindProductOrder_Result
     {
         public int OrderID { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }

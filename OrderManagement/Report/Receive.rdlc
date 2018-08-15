@@ -677,7 +677,7 @@
           <rd:DefaultName>Textbox18</rd:DefaultName>
           <Top>3.85974cm</Top>
           <Left>13.70241cm</Left>
-          <Height>0.73202cm</Height>
+          <Height>0.96838cm</Height>
           <Width>5.57206cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
@@ -774,14 +774,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Parameters!DocumentNo.Value</Value>
-                  <Style>
-                    <FontSize>14pt</FontSize>
-                    <FontWeight>Normal</FontWeight>
-                  </Style>
-                </TextRun>
-                <TextRun>
-                  <Value>=Fields!OrderID.Value</Value>
+                  <Value>=First(Fields!DocumentID.Value, "DataSet1")</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Normal</FontWeight>
@@ -1128,17 +1121,9 @@
           <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CustomerAbbr">
-          <DataField>CustomerAbbr</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Zone">
           <DataField>Zone</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Address1">
           <DataField>Address1</DataField>
@@ -1152,22 +1137,30 @@
           <DataField>Phone</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="ShowPrice">
           <DataField>ShowPrice</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="OrderStartDate">
+          <DataField>OrderStartDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="OrderEndDate">
+          <DataField>OrderEndDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="DocumentID">
+          <DataField>DocumentID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDS</rd:DataSetName>
         <rd:SchemaPath>D:\Project\OrderManagement\OrderManagement\Dataset\ReportDS.xsd</rd:SchemaPath>
-        <rd:TableName>vwCustomerDetail</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>vwCustomerDetailTableAdapter</rd:TableAdapterName>
+        <rd:TableName>OrderCustomer</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="DataSet2">
@@ -1257,10 +1250,6 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Date">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="DocumentNo">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

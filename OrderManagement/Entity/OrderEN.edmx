@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="run" />
@@ -22,7 +22,7 @@
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Zone" Type="int" />
@@ -73,22 +73,13 @@
           <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Category" Type="int" />
           <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="UnitCarry" Type="int" />
           <Property Name="Unit" Type="int" />
           <Property Name="Amount" Type="int" />
           <Property Name="Descripiton" Type="nvarchar(max)" />
           <Property Name="Status" Type="bit" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Order.dbo.vwCustomerDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -97,7 +88,7 @@ warning 6002: The table/view 'Order.dbo.vwCustomerDetail' does not have a primar
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Zone" Type="int" />
@@ -150,9 +141,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ProductAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Category" Type="int" />
           <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="UnitCarry" Type="int" />
           <Property Name="Unit" Type="int" />
           <Property Name="Amount" Type="int" />
-          <Property Name="CitizenID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CitizenID" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
           <Property Name="CustomerAbbr" Type="nvarchar" MaxLength="255" />
           <Property Name="Zone" Type="int" />
@@ -161,35 +153,19 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="ShowPrice" Type="bit" />
         </EntityType>
-        <Association Name="FK_Order_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="DeleteOrderRollbackProductAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderid" Type="int" Mode="In" />
+        </Function>
         <Function Name="DeleteRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="updatedate" Type="datetime" Mode="In" />
           <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindProductOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="datetime" Mode="In" />
+          <Parameter Name="customer" Type="int" Mode="In" />
+          <Parameter Name="productid" Type="int" Mode="In" />
         </Function>
         <Function Name="GetCustomerSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="customerid" Type="int" Mode="In" />
@@ -198,6 +174,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Parameter Name="PageSize" Type="int" Mode="In" />
         </Function>
         <Function Name="GetCustomerTransport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="zone" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetCustomerTransport2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="date" Type="date" Mode="In" />
         </Function>
         <Function Name="GetDailyOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -208,6 +188,11 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Parameter Name="date" Type="date" Mode="In" />
           <Parameter Name="customer" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetOrderCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="customerID" Type="int" Mode="In" />
+          <Parameter Name="report" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetProductSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productid" Type="int" Mode="In" />
           <Parameter Name="category" Type="int" Mode="In" />
@@ -217,6 +202,14 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
         <Function Name="GetProductTransport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="date" Type="date" Mode="In" />
           <Parameter Name="zone" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReceiveWeekly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateWeek" Type="date" Mode="In" />
+          <Parameter Name="customerID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetReceiveWeeklyPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateWeek" Type="date" Mode="In" />
+          <Parameter Name="customerID" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="citizenid" Type="nvarchar" Mode="In" />
@@ -250,12 +243,17 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
           <Parameter Name="category" Type="int" Mode="In" />
           <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="unitCarry" Type="decimal" Mode="In" />
           <Parameter Name="unit" Type="int" Mode="In" />
           <Parameter Name="productamount" Type="int" Mode="In" />
           <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="status" Type="bit" Mode="In" />
           <Parameter Name="updatedate" Type="datetime" Mode="In" />
           <Parameter Name="updateby" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="OrderNum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="customerid" Type="int" Mode="In" />
         </Function>
         <Function Name="SelectGridPaging" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tablename" Type="nvarchar" Mode="In" />
@@ -296,6 +294,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Parameter Name="productabbr" Type="nvarchar" Mode="In" />
           <Parameter Name="category" Type="int" Mode="In" />
           <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="unitcarry" Type="decimal" Mode="In" />
           <Parameter Name="unit" Type="int" Mode="In" />
           <Parameter Name="productamount" Type="int" Mode="In" />
           <Parameter Name="description" Type="nvarchar(max)" Mode="In" />
@@ -309,7 +308,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwCustomerDetail].[CustomerID] AS [CustomerID], 
@@ -360,6 +358,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     [vwOrderDetail].[ProductAbbr] AS [ProductAbbr], 
     [vwOrderDetail].[Category] AS [Category], 
     [vwOrderDetail].[Price] AS [Price], 
+    [vwOrderDetail].[UnitCarry] AS [UnitCarry], 
     [vwOrderDetail].[Unit] AS [Unit], 
     [vwOrderDetail].[Amount] AS [Amount], 
     [vwOrderDetail].[CitizenID] AS [CitizenID], 
@@ -372,17 +371,8 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     [vwOrderDetail].[ShowPrice] AS [ShowPrice]
     FROM [dbo].[vwOrderDetail] AS [vwOrderDetail]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -403,7 +393,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CitizenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Zone" Type="Int32" />
@@ -415,7 +405,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Status" Type="Boolean" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -445,8 +434,6 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="OrderStatus" Type="Boolean" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -457,30 +444,20 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ProductAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="UnitCarry" Type="Int32" />
           <Property Name="Unit" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
           <Property Name="Descripiton" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Product" FromRole="Product" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="vwCustomerDetail">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CitizenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Zone" Type="Int32" />
@@ -529,9 +506,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="ProductAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="UnitCarry" Type="Int32" />
           <Property Name="Unit" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
-          <Property Name="CitizenID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CitizenID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Zone" Type="Int32" />
@@ -540,48 +518,15 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShowPrice" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_Order_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="OrderEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Config" EntityType="Self.Config" />
           <EntitySet Name="Customer" EntityType="Self.Customer" />
           <EntitySet Name="Login" EntityType="Self.Login" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="vwCustomerDetail" EntityType="Self.vwCustomerDetail" />
           <EntitySet Name="vwOrder" EntityType="Self.vwOrder" />
           <EntitySet Name="vwOrderDetail" EntityType="Self.vwOrderDetail" />
-          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
           <FunctionImport Name="DeleteRecord" ReturnType="Collection(Int32)">
             <Parameter Name="table" Mode="In" Type="String" />
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -596,6 +541,10 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           </FunctionImport>
           <FunctionImport Name="GetCustomerTransport" ReturnType="Collection(OrderModel.GetCustomerTransport_Result)">
             <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="zone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetCustomerTransport2">
+          <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetDailyOrder" ReturnType="Collection(OrderModel.GetDailyOrder_Result)">
             <Parameter Name="day" Mode="In" Type="String" />
@@ -604,6 +553,11 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <FunctionImport Name="GetOrderbyDay" ReturnType="Collection(OrderModel.GetOrderbyDay_Result)">
             <Parameter Name="date" Mode="In" Type="DateTime" />
             <Parameter Name="customer" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrderCustomer" ReturnType="Collection(OrderModel.GetOrderCustomer_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="customerID" Mode="In" Type="Int32" />
+            <Parameter Name="report" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetProductSearch" ReturnType="Collection(OrderModel.GetProductSearch_Result)">
             <Parameter Name="productid" Mode="In" Type="Int32" />
@@ -614,6 +568,14 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <FunctionImport Name="GetProductTransport" ReturnType="Collection(OrderModel.GetProductTransport_Result)">
             <Parameter Name="date" Mode="In" Type="DateTime" />
             <Parameter Name="zone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReceiveWeekly" ReturnType="Collection(OrderModel.GetReceiveWeekly_Result)">
+            <Parameter Name="dateWeek" Mode="In" Type="DateTime" />
+            <Parameter Name="customerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetReceiveWeeklyPrice" ReturnType="Collection(OrderModel.GetReceiveWeeklyPrice_Result)">
+            <Parameter Name="dateWeek" Mode="In" Type="DateTime" />
+            <Parameter Name="customerID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertCustomer" ReturnType="Collection(Int32)">
             <Parameter Name="citizenid" Mode="In" Type="String" />
@@ -647,6 +609,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
             <Parameter Name="productabbr" Mode="In" Type="String" />
             <Parameter Name="category" Mode="In" Type="Int32" />
             <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="unitCarry" Mode="In" Type="Decimal" />
             <Parameter Name="unit" Mode="In" Type="Int32" />
             <Parameter Name="productamount" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
@@ -693,12 +656,21 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
             <Parameter Name="productabbr" Mode="In" Type="String" />
             <Parameter Name="category" Mode="In" Type="Int32" />
             <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="unitcarry" Mode="In" Type="Decimal" />
             <Parameter Name="unit" Mode="In" Type="Int32" />
             <Parameter Name="productamount" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="status" Mode="In" Type="Boolean" />
             <Parameter Name="updatedate" Mode="In" Type="DateTime" />
             <Parameter Name="updateby" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteOrderRollbackProductAmount" ReturnType="Collection(Int32)">
+            <Parameter Name="orderid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FindProductOrder" ReturnType="Collection(OrderModel.FindProductOrder_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="customer" Mode="In" Type="Int32" />
+            <Parameter Name="productid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetCustomerSearch_Result">
@@ -737,6 +709,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="UnitCarry" Nullable="true" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
           <Property Type="Int32" Name="Amount" Nullable="true" />
         </ComplexType>
@@ -755,8 +728,22 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="WeekDay" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="UnitCarry" Nullable="true" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
           <Property Type="Int32" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetOrderCustomer_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CitizenID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Zone" Nullable="true" />
+          <Property Type="String" Name="Address1" Nullable="true" />
+          <Property Type="String" Name="Address2" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="ShowPrice" Nullable="true" />
+          <Property Type="DateTime" Name="OrderStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="OrderEndDate" Nullable="true" />
+          <Property Type="String" Name="DocumentID" Nullable="true" MaxLength="24" />
         </ComplexType>
         <ComplexType Name="GetProductSearch_Result">
           <Property Type="Int32" Name="ProductID" Nullable="true" />
@@ -764,6 +751,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="String" Name="ProductAbbr" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Category" Nullable="true" />
           <Property Type="Decimal" Name="Price" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="UnitCarry" Nullable="true" Precision="14" Scale="2" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
           <Property Type="Int32" Name="Amount" Nullable="true" />
           <Property Type="String" Name="Descripiton" Nullable="true" />
@@ -775,7 +763,49 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="Int32" Name="ProductID" Nullable="true" />
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="TotalAmount" Nullable="true" />
+          <Property Type="Int32" Name="UnitCarry" Nullable="true" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetReceiveWeekly_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="sun" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="mon" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="tue" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="wed" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="thr" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="fri" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="sat" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="sunamount" Nullable="true" />
+          <Property Type="Int32" Name="monamount" Nullable="true" />
+          <Property Type="Int32" Name="tueamount" Nullable="true" />
+          <Property Type="Int32" Name="wedamount" Nullable="true" />
+          <Property Type="Int32" Name="thramount" Nullable="true" />
+          <Property Type="Int32" Name="friamount" Nullable="true" />
+          <Property Type="Int32" Name="satamount" Nullable="true" />
+          <Property Type="Int32" Name="totalamount" Nullable="true" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="GetReceiveWeeklyPrice_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="sun" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="mon" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="tue" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="wed" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="thr" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="fri" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="sat" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="sunamount" Nullable="true" />
+          <Property Type="Int32" Name="monamount" Nullable="true" />
+          <Property Type="Int32" Name="tueamount" Nullable="true" />
+          <Property Type="Int32" Name="wedamount" Nullable="true" />
+          <Property Type="Int32" Name="thramount" Nullable="true" />
+          <Property Type="Int32" Name="friamount" Nullable="true" />
+          <Property Type="Int32" Name="satamount" Nullable="true" />
+          <Property Type="Decimal" Name="price" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="totalamount" Nullable="true" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
         <ComplexType Name="SelectGridPaging_Result">
           <Property Type="Int32" Name="ProductID" Nullable="false" />
@@ -783,10 +813,25 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <Property Type="String" Name="ProductAbbr" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Category" Nullable="true" />
           <Property Type="Decimal" Name="Price" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="UnitCarry" Nullable="true" />
           <Property Type="Int32" Name="Unit" Nullable="true" />
           <Property Type="Int32" Name="Amount" Nullable="true" />
           <Property Type="String" Name="Descripiton" Nullable="true" />
           <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="FindProductOrder_Result">
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CustomerID" Nullable="true" />
+          <Property Type="Int32" Name="ProductID" Nullable="true" />
+          <Property Type="Decimal" Name="ProductPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="OrderAmount" Nullable="true" />
+          <Property Type="Decimal" Name="OrderTotal" Nullable="true" Precision="14" Scale="2" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="OrderStatus" Nullable="true" />
           <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="UpdateBy" Nullable="true" MaxLength="50" />
         </ComplexType>
@@ -795,7 +840,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="OrderEntities">
+        <EntityContainerMapping StorageEntityContainer="OrderModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Config">
             <EntityTypeMapping TypeName="OrderModel.Config">
               <MappingFragment StoreEntitySet="Config">
@@ -867,23 +912,13 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="OrderModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -942,6 +977,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
@@ -985,6 +1021,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCustomerTransport2" FunctionName="OrderModel.Store.GetCustomerTransport2" />
           <FunctionImportMapping FunctionImportName="GetDailyOrder" FunctionName="OrderModel.Store.GetDailyOrder">
             <ResultMapping>
               <ComplexTypeMapping TypeName="OrderModel.GetDailyOrder_Result">
@@ -1002,6 +1039,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
               </ComplexTypeMapping>
@@ -1024,8 +1062,26 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetOrderCustomer" FunctionName="OrderModel.Store.GetOrderCustomer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetOrderCustomer_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CitizenID" ColumnName="CitizenID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Zone" ColumnName="Zone" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ShowPrice" ColumnName="ShowPrice" />
+                <ScalarProperty Name="OrderStartDate" ColumnName="OrderStartDate" />
+                <ScalarProperty Name="OrderEndDate" ColumnName="OrderEndDate" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1037,6 +1093,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
@@ -1052,7 +1109,57 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiveWeekly" FunctionName="OrderModel.Store.GetReceiveWeekly">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetReceiveWeekly_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="sun" ColumnName="sun" />
+                <ScalarProperty Name="mon" ColumnName="mon" />
+                <ScalarProperty Name="tue" ColumnName="tue" />
+                <ScalarProperty Name="wed" ColumnName="wed" />
+                <ScalarProperty Name="thr" ColumnName="thr" />
+                <ScalarProperty Name="fri" ColumnName="fri" />
+                <ScalarProperty Name="sat" ColumnName="sat" />
+                <ScalarProperty Name="sunamount" ColumnName="sunamount" />
+                <ScalarProperty Name="monamount" ColumnName="monamount" />
+                <ScalarProperty Name="tueamount" ColumnName="tueamount" />
+                <ScalarProperty Name="wedamount" ColumnName="wedamount" />
+                <ScalarProperty Name="thramount" ColumnName="thramount" />
+                <ScalarProperty Name="friamount" ColumnName="friamount" />
+                <ScalarProperty Name="satamount" ColumnName="satamount" />
+                <ScalarProperty Name="totalamount" ColumnName="totalamount" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetReceiveWeeklyPrice" FunctionName="OrderModel.Store.GetReceiveWeeklyPrice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.GetReceiveWeeklyPrice_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="sun" ColumnName="sun" />
+                <ScalarProperty Name="mon" ColumnName="mon" />
+                <ScalarProperty Name="tue" ColumnName="tue" />
+                <ScalarProperty Name="wed" ColumnName="wed" />
+                <ScalarProperty Name="thr" ColumnName="thr" />
+                <ScalarProperty Name="fri" ColumnName="fri" />
+                <ScalarProperty Name="sat" ColumnName="sat" />
+                <ScalarProperty Name="sunamount" ColumnName="sunamount" />
+                <ScalarProperty Name="monamount" ColumnName="monamount" />
+                <ScalarProperty Name="tueamount" ColumnName="tueamount" />
+                <ScalarProperty Name="wedamount" ColumnName="wedamount" />
+                <ScalarProperty Name="thramount" ColumnName="thramount" />
+                <ScalarProperty Name="friamount" ColumnName="friamount" />
+                <ScalarProperty Name="satamount" ColumnName="satamount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="totalamount" ColumnName="totalamount" />
+                <ScalarProperty Name="total" ColumnName="total" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1067,6 +1174,7 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
                 <ScalarProperty Name="ProductAbbr" ColumnName="ProductAbbr" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitCarry" ColumnName="UnitCarry" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Descripiton" ColumnName="Descripiton" />
@@ -1079,6 +1187,25 @@ warning 6002: The table/view 'Order.dbo.vwOrderDetail' does not have a primary k
           <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="OrderModel.Store.UpdateCustomer" />
           <FunctionImportMapping FunctionImportName="UpdateOrder" FunctionName="OrderModel.Store.UpdateOrder" />
           <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="OrderModel.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="DeleteOrderRollbackProductAmount" FunctionName="OrderModel.Store.DeleteOrderRollbackProductAmount" />
+          <FunctionImportMapping FunctionImportName="FindProductOrder" FunctionName="OrderModel.Store.FindProductOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OrderModel.FindProductOrder_Result">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

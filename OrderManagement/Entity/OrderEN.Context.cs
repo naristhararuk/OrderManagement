@@ -32,7 +32,6 @@ namespace OrderManagement.Entity
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<vwCustomerDetail> vwCustomerDetail { get; set; }
         public virtual DbSet<vwOrder> vwOrder { get; set; }
         public virtual DbSet<vwOrderDetail> vwOrderDetail { get; set; }
@@ -79,13 +78,26 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerSearch_Result>("GetCustomerSearch", customeridParameter, zoneParameter, pageIndexParameter, pageSizeParameter);
         }
     
-        public virtual ObjectResult<GetCustomerTransport_Result> GetCustomerTransport(Nullable<System.DateTime> date)
+        public virtual ObjectResult<GetCustomerTransport_Result> GetCustomerTransport(Nullable<System.DateTime> date, Nullable<int> zone)
         {
             var dateParameter = date.HasValue ?
                 new ObjectParameter("date", date) :
                 new ObjectParameter("date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerTransport_Result>("GetCustomerTransport", dateParameter);
+            var zoneParameter = zone.HasValue ?
+                new ObjectParameter("zone", zone) :
+                new ObjectParameter("zone", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCustomerTransport_Result>("GetCustomerTransport", dateParameter, zoneParameter);
+        }
+    
+        public virtual int GetCustomerTransport2(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetCustomerTransport2", dateParameter);
         }
     
         public virtual ObjectResult<GetDailyOrder_Result> GetDailyOrder(string day, Nullable<int> customer)
@@ -112,6 +124,23 @@ namespace OrderManagement.Entity
                 new ObjectParameter("customer", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderbyDay_Result>("GetOrderbyDay", dateParameter, customerParameter);
+        }
+    
+        public virtual ObjectResult<GetOrderCustomer_Result> GetOrderCustomer(Nullable<System.DateTime> date, Nullable<int> customerID, string report)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("customerID", customerID) :
+                new ObjectParameter("customerID", typeof(int));
+    
+            var reportParameter = report != null ?
+                new ObjectParameter("report", report) :
+                new ObjectParameter("report", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrderCustomer_Result>("GetOrderCustomer", dateParameter, customerIDParameter, reportParameter);
         }
     
         public virtual ObjectResult<GetProductSearch_Result> GetProductSearch(Nullable<int> productid, Nullable<int> category, Nullable<int> pageIndex, Nullable<int> pageSize)
@@ -146,6 +175,32 @@ namespace OrderManagement.Entity
                 new ObjectParameter("zone", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductTransport_Result>("GetProductTransport", dateParameter, zoneParameter);
+        }
+    
+        public virtual ObjectResult<GetReceiveWeekly_Result> GetReceiveWeekly(Nullable<System.DateTime> dateWeek, Nullable<int> customerID)
+        {
+            var dateWeekParameter = dateWeek.HasValue ?
+                new ObjectParameter("dateWeek", dateWeek) :
+                new ObjectParameter("dateWeek", typeof(System.DateTime));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("customerID", customerID) :
+                new ObjectParameter("customerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiveWeekly_Result>("GetReceiveWeekly", dateWeekParameter, customerIDParameter);
+        }
+    
+        public virtual ObjectResult<GetReceiveWeeklyPrice_Result> GetReceiveWeeklyPrice(Nullable<System.DateTime> dateWeek, Nullable<int> customerID)
+        {
+            var dateWeekParameter = dateWeek.HasValue ?
+                new ObjectParameter("dateWeek", dateWeek) :
+                new ObjectParameter("dateWeek", typeof(System.DateTime));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("customerID", customerID) :
+                new ObjectParameter("customerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetReceiveWeeklyPrice_Result>("GetReceiveWeeklyPrice", dateWeekParameter, customerIDParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> InsertCustomer(string citizenid, string customername, string customerabbr, Nullable<int> zone, string address1, string address2, string phone, string description, Nullable<bool> showprice, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
@@ -250,7 +305,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertOrder", orderdateParameter, updatedateParameter, customeridParameter, productidParameter, productpriceParameter, orderpriceParameter, orderamountParameter, ordertotalParameter, descriptionParameter, orderStatusParameter, updatebyParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> InsertProduct(string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> InsertProduct(string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<decimal> unitCarry, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var productnameParameter = productname != null ?
                 new ObjectParameter("productname", productname) :
@@ -267,6 +322,10 @@ namespace OrderManagement.Entity
             var productpriceParameter = productprice.HasValue ?
                 new ObjectParameter("productprice", productprice) :
                 new ObjectParameter("productprice", typeof(decimal));
+    
+            var unitCarryParameter = unitCarry.HasValue ?
+                new ObjectParameter("unitCarry", unitCarry) :
+                new ObjectParameter("unitCarry", typeof(decimal));
     
             var unitParameter = unit.HasValue ?
                 new ObjectParameter("unit", unit) :
@@ -292,7 +351,7 @@ namespace OrderManagement.Entity
                 new ObjectParameter("updateby", updateby) :
                 new ObjectParameter("updateby", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertProduct", productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertProduct", productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitCarryParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
         }
     
         public virtual ObjectResult<SelectGridPaging_Result> SelectGridPaging(string tablename, Nullable<int> minpagesize, Nullable<int> intskip)
@@ -418,7 +477,7 @@ namespace OrderManagement.Entity
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateOrder", orderdateParameter, updatedateParameter, customeridParameter, productidParameter, productpriceParameter, orderpriceParameter, orderamountParameter, ordertotalParameter, descriptionParameter, statusParameter, updatebyParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> UpdateProduct(Nullable<int> productid, string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
+        public virtual ObjectResult<Nullable<int>> UpdateProduct(Nullable<int> productid, string productname, string productabbr, Nullable<int> category, Nullable<decimal> productprice, Nullable<decimal> unitcarry, Nullable<int> unit, Nullable<int> productamount, string description, Nullable<bool> status, Nullable<System.DateTime> updatedate, string updateby)
         {
             var productidParameter = productid.HasValue ?
                 new ObjectParameter("productid", productid) :
@@ -439,6 +498,10 @@ namespace OrderManagement.Entity
             var productpriceParameter = productprice.HasValue ?
                 new ObjectParameter("productprice", productprice) :
                 new ObjectParameter("productprice", typeof(decimal));
+    
+            var unitcarryParameter = unitcarry.HasValue ?
+                new ObjectParameter("unitcarry", unitcarry) :
+                new ObjectParameter("unitcarry", typeof(decimal));
     
             var unitParameter = unit.HasValue ?
                 new ObjectParameter("unit", unit) :
@@ -464,7 +527,33 @@ namespace OrderManagement.Entity
                 new ObjectParameter("updateby", updateby) :
                 new ObjectParameter("updateby", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateProduct", productidParameter, productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UpdateProduct", productidParameter, productnameParameter, productabbrParameter, categoryParameter, productpriceParameter, unitcarryParameter, unitParameter, productamountParameter, descriptionParameter, statusParameter, updatedateParameter, updatebyParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> DeleteOrderRollbackProductAmount(Nullable<int> orderid)
+        {
+            var orderidParameter = orderid.HasValue ?
+                new ObjectParameter("orderid", orderid) :
+                new ObjectParameter("orderid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DeleteOrderRollbackProductAmount", orderidParameter);
+        }
+    
+        public virtual ObjectResult<FindProductOrder_Result> FindProductOrder(Nullable<System.DateTime> date, Nullable<int> customer, Nullable<int> productid)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var customerParameter = customer.HasValue ?
+                new ObjectParameter("customer", customer) :
+                new ObjectParameter("customer", typeof(int));
+    
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindProductOrder_Result>("FindProductOrder", dateParameter, customerParameter, productidParameter);
         }
     }
 }

@@ -53,7 +53,7 @@
             this.pnlMenu.HorizontalScrollbarSize = 10;
             this.pnlMenu.Location = new System.Drawing.Point(20, 60);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(1360, 53);
+            this.pnlMenu.Size = new System.Drawing.Size(1338, 53);
             this.pnlMenu.TabIndex = 40;
             this.pnlMenu.VerticalScrollbarBarColor = true;
             this.pnlMenu.VerticalScrollbarHighlightOnWheel = false;
@@ -184,7 +184,7 @@
             this.pnlMain.Location = new System.Drawing.Point(20, 113);
             this.pnlMain.MaximumSize = new System.Drawing.Size(1900, 795);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1360, 787);
+            this.pnlMain.Size = new System.Drawing.Size(1338, 647);
             this.pnlMain.TabIndex = 41;
             this.pnlMain.VerticalScrollbarBarColor = false;
             this.pnlMain.VerticalScrollbarHighlightOnWheel = false;
@@ -196,7 +196,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1400, 920);
+            this.ClientSize = new System.Drawing.Size(1378, 780);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlMenu);
             this.MaximumSize = new System.Drawing.Size(2400, 1200);

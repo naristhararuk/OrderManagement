@@ -10,22 +10,19 @@
 namespace OrderManagement.Entity
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class GetOrderCustomer_Result
     {
         public int CustomerID { get; set; }
         public string CitizenID { get; set; }
         public string CustomerName { get; set; }
-        public string CustomerAbbr { get; set; }
         public Nullable<int> Zone { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Phone { get; set; }
-        public string Description { get; set; }
         public Nullable<bool> ShowPrice { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string UpdateBy { get; set; }
+        public Nullable<System.DateTime> OrderStartDate { get; set; }
+        public Nullable<System.DateTime> OrderEndDate { get; set; }
+        public string DocumentID { get; set; }
     }
 }

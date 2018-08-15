@@ -27,6 +27,7 @@ namespace OrderManagement.Entity
         public string UpdateBy { get; set; }
         public string WeekDay { get; set; }
         public string ProductName { get; set; }
+        public Nullable<int> UnitCarry { get; set; }
         public Nullable<int> Unit { get; set; }
         public Nullable<int> Amount { get; set; }
     }

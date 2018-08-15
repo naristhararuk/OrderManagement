@@ -18,6 +18,7 @@ namespace OrderManagement.Entity
         public string ProductAbbr { get; set; }
         public Nullable<int> Category { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<int> UnitCarry { get; set; }
         public Nullable<int> Unit { get; set; }
         public Nullable<int> Amount { get; set; }
         public string Descripiton { get; set; }

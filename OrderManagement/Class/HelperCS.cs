@@ -13,17 +13,19 @@ using MetroFramework;
 using MetroFramework.Forms;
 using OrderManagement.Model;
 using OrderManagement.User_Control;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace OrderManagement.Class
 {
     class HelperCS
     {
         public static Font SegoeUIFont12 = new Font("Segoe UI", 12, FontStyle.Regular);
-        public static DataTable dt;
+        public static DataTable dt, dtdel;
         public static DataTable dtSun, dtMon, dtTue, dtWed, dtThu, dtFri, dtSat;
         public static DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
         public static DateTime currentdate = DateTime.Now;
-        
+
         private static Panel pnl = new Panel();
         private static MetroPanel metropanel;
         private static MetroPanel metroHeadpanel;
@@ -32,6 +34,7 @@ namespace OrderManagement.Class
         //public static MetroToggle daytoggle;
         public static MetroCheckBox daycheckbox;
         public static bool editmode;
+        public static bool editprice;
         private static int Customerid;
         private static string dayTab;
         private static string ProductTextSelect;
@@ -40,7 +43,9 @@ namespace OrderManagement.Class
         public static string UserName;
         public static string[] EditMode = { "", "", "", "", "", "", "" };
         public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
+        public static string[] monthThai = { "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." };
         public static bool[] WeekOrder = { false, false, false, false, false, false, false };
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region DATATABLE
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -113,47 +118,63 @@ namespace OrderManagement.Class
 
         private static DataTable QueryResult(string tableName)
         {
-            OrderEntities db = new OrderEntities();
+            using (OrderEntities db = new OrderEntities())
+            {
 
-            if (tableName == "Product")
-            {
-                //Select only ID and Name
-                var query = from x in db.Product
-                            where x.Status == true
-                            select new { x.ProductID, x.ProductName };
-                return HelperCS.ToDataTable(query.ToList());
-            }
-            else if (tableName == "Customer")
-            {
-                var query = from x in db.Customer
-                            where x.Status == true
-                            select new { x.CustomerID, x.CustomerName };
-                return HelperCS.ToDataTable(query.ToList());
-            }
-            else if (tableName == "Config-Zone")
-            {
-                var query = from x in db.Config
-                            where x.Module == "CustomerZone"
-                            select new { x.Value, x.Name };
-                return HelperCS.ToDataTable(query.ToList());
-            }
-            else if (tableName == "Config-ProductCategory")
-            {
-                var query = from x in db.Config
-                            where x.Module == "ProductCategory"
-                            select new { x.Value, x.Name };
-                return HelperCS.ToDataTable(query.ToList());
-            }
-            else if (tableName == "Config-ReportName")
-            {
-                var query = from x in db.Config
-                            where x.Module == "ReportName"
-                            select new { x.Value, x.Name };
-                return HelperCS.ToDataTable(query.ToList());
-            }
-            else
-            {
-                return new DataTable();
+                if (tableName == "Product")
+                {
+                    //Select only ID and Name
+                    var query = from x in db.Product
+                                where x.Status == true
+                                select new { x.ProductID, x.ProductName };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Customer")
+                {
+                    var query = from x in db.Customer
+                                where x.Status == true
+                                select new { x.CustomerID, x.CustomerName };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Config-Zone")
+                {
+                    var query = from x in db.Config
+                                where x.Module == "CustomerZone"
+                                select new { x.Value, x.Name };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Config-ProductCategory")
+                {
+                    var query = from x in db.Config
+                                where x.Module == "ProductCategory"
+                                select new { x.Value, x.Name };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Config-ReportName")
+                {
+                    var query = from x in db.Config
+                                where x.Module == "ReportName"
+                                select new { x.Value, x.Name };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Config-ProductCarry")
+                {
+                    var query = from x in db.Config
+                                where x.Module == "ProductCarry"
+                                select new { x.Value, x.Name };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else if (tableName == "Config-ProductUnit")
+                {
+                    var query = from x in db.Config
+                                where x.Module == "ProductUnit"
+                                select new { x.Value, x.Name };
+                    return HelperCS.ToDataTable(query.ToList());
+                }
+                else
+                {
+                    return new DataTable();
+                }
             }
         }
 
@@ -238,11 +259,11 @@ namespace OrderManagement.Class
                     //daycheckbox.Checked = false;
                     editmode = true;                                //can input or change value 
                     EditMode[index] = "";
-                    
+
                     var ds2 = dailydb.GetDailyOrder(day, customerid).ToList();
                     return HelperCS.ToDataTable(ds2);
                     //return new DataTable();
-                    
+
                 }
             }
         }
@@ -348,7 +369,7 @@ namespace OrderManagement.Class
                         txtprice.TextAlign = HorizontalAlignment.Center;
                         txtprice.BorderStyle = BorderStyle.None;
                         txtprice.Dock = DockStyle.Fill;
-                        txtprice.Enabled = editmode;
+                        txtprice.Enabled = editprice;
                         txtprice.TextChanged += new EventHandler(TextBoxPrice_TextChanged);
                         txtprice.Leave += new EventHandler(TextBoxPriceInput_Leave);
                         Panel pnlprice = new Panel();
@@ -483,10 +504,7 @@ namespace OrderManagement.Class
             MainPanel.Controls.Add(tablepanel);
             AddToDataTable(dayTab, tablepanel);
         }
-        private static void btnOrderEdit_Click(object sender, EventArgs e)
-        {
 
-        }
         private static void AutoComplete_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox combo = (ComboBox)sender;
@@ -559,7 +577,7 @@ namespace OrderManagement.Class
                     }
                     else
                     {
-                        UpdatePriceTotal(productid,amount , txt.Text);
+                        UpdatePriceTotal(productid, amount, txt.Text);
                     }
                 }
             }
@@ -609,7 +627,7 @@ namespace OrderManagement.Class
                 if (ds.Count() > 0)
                 {
                     var objorderamount = (from DataRow dr in dttemp.Rows
-                                          where (int)dr["ProductID"] == productid  
+                                          where (int)dr["ProductID"] == productid
                                           select dr["OrderAmount"]).FirstOrDefault();
                     result = objorderamount.ToString() != "" ? int.Parse(objorderamount.ToString()) : 0;
                 }
@@ -621,21 +639,26 @@ namespace OrderManagement.Class
             ComboBox combo = (ComboBox)sender;
             string key = ((KeyValuePair<string, string>)combo.SelectedItem).Key;
             string value = ((KeyValuePair<string, string>)combo.SelectedItem).Value;
-            if (key != "")
-            {
-                //ProductIdSelect = int.Parse(key);
-                ProductIdSelect = key;
-                ProductTextSelect = value;
-            }
-            else
-            {
-                //Form frm = combo.FindForm();
-                //MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            ProductIdSelect = key;
+            ProductTextSelect = value;
+            //if (key != "")
+            //{
+            //    //ProductIdSelect = int.Parse(key);
+            //    ProductIdSelect = key;
+            //    ProductTextSelect = value;
+            //}
+            //else
+            //{
+            //    ProductIdSelect = key;
+            //    ProductTextSelect = value;
+            //    //Form frm = combo.FindForm();
+            //    //MetroMessageBox.Show(frm, "Please select Product Before", "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //}
         }
-        private static void UpdatePriceTotal(int productid,int amount, string orderamount)
+        private static void UpdatePriceTotal(int productid, int amount, string orderamount)
         {
-            if (dt.Rows.Count > 0) {
+            if (dt.Rows.Count > 0)
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["ProductID"].ToString() == productid.ToString())
@@ -721,7 +744,14 @@ namespace OrderManagement.Class
             autoCompleteCombo.DataSource = new BindingSource(Source, null);
             autoCompleteCombo.AutoCompleteCustomSource = comboSource;
             autoCompleteCombo.Font = SegoeUIFont12;
-            autoCompleteCombo.Size = new System.Drawing.Size(250, 200);
+            if (TableName == "Config-ProductCarry" || TableName == "Config-ProductUnit")
+            {
+                autoCompleteCombo.Size = new System.Drawing.Size(125, 200);
+            }
+            else
+            {
+                autoCompleteCombo.Size = new System.Drawing.Size(250, 200);
+            }
             autoCompleteCombo.DisplayMember = "Value";
             autoCompleteCombo.ValueMember = "Key";
         }
@@ -785,23 +815,50 @@ namespace OrderManagement.Class
             // MessageBox.Show(btn.Name.ToString());
             //MetroMessageBox.Show(this, "Your message here.", "Title Here", MessageBoxButtons.OKCancel, MessageBoxIcon.Hand);
             Form frm = btn.FindForm();
-            DialogResult result = MessageBox.Show(frm, "คุณต้องการจะลบข้อมูล ใช่หรือไม่?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (result.Equals(DialogResult.Yes))
+
+            bool ed1 = editmode;
+            if (editmode)
             {
-                for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                DialogResult result = MessageBox.Show(frm, "คุณต้องการจะลบข้อมูล ใช่หรือไม่?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (result.Equals(DialogResult.Yes))
                 {
-                    DataRow dr = dt.Rows[i];
-                    if (dr["ProductID"].ToString() == btn.Name.ToString())
-                        dr.Delete();
+                    for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        if (dr["ProductID"].ToString() == btn.Name.ToString())
+                        {
+                            int orderid = dr.Field<int>("OrderID");
+                            dr.Delete();
+                            AddRowDelete(orderid);
+                            
+                        }
+                    }
+                    CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
                 }
-                CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
+                else
+                {
+                }
             }
             else
             {
+
             }
-
-
         }
+
+        private static void AddRowDelete(int orderid)
+        {
+            if (dtdel == null)
+            {
+                dtdel = new DataTable();
+                dtdel.Columns.Add("orderid", typeof(int));
+                dtdel.Rows.Add(orderid);
+            }
+            else
+            {
+                dtdel.Rows.Add(orderid);
+            }
+        }
+
         private static void ButtonTileAdd_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
@@ -810,7 +867,14 @@ namespace OrderManagement.Class
             //string value = ((KeyValuePair<string, string>)productNew.SelectedItem).Value;
             if (!string.IsNullOrEmpty(ProductIdSelect))
             {
-                NewrowProductOrder(int.Parse(ProductIdSelect), ProductTextSelect);
+                if (checkdupproduct(ProductIdSelect))
+                {
+                    NewrowProductOrder(int.Parse(ProductIdSelect), ProductTextSelect);
+                }
+                else
+                {
+                    MessageBox.Show(frm, "มีสินค้าที่เลือกไว้แล้ว ", "Duplicate Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             else
             {
@@ -819,10 +883,33 @@ namespace OrderManagement.Class
             //MetroMessageBox.Show(frm, "Please select Product Before" + ProductIdSelect + ProductTextSelect, "Not Select Product", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
         }
+
+        private static bool checkdupproduct(string productIdSelect)
+        {
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    int numberOfRecords = dt.Select("ProductID = '" + productIdSelect + "'").Length;
+                    //int numberOfRecords = dt.AsEnumerable().Where(x => x["ProductID"].ToString() == "Y").ToList().Count;
+                    return numberOfRecords > 0 ? false : true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public static void SaveAllOrder(MetroTile btn)
         {
             Form frm = btn.FindForm();
             DateTime updatedate = DateTime.Now;
+
             int[] allresult = { 0, 0, 0, 0, 0, 0, 0 };
 
             //[OrderID],[OrderDate],[CustomerID],[ProductID],[ProductPrice],[OrderPrice],[OrderAmount],[OrderTotal],[Description],[OrderStatus],UpdateDate,UpdateBy
@@ -834,17 +921,38 @@ namespace OrderManagement.Class
                 {
                     if (dtSun != null)
                     {
-                        foreach (DataRow dr in dtSun.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[0];
-                            bool status = true;
+                            foreach (DataRow dr in dtSun.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[0];
+                                bool status = true;
 
-                            allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        else
+                        {
+                        }
+
+                        if (EditMode[IndexDateofWeek(sundate)] != "")
+                        {
+                            //check old data has record if dt row = 0 and edit mode yes
+                            //if yes  for update and roll back product amount 
+                            //if no do notthing
+                            // delete old order and rollback product amount
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(sundate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -860,16 +968,29 @@ namespace OrderManagement.Class
                 {
                     if (dtMon != null)
                     {
-                        foreach (DataRow dr in dtMon.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[1];
-                            bool status = true;
-                            allresult[1] = SaveOrderToDatabase(mondate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            foreach (DataRow dr in dtMon.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[1];
+                                bool status = true;
+                                allresult[1] = SaveOrderToDatabase(mondate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(mondate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(mondate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -885,17 +1006,30 @@ namespace OrderManagement.Class
                 {
                     if (dtTue != null)
                     {
-                        foreach (DataRow dr in dtTue.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[2];
-                            bool status = true;
+                            foreach (DataRow dr in dtTue.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[2];
+                                bool status = true;
 
-                            allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[2] = SaveOrderToDatabase(tuedate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(tuedate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(tuedate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -911,17 +1045,30 @@ namespace OrderManagement.Class
                 {
                     if (dtWed != null)
                     {
-                        foreach (DataRow dr in dtWed.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[3];
-                            bool status = true;
+                            foreach (DataRow dr in dtWed.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[3];
+                                bool status = true;
 
-                            allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[3] = SaveOrderToDatabase(weddate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(weddate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(weddate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -937,17 +1084,30 @@ namespace OrderManagement.Class
                 {
                     if (dtThu != null)
                     {
-                        foreach (DataRow dr in dtThu.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[4];
-                            bool status = true;
+                            foreach (DataRow dr in dtThu.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[4];
+                                bool status = true;
 
-                            allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[4] = SaveOrderToDatabase(thudate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(thudate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(thudate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -963,17 +1123,30 @@ namespace OrderManagement.Class
                 {
                     if (dtFri != null)
                     {
-                        foreach (DataRow dr in dtFri.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[5];
-                            bool status = true;
+                            foreach (DataRow dr in dtFri.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[5];
+                                bool status = true;
 
-                            allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[5] = SaveOrderToDatabase(fridate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(fridate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(fridate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -989,17 +1162,30 @@ namespace OrderManagement.Class
                 {
                     if (dtSat != null)
                     {
-                        foreach (DataRow dr in dtSat.Rows)
+                        if (dt.Rows.Count > 0)
                         {
-                            int pid = int.Parse(dr["ProductID"].ToString());
-                            decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
-                            decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
-                            int oamount = int.Parse(dr["OrderAmount"].ToString());
-                            decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
-                            string description = EditMode[6];
-                            bool status = true;
+                            foreach (DataRow dr in dtSat.Rows)
+                            {
+                                int pid = int.Parse(dr["ProductID"].ToString());
+                                decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+                                decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+                                int oamount = int.Parse(dr["OrderAmount"].ToString());
+                                decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+                                string description = EditMode[6];
+                                bool status = true;
 
-                            allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                                allresult[6] = SaveOrderToDatabase(satdate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, updatedate, UserName);
+                            }
+                        }
+                        if (EditMode[IndexDateofWeek(satdate)] != "")
+                        {
+                            if (dtdel != null)
+                            {
+                                if (dtdel.Rows.Count > 0)
+                                {
+                                    DeleteOrderRollbackProduct(satdate, Customerid);
+                                }
+                            }
                         }
                     }
                 }
@@ -1055,12 +1241,76 @@ namespace OrderManagement.Class
                 {
                     MessageBox.Show(frm, "Data has been Save to Database ", "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Question);
                     HelperCS.editmode = false;
+                    HelperCS.editprice = false;
+                    dtdel = null;
                 }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(frm, "Some Problem When Save to Database \r\n Message:" + ex.Message, "Save to Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //private static void DeletedRowOrder(DateTime orderdate, int customerid)
+        //{
+        //    using (var db = new OrderEntities())
+        //    {
+        //        if (dtdel != null)
+        //        {
+        //            if (dtdel.Rows.Count > 0)
+        //            {
+        //                foreach (DataRow dr in dtdel.Rows)
+        //                {
+        //                    int pid = int.Parse(dr["ProductID"].ToString());
+        //                    decimal pprice = Convert.ToDecimal(dr["ProductPrice"].ToString());
+        //                    decimal oprice = Convert.ToDecimal(dr["OrderPrice"].ToString());
+        //                    int oamount = int.Parse(dr["OrderAmount"].ToString());
+        //                    decimal ototal = Convert.ToDecimal(dr["OrderTotal"].ToString());
+        //                    string description = EditMode[0];
+        //                    bool status = false;
+
+        //                    allresult[0] = SaveOrderToDatabase(sundate, Customerid, pid, pprice, oprice, oamount, ototal, description, status, DateTime.Now, UserName);
+
+        //                    var ds = db.UpdateOrder(orderdate, DateTime.Now, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
+        //                    if (ds.Count() > 0)
+        //                    {
+        //                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+        //                        log.Info("Helper:UpdateOrder user:" + userName + " customerid:" + customerid.ToString() + " productid:" + pid.ToString() + " price:" + pprice.ToString() + " orderprice:" + oprice.ToString() + " amount:" + oamount.ToString());
+        //                    }
+        //                    else
+        //                    {
+        //                        result = 99;
+        //                    }
+
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        private static void DeleteOrderRollbackProduct(DateTime date, int customerid)
+        {
+            int result;
+            using (var db = new OrderEntities())
+            {
+                foreach (DataRow dr in dtdel.Rows)
+                {
+                    int orderid = dr.Field<int>("orderid");
+
+                    //DateTime date = checkdate(dr[""].ToString());
+                    var ds = db.DeleteOrderRollbackProductAmount(orderid).ToList();
+                    if (ds.Count() > 0)
+                    {
+                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                        log.Info("Helper:DeleteOrder user:" + HelperCS.UserName + " customerid:" + customerid.ToString() + " orderdate:" + date.ToString() + " orderid:" + orderid);
+                    }
+                    else
+                    {
+                        result = 99;
+                    }
+                }
             }
         }
 
@@ -1077,6 +1327,7 @@ namespace OrderManagement.Class
                     if (ds.Count() > 0)
                     {
                         result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                        log.Info("Helper:InsertOrder user:" + userName + " customerid:" + customerid.ToString() + " productid:" + pid.ToString() + " price:" + pprice.ToString() + " orderprice:" + oprice.ToString() + " amount:" + oamount.ToString());
                     }
                     else
                     {
@@ -1086,23 +1337,51 @@ namespace OrderManagement.Class
                 else
                 {
                     //Update
-                    var ds = db.UpdateOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
-                    if (ds.Count() > 0)
+                    bool newproduct = chknewProduct(orderdate, customerid, pid);
+                    if (!newproduct)
                     {
-                        result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                        //Insert New
+                        var ds = db.InsertOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
+                        if (ds.Count() > 0)
+                        {
+                            result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                            log.Info("Helper:InsertOrder user:" + userName + " customerid:" + customerid.ToString() + " productid:" + pid.ToString() + " price:" + pprice.ToString() + " orderprice:" + oprice.ToString() + " amount:" + oamount.ToString());
+                        }
+                        else
+                        {
+                            result = 99;
+                        }
                     }
                     else
                     {
-                        result = 99;
+                        //update
+                        var ds = db.UpdateOrder(orderdate, updatedate, customerid, pid, pprice, oprice, oamount, ototal, description, status, userName).ToList();
+                        if (ds.Count() > 0)
+                        {
+                            result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
+                            log.Info("Helper:UpdateOrder user:" + userName + " customerid:" + customerid.ToString() + " productid:" + pid.ToString() + " price:" + pprice.ToString() + " orderprice:" + oprice.ToString() + " amount:" + oamount.ToString());
+                        }
+                        else
+                        {
+                            result = 99;
+                        }
                     }
+
                 }
                 // Get result from Stored Procedure
-
-
-
             }
             //When Save Success must return 0
             return result;
+        }
+
+        private static bool chknewProduct(DateTime orderdate, int customerid, int pid)
+        {
+            using (var db = new OrderEntities())
+            {
+                int productexist = db.FindProductOrder(orderdate, customerid, pid).Count();
+                return productexist > 0 ? true : false;
+            }
+
         }
 
         private static int IndexDateofWeek(DateTime date)
@@ -1171,6 +1450,10 @@ namespace OrderManagement.Class
             //where All product get price
             DataTable pd = QueryAllResult("Product");
             //DataInfo.ProductList model = new DataInfo.ProductList();
+            var objchkdup = (from DataRow dr in pd.Rows
+                             where (int)dr["ProductID"] == productid
+                             select dr["Price"]).FirstOrDefault();
+
             var objprice = (from DataRow dr in pd.Rows
                             where (int)dr["ProductID"] == productid
                             select dr["Price"]).FirstOrDefault();
@@ -1180,7 +1463,8 @@ namespace OrderManagement.Class
             var objamount = (from DataRow dr in pd.Rows
                              where (int)dr["ProductID"] == productid
                              select dr["Amount"]).FirstOrDefault();
-            int unit = objunit.ToString() != "" ? int.Parse(objunit.ToString()) : 0;
+            //int unit = objunit.ToString() != "" ? int.Parse(objunit.ToString()) : 0;
+            decimal unit = objunit.ToString() != "" ? decimal.Parse(objunit.ToString()) : 0;
             decimal price = objprice.ToString() != "" ? Convert.ToDecimal(objprice.ToString()) : 0;
             int amount = objamount.ToString() != "" ? int.Parse(objamount.ToString()) : 0;
             if (amount >= 1)
@@ -1203,6 +1487,7 @@ namespace OrderManagement.Class
                 row["Unit"] = unit.ToString();
                 row["Amount"] = amount;
                 dt.Rows.Add(row);
+                ProductIdSelect = "";
                 CreatePanelTable(metroHeadpanel, metropanel, dayTab, Customerid);
             }
             else
@@ -1213,14 +1498,114 @@ namespace OrderManagement.Class
             }
 
         }
+        public static string MonthTextThai(int month)
+        {
+            string result = "";
+            if (month >= 1 && month <= 12)
+            {
+                result = monthThai[month - 1];
+            }
+            return result;
+        }
+
+        public static string DateTextThai(DateTime date, string language = "TH", string format = "dd MMM yyyy")
+        {
+            try
+            {
+                string result = "";
+                if (date != null)
+                {
+                    int year = date.AddYears(543).Year;
+                    int month = date.Month;
+                    string day = date.ToString("dd");
+
+                    if (format == "dd MMM yyyy")
+                    {
+                        result = day + " " + HelperCS.MonthTextThai(month) + " " + year.ToString();
+                    }
+                    else if (format == "dd-MMM-yyyy")
+                    {
+                        result = day + "-" + HelperCS.MonthTextThai(month) + "-" + year.ToString();
+                    }
+                    else if (format == "dd MMM")
+                    {
+                        result = day + " " + HelperCS.MonthTextThai(month);
+                    }
+                    else if (format == "dd-MMM")
+                    {
+                        result = day + "-" + HelperCS.MonthTextThai(month);
+                    }
+                    else
+                    {
+                        result = day + "-" + HelperCS.MonthTextThai(month) + "-" + year.ToString();
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
         #endregion METHOD
 
-        public static void toggleButton(MetroTile btn,bool status)
+        #region ENCRYPT AND DECRYPT
+
+        public static void toggleButton(MetroTile btn, bool status)
         {
             //OrderUC order;
             btn.Visible = status;
             //order.ShowHideEditButton(dayTab, status);
             //order.Show(;)
         }
+
+        public static string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+        public static string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
+        #endregion ENCRYPT AND DECRYPT
     }
 }

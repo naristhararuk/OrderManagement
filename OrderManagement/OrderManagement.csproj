@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>D:\N-Project\Public\OrderManagement\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -66,6 +68,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Artbees-Paradise-Fruits-Tomato %281%29.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -78,6 +83,9 @@
     <Reference Include="GreatFriends.ThaiBahtText, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ThaiBahtText.0.9.0\lib\net40\GreatFriends.ThaiBahtText.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
@@ -113,6 +121,7 @@
   <ItemGroup>
     <Compile Include="Class\GridCS.cs" />
     <Compile Include="Class\HelperCS.cs" />
+    <Compile Include="Class\InputBox.cs" />
     <Compile Include="Class\MappingDAL.cs" />
     <Compile Include="CustomerManagement.cs">
       <SubType>Form</SubType>
@@ -134,6 +143,9 @@
     <Compile Include="Entity\Customer.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\FindProductOrder_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\GetCustomerSearch_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -146,10 +158,19 @@
     <Compile Include="Entity\GetOrderbyDay_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\GetOrderCustomer_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\GetProductSearch_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetProductTransport_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetReceiveWeeklyPrice_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetReceiveWeekly_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Login.cs">
@@ -179,9 +200,6 @@
     <Compile Include="Entity\SelectGridPaging_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\sysdiagrams.cs">
-      <DependentUpon>OrderEN.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entity\vwCustomerDetail.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
@@ -190,12 +208,6 @@
     </Compile>
     <Compile Include="Entity\vwOrderDetail.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Form3.cs">
       <SubType>Form</SubType>
@@ -221,6 +233,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AppConfigTransformAssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReceiveForm.cs">
       <SubType>Form</SubType>
@@ -305,11 +323,14 @@
     <Compile Include="User_Control\ReportViewerUC.Designer.cs">
       <DependentUpon>ReportViewerUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="User_Control\SettingUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User_Control\SettingUC.Designer.cs">
+      <DependentUpon>SettingUC.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CustomerManagement.resx">
       <DependentUpon>CustomerManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
@@ -329,6 +350,8 @@
     <EmbeddedResource Include="Report\CustomerTransport.rdlc" />
     <EmbeddedResource Include="Report\Invoice.rdlc" />
     <EmbeddedResource Include="Report\ProductTransport.rdlc" />
+    <EmbeddedResource Include="Report\ReceiveWeekly.rdlc" />
+    <EmbeddedResource Include="Report\ReceiveWeeklyPrice.rdlc" />
     <EmbeddedResource Include="Report\Receive.rdlc" />
     <EmbeddedResource Include="User_Control\CustomerManageUC.resx">
       <DependentUpon>CustomerManageUC.cs</DependentUpon>
@@ -374,6 +397,18 @@
     <EmbeddedResource Include="User_Control\ReportViewerUC.resx">
       <DependentUpon>ReportViewerUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="User_Control\SettingUC.resx">
+      <DependentUpon>SettingUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.Hotfix.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Main.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
     <None Include="Dataset\ReportDS.xsc">
       <DependentUpon>ReportDS.xsd</DependentUpon>
     </None>
@@ -391,6 +426,18 @@
     </EntityDeploy>
     <None Include="Entity\OrderEN.edmx.diagram">
       <DependentUpon>OrderEN.edmx</DependentUpon>
+    </None>
+    <None Include="log4net.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="log4net.Hotfix.config">
+      <DependentUpon>log4net.config</DependentUpon>
+    </None>
+    <None Include="log4net.Main.config">
+      <DependentUpon>log4net.config</DependentUpon>
+    </None>
+    <None Include="log4net.Release.config">
+      <DependentUpon>log4net.config</DependentUpon>
     </None>
     <None Include="OrderDataSet.xsc">
       <DependentUpon>OrderDataSet.xsd</DependentUpon>
@@ -433,11 +480,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -572,6 +614,14 @@
     <None Include="Resources\Female-Face-FA-5-icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\question.png" />
+    <None Include="Resources\printer.png" />
+    <Content Include="Artbees-Paradise-Fruits-Tomato %281%29.ico" />
+    <None Include="Resources\coin-icon.png" />
+    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\nic80x80.png" />
+    <None Include="Resources\error.png" />
     <Content Include="Entity\OrderEN.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OrderEN.edmx</DependentUpon>
@@ -582,10 +632,19 @@
       <DependentUpon>OrderEN.edmx</DependentUpon>
       <LastGenOutput>OrderEN.cs</LastGenOutput>
     </Content>
-    <None Include="Resources\printer.png" />
     <Content Include="Resources\printer1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Log\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MiYABiS.AppConfigTransform.1.0.6\build\MiYABiS.AppConfigTransform.targets" Condition="Exists('..\packages\MiYABiS.AppConfigTransform.1.0.6\build\MiYABiS.AppConfigTransform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MiYABiS.AppConfigTransform.1.0.6\build\MiYABiS.AppConfigTransform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MiYABiS.AppConfigTransform.1.0.6\build\MiYABiS.AppConfigTransform.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
