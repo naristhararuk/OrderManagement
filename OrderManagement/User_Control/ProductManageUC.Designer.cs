@@ -38,7 +38,6 @@
             this.txtbProductAmount = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
             this.txtbProductPrice = new MetroFramework.Controls.MetroTextBox();
-            this.txtbProductUnit = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
@@ -48,6 +47,8 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.txtbProductName = new MetroFramework.Controls.MetroTextBox();
             this.btnCloseDialog = new MetroFramework.Controls.MetroTile();
+            this.comboProductCarry = new System.Windows.Forms.ComboBox();
+            this.comboProductUnit = new System.Windows.Forms.ComboBox();
             this.metroPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,13 +60,15 @@
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.metroLabel1.Location = new System.Drawing.Point(27, 25);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(155, 25);
+            this.metroLabel1.Size = new System.Drawing.Size(148, 25);
             this.metroLabel1.TabIndex = 50;
             this.metroLabel1.Text = "จัดการข้อมูลสินค้า";
             this.metroLabel1.UseCustomBackColor = true;
             // 
             // metroPanel2
             // 
+            this.metroPanel2.Controls.Add(this.comboProductUnit);
+            this.metroPanel2.Controls.Add(this.comboProductCarry);
             this.metroPanel2.Controls.Add(this.comboProductGroup);
             this.metroPanel2.Controls.Add(this.btnProductDelete);
             this.metroPanel2.Controls.Add(this.txtbProductDescription);
@@ -74,7 +77,6 @@
             this.metroPanel2.Controls.Add(this.txtbProductAmount);
             this.metroPanel2.Controls.Add(this.metroLabel9);
             this.metroPanel2.Controls.Add(this.txtbProductPrice);
-            this.metroPanel2.Controls.Add(this.txtbProductUnit);
             this.metroPanel2.Controls.Add(this.metroLabel8);
             this.metroPanel2.Controls.Add(this.metroLabel7);
             this.metroPanel2.Controls.Add(this.metroLabel5);
@@ -220,7 +222,7 @@
             this.metroLabel9.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel9.Location = new System.Drawing.Point(59, 314);
             this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(59, 25);
+            this.metroLabel9.Size = new System.Drawing.Size(60, 25);
             this.metroLabel9.TabIndex = 52;
             this.metroLabel9.Text = "จำนวน";
             this.metroLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -258,46 +260,13 @@
             this.txtbProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckNumeric_KeyPress);
             this.txtbProductPrice.Leave += new System.EventHandler(this.TextBoxInput_Leave);
             // 
-            // txtbProductUnit
-            // 
-            // 
-            // 
-            // 
-            this.txtbProductUnit.CustomButton.Image = null;
-            this.txtbProductUnit.CustomButton.Location = new System.Drawing.Point(272, 1);
-            this.txtbProductUnit.CustomButton.Name = "";
-            this.txtbProductUnit.CustomButton.Size = new System.Drawing.Size(27, 27);
-            this.txtbProductUnit.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtbProductUnit.CustomButton.TabIndex = 1;
-            this.txtbProductUnit.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtbProductUnit.CustomButton.UseSelectable = true;
-            this.txtbProductUnit.CustomButton.Visible = false;
-            this.txtbProductUnit.FontSize = MetroFramework.MetroTextBoxSize.Tall;
-            this.txtbProductUnit.Lines = new string[0];
-            this.txtbProductUnit.Location = new System.Drawing.Point(122, 216);
-            this.txtbProductUnit.MaxLength = 45;
-            this.txtbProductUnit.Name = "txtbProductUnit";
-            this.txtbProductUnit.PasswordChar = '\0';
-            this.txtbProductUnit.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtbProductUnit.SelectedText = "";
-            this.txtbProductUnit.SelectionLength = 0;
-            this.txtbProductUnit.SelectionStart = 0;
-            this.txtbProductUnit.ShortcutsEnabled = true;
-            this.txtbProductUnit.Size = new System.Drawing.Size(300, 29);
-            this.txtbProductUnit.TabIndex = 34;
-            this.txtbProductUnit.UseSelectable = true;
-            this.txtbProductUnit.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtbProductUnit.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.txtbProductUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckNumeric_KeyPress);
-            this.txtbProductUnit.Leave += new System.EventHandler(this.TextBoxInput_Leave);
-            // 
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
             this.metroLabel8.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel8.Location = new System.Drawing.Point(72, 265);
             this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(46, 25);
+            this.metroLabel8.Size = new System.Drawing.Size(47, 25);
             this.metroLabel8.TabIndex = 30;
             this.metroLabel8.Text = "ราคา";
             this.metroLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -308,7 +277,7 @@
             this.metroLabel7.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel7.Location = new System.Drawing.Point(48, 216);
             this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(70, 25);
+            this.metroLabel7.Size = new System.Drawing.Size(71, 25);
             this.metroLabel7.TabIndex = 28;
             this.metroLabel7.Text = "หน่วยยก";
             this.metroLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -319,7 +288,7 @@
             this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel5.Location = new System.Drawing.Point(18, 167);
             this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(100, 25);
+            this.metroLabel5.Size = new System.Drawing.Size(101, 25);
             this.metroLabel5.TabIndex = 24;
             this.metroLabel5.Text = "กลุ่ม/ประเภท";
             this.metroLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -361,7 +330,7 @@
             this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel4.Location = new System.Drawing.Point(452, 21);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(91, 25);
+            this.metroLabel4.Size = new System.Drawing.Size(87, 25);
             this.metroLabel4.TabIndex = 22;
             this.metroLabel4.Text = "ชื่อย่อสินค้า";
             this.metroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -372,7 +341,7 @@
             this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel3.Location = new System.Drawing.Point(31, 69);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(87, 25);
+            this.metroLabel3.Size = new System.Drawing.Size(88, 25);
             this.metroLabel3.TabIndex = 20;
             this.metroLabel3.Text = "รายละเอียด";
             this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -383,7 +352,7 @@
             this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel2.Location = new System.Drawing.Point(46, 21);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(72, 25);
+            this.metroLabel2.Size = new System.Drawing.Size(69, 25);
             this.metroLabel2.TabIndex = 19;
             this.metroLabel2.Text = "ชื่อสินค้า";
             this.metroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -433,6 +402,24 @@
             this.btnCloseDialog.UseTileImage = true;
             this.btnCloseDialog.Click += new System.EventHandler(this.btnCloseDialog_Click);
             // 
+            // comboProductCarry
+            // 
+            this.comboProductCarry.FormattingEnabled = true;
+            this.comboProductCarry.Location = new System.Drawing.Point(122, 216);
+            this.comboProductCarry.Name = "comboProductCarry";
+            this.comboProductCarry.Size = new System.Drawing.Size(144, 21);
+            this.comboProductCarry.TabIndex = 58;
+            this.comboProductCarry.SelectedIndexChanged += new System.EventHandler(this.comboProductCarry_SelectedIndexChanged);
+            // 
+            // comboProductUnit
+            // 
+            this.comboProductUnit.FormattingEnabled = true;
+            this.comboProductUnit.Location = new System.Drawing.Point(278, 216);
+            this.comboProductUnit.Name = "comboProductUnit";
+            this.comboProductUnit.Size = new System.Drawing.Size(144, 21);
+            this.comboProductUnit.TabIndex = 59;
+            this.comboProductUnit.SelectedIndexChanged += new System.EventHandler(this.comboProductUnit_SelectedIndexChanged);
+            // 
             // ProductManageUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,11 +453,12 @@
         private MetroFramework.Controls.MetroTextBox txtbProductAmount;
         private MetroFramework.Controls.MetroLabel metroLabel9;
         private MetroFramework.Controls.MetroTextBox txtbProductPrice;
-        private MetroFramework.Controls.MetroTextBox txtbProductUnit;
         private MetroFramework.Controls.MetroTile btnProductSave;
         private MetroFramework.Controls.MetroButton btnProductClear;
         private MetroFramework.Controls.MetroTile btnProductDelete;
         private MetroFramework.Controls.MetroTextBox txtbProductDescription;
         private System.Windows.Forms.ComboBox comboProductGroup;
+        private System.Windows.Forms.ComboBox comboProductUnit;
+        private System.Windows.Forms.ComboBox comboProductCarry;
     }
 }

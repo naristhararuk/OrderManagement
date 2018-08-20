@@ -147,7 +147,7 @@ namespace OrderManagement
         public void CheckUserLogin()
         {
             /*dev test only*/
-            HelperCS.UserName = "ADMIN";
+           //HelperCS.UserName = "ADMIN";
 
             string username = HelperCS.UserName;
             if (username == "ADMIN")

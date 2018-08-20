@@ -6,18 +6,18 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>6.8527cm</Width>
+              <Width>7.14374cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.38906cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.46843cm</Width>
+              <Width>1.25676cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.70583cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -28,7 +28,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Product Name</Value>
+                              <Value>รายการของ</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -63,7 +63,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Total Amount</Value>
+                              <Value>จำนวน</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -98,7 +98,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Unit</Value>
+                              <Value>ถุง</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -141,6 +141,18 @@
                               <Value>=Fields!ProductName.Value</Value>
                               <Style>
                                 <FontSize>12pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
+                              <Value xml:space="preserve"> </Value>
+                              <Style>
+                                <FontSize>12pt</FontSize>
+                              </Style>
+                            </TextRun>
+                            <TextRun>
+                              <Value>=Fields!UnitText.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -208,7 +220,7 @@
                             <TextRun>
                               <Value>=Fields!Unit.Value</Value>
                               <Style>
-                                <FontSize>12pt</FontSize>
+                                <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -257,8 +269,8 @@
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <DataSetName>DataSet1</DataSetName>
         <Top>1.27cm</Top>
-        <Height>1.2cm</Height>
-        <Width>9.71019cm</Width>
+        <Height>1.30583cm</Height>
+        <Width>9.78956cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -273,10 +285,20 @@
             <TextRuns>
               <TextRun>
                 <Value>=Parameters!ReportName.Value</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve"> </Value>
                 <Style />
               </TextRun>
               <TextRun>
-                <Value> วันที่ </Value>
+                <Value>=Parameters!Day.Value</Value>
+                <Style />
+              </TextRun>
+              <TextRun>
+                <Value xml:space="preserve"> </Value>
                 <Style />
               </TextRun>
               <TextRun>
@@ -284,7 +306,7 @@
                 <Style />
               </TextRun>
               <TextRun>
-                <Value> พื้นที่ </Value>
+                <Value xml:space="preserve">  </Value>
                 <Style />
               </TextRun>
               <TextRun>
@@ -297,8 +319,8 @@
         </Paragraphs>
         <rd:DefaultName>date</rd:DefaultName>
         <Top>0.23495cm</Top>
-        <Height>0.6cm</Height>
-        <Width>9.71019cm</Width>
+        <Height>0.85866cm</Height>
+        <Width>9.78956cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -314,7 +336,7 @@
     <Height>8.875in</Height>
     <Style />
   </Body>
-  <Width>3.82291in</Width>
+  <Width>3.85416in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
@@ -357,7 +379,11 @@
         </Field>
         <Field Name="Unit">
           <DataField>Unit</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UnitText">
+          <DataField>UnitText</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
@@ -380,6 +406,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="ReportName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Day">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

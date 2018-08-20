@@ -24,6 +24,9 @@ namespace OrderManagement.User_Control
         private void ProductManageUC_Load(object sender, EventArgs e)
         {
             HelperCS.AutoCompleteLoadValues(comboProductGroup, "Config-ProductCategory");
+            HelperCS.AutoCompleteLoadValues(comboProductCarry, "Config-ProductCarry");
+            HelperCS.AutoCompleteLoadValues(comboProductUnit, "Config-ProductUnit");
+
             if (productid > 0)
             {
                 btnProductDelete.Visible = true;
@@ -35,7 +38,9 @@ namespace OrderManagement.User_Control
                 txtbProductAbbr.Text = "";
                 comboProductGroup.SelectedIndex = 0;
                 txtbProductPrice.Text = "";
-                txtbProductUnit.Text = "";
+                //txtbProductUnit.Text = "";
+                comboProductCarry.SelectedIndex = 0;
+                comboProductUnit.SelectedIndex = 0;
                 txtbProductAmount.Text = "";
                 txtbProductDescription.Text = "";
                 btnProductDelete.Visible = false;
@@ -55,7 +60,9 @@ namespace OrderManagement.User_Control
                     txtbProductAbbr.Text = ds[0].ProductAbbr;
                     comboProductGroup.SelectedIndex = int.Parse(ds[0].Category.ToString());
                     txtbProductPrice.Text = ds[0].Price.ToString();
-                    txtbProductUnit.Text = ds[0].Unit.ToString();
+                    //txtbProductUnit.Text = ds[0].Unit.ToString();
+                    comboProductCarry.SelectedIndex = int.Parse(ds[0].UnitCarry.ToString());
+                    comboProductUnit.SelectedIndex = int.Parse(ds[0].Unit.ToString());
                     txtbProductAmount.Text = ds[0].Amount.ToString();
                     txtbProductDescription.Text = ds[0].Descripiton;
                     //bind to control
@@ -66,7 +73,11 @@ namespace OrderManagement.User_Control
         {
             int result = 0;
             string Category = ((KeyValuePair<string, string>)comboProductGroup.SelectedItem).Key;
+            string UnitCarrystr = ((KeyValuePair<string, string>)comboProductCarry.SelectedItem).Key;
+            string Unitstr = ((KeyValuePair<string, string>)comboProductUnit.SelectedItem).Key;
             int group = Category != "" ? int.Parse(Category) : 0;
+            int UnitCarry = UnitCarrystr != "" ? int.Parse(UnitCarrystr) : 1;
+            int Unit = Unitstr != "" ? int.Parse(Unitstr) : 1;
             try
             {
                 if (productid > 0)
@@ -74,7 +85,8 @@ namespace OrderManagement.User_Control
                     //edit product
                     using (var db = new OrderEntities())
                     {
-                        var ds = db.UpdateProduct(productid, txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), int.Parse(txtbProductUnit.Text), int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
+                        //var ds = db.UpdateProduct(productid, txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), Convert.ToDecimal(txtbProductUnit.Text), int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
+                        var ds = db.UpdateProduct(productid, txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), UnitCarry,Unit, int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
                         {
                             result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
@@ -98,7 +110,7 @@ namespace OrderManagement.User_Control
                     //add new product
                     using (var db = new OrderEntities())
                     {
-                        var ds = db.InsertProduct(txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), int.Parse(txtbProductUnit.Text), int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
+                        var ds = db.InsertProduct(txtbProductName.Text, txtbProductAbbr.Text, group, Convert.ToDecimal(txtbProductPrice.Text), UnitCarry, Unit, int.Parse(txtbProductAmount.Text), txtbProductDescription.Text, true, DateTime.Now, HelperCS.UserName).ToList();
                         if (ds.Count() > 0)
                         {
                             result = ds[0] != null ? int.Parse(ds[0].ToString()) : 99;
@@ -193,8 +205,10 @@ namespace OrderManagement.User_Control
             txtbProductAmount.Text = "";
             txtbProductDescription.Text = "";
             txtbProductPrice.Text = "";
-            txtbProductUnit.Text = "";
+            //txtbProductUnit.Text = "";
             comboProductGroup.SelectedIndex = 0;
+            comboProductCarry.SelectedIndex = 0;
+            comboProductUnit.SelectedIndex = 0;
         }
 
         private void btnProductSave_Click(object sender, EventArgs e)
@@ -214,6 +228,14 @@ namespace OrderManagement.User_Control
             else if (comboProductGroup.SelectedIndex == 0)
             {
                 MessageBox.Show("กรุณาเลือกกลุ่มของสินค้า ", "บันทึกไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (comboProductCarry.SelectedIndex == 0)
+            {
+                MessageBox.Show("กรุณาเลือกจำนวนหน่วยยกของสินค้า ", "บันทึกไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (comboProductUnit.SelectedIndex == 0)
+            {
+                MessageBox.Show("กรุณาเลือกหน่วยยกของสินค้า ", "บันทึกไม่ได้", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -273,6 +295,23 @@ namespace OrderManagement.User_Control
             }
 
         }
+        private void comboProductCarry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string cmbCarry = comboProductCarry.SelectedIndex > 0 ? ((KeyValuePair<string, string>)comboProductCarry.SelectedItem).Value : "";
+            cmbCarry = cmbCarry == "0.5" ? "1/2" : cmbCarry;
+            string cmbUnit = comboProductUnit.SelectedIndex > 0 ? ((KeyValuePair<string, string>)comboProductUnit.SelectedItem).Value : "";
+            txtbProductDescription.Text = cmbCarry + cmbUnit;
+        }
+
+        private void comboProductUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string cmbCarry = comboProductCarry.SelectedIndex > 0 ? ((KeyValuePair<string, string>)comboProductCarry.SelectedItem).Value : "";
+            cmbCarry = cmbCarry == "0.5" ? "1/2" : cmbCarry;
+            string cmbUnit = comboProductUnit.SelectedIndex > 0 ? ((KeyValuePair<string, string>)comboProductUnit.SelectedItem).Value : "";
+            txtbProductDescription.Text = cmbCarry + cmbUnit;
+        }
         #endregion INDEX CHANGED
+
+
     }
 }

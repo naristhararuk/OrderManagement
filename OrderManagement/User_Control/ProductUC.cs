@@ -151,18 +151,24 @@ namespace OrderManagement.User_Control
             using (SqlConnection con = new SqlConnection(constring))
             {
                 con.Open();
-                sql = "SELECT TOP " + this.mintPageSize + " * FROM Product WHERE Status = 1";
+                sql = "SELECT TOP " + this.mintPageSize + " p.ProductID,p.ProductName,c3.Name Category,p.Price,c1.Name + ' '+ c2.Name Unit";
+                sql += " ,p.Amount,p.Status,p.UpdateDate,p.UpdateBy ";
+                sql += " FROM [Order].[dbo].[Product]  p ";
+
+                sql += " JOIN [dbo].[Config] c1 ON c1.Value = p.UnitCarry AND c1.Module = 'ProductCarry' ";
+                sql += " JOIN [dbo].[Config] c2 ON c2.Value = p.Unit AND c2.Module = 'ProductUnit' ";
+                sql += " JOIN [dbo].[Config] c3 ON c3.Value = p.Category AND c3.Module = 'ProductCategory' WHERE p.Status = 1 ";
                 if (ddlProduct.SelectedIndex > 0)
                 {
                     string Productkey = ((KeyValuePair<string, string>)ddlProduct.SelectedItem).Key;
-                    sql += " AND ProductID = " + int.Parse(Productkey);
+                    sql += " AND p.ProductID = " + int.Parse(Productkey);
                 }
                 if (ddlProductCategory.SelectedIndex > 0)
                 {
                     string Categorykey = ((KeyValuePair<string, string>)ddlProductCategory.SelectedItem).Key;
-                    sql += " AND Category = " + int.Parse(Categorykey);
+                    sql += " AND p.Category = " + int.Parse(Categorykey);
                 }
-                sql += " AND ProductID NOT IN " +
+                sql += " AND p.ProductID NOT IN " +
                 "(SELECT TOP " + intSkip + " ProductID FROM Product)";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -172,6 +178,9 @@ namespace OrderManagement.User_Control
                     dt.Load(cmd.ExecuteReader());
                     ProductGrid.DataSource = dt;
                     ProductGrid.AllowUserToAddRows = false;
+                    ProductGrid.Font = HelperCS.SegoeUIFont12;
+                    ProductGrid.RowTemplate.Height = 30;
+                    //ProductGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     // Show Status
                     txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
                 }
@@ -256,6 +265,7 @@ namespace OrderManagement.User_Control
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ProductManageUC");
             //BindProductData(1);
+            HelperCS.AutoCompleteLoadValues(ddlProduct, "Product");
             fillGrid();
         }
         private void btnSearchCustomer_Click(object sender, EventArgs e)
@@ -277,6 +287,7 @@ namespace OrderManagement.User_Control
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ProductManageUC");
             //BindProductData(1);
+            HelperCS.AutoCompleteLoadValues(ddlProduct, "Product");
             fillGrid();
         }
         #endregion EVENT CLICK
@@ -422,6 +433,12 @@ namespace OrderManagement.User_Control
         private void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillGrid();
+            
+        }
+
+        private void pnlPager_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

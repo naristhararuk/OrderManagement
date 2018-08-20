@@ -96,18 +96,21 @@ namespace OrderManagement
             using (SqlConnection con = new SqlConnection(constring))
             {
                 con.Open();
-                sql = "SELECT TOP " + this.mintPageSize + " * FROM Customer WHERE Status = 1";
+                sql = "SELECT TOP " + this.mintPageSize + " c.CustomerID,c.CitizenID,c.CustomerName,cf1.Name,c.Address1 ";
+                sql += " ,c.Phone,c.ShowPrice,c.Status,c.UpdateDate,c.UpdateBy";
+                sql += " FROM Customer c JOIN [dbo].[Config] cf1 ON cf1.Value = c.Zone AND cf1.Module = 'CustomerZone' ";
+                sql += " WHERE c.Status = 1";
                 if (ddlCustomer.SelectedIndex > 0)
                 {
                     string cusid = ((KeyValuePair<string, string>)ddlCustomer.SelectedItem).Key;
-                    sql += " AND CustomerID = " + int.Parse(cusid);
+                    sql += " AND c.CustomerID = " + int.Parse(cusid);
                 }
                 if (ddlCustomerZone.SelectedIndex > 0)
                 {
                     string zone = ((KeyValuePair<string, string>)ddlCustomerZone.SelectedItem).Key;
-                    sql += " AND Zone = " + int.Parse(zone);
+                    sql += " AND c.Zone = " + int.Parse(zone);
                 }
-                sql += " AND CustomerID NOT IN " +
+                sql += " AND c.CustomerID NOT IN " +
                 "(SELECT TOP " + intSkip + " CustomerID FROM Customer)";
                 using (SqlCommand cmd = new SqlCommand(sql, con))
                 {
@@ -117,6 +120,9 @@ namespace OrderManagement
                     dt.Load(cmd.ExecuteReader());
                     CustomerGrid.DataSource = dt;
                     CustomerGrid.AllowUserToAddRows = false;
+                    CustomerGrid.Font = HelperCS.SegoeUIFont12;
+                    CustomerGrid.RowTemplate.Height = 30;
+                    //CustomerGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     // Show Status
                     txtPage.Text = (this.mintCurrentPage + 1).ToString() + " / " + this.mintPageCount.ToString() + "  หน้า";
                 }

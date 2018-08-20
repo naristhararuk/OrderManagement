@@ -75,7 +75,7 @@
             // 
             this.btnSearchReport.ActiveControl = null;
             this.btnSearchReport.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearchReport.Location = new System.Drawing.Point(870, 11);
+            this.btnSearchReport.Location = new System.Drawing.Point(883, 4);
             this.btnSearchReport.Name = "btnSearchReport";
             this.btnSearchReport.Size = new System.Drawing.Size(49, 50);
             this.btnSearchReport.TabIndex = 40;
@@ -111,7 +111,7 @@
             // 
             this.reportViewer1.Location = new System.Drawing.Point(5, 67);
             this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(931, 647);
+            this.reportViewer1.Size = new System.Drawing.Size(1190, 647);
             this.reportViewer1.TabIndex = 43;
             // 
             // lblCustomer
@@ -132,7 +132,7 @@
             this.ddlCustomer.FormattingEnabled = true;
             this.ddlCustomer.Location = new System.Drawing.Point(596, 32);
             this.ddlCustomer.Name = "ddlCustomer";
-            this.ddlCustomer.Size = new System.Drawing.Size(253, 21);
+            this.ddlCustomer.Size = new System.Drawing.Size(237, 21);
             this.ddlCustomer.TabIndex = 37;
             // 
             // ReportViewerUC
@@ -148,7 +148,7 @@
             this.Controls.Add(this.ddlCustomer);
             this.Controls.Add(this.lblCustomer);
             this.Name = "ReportViewerUC";
-            this.Size = new System.Drawing.Size(940, 725);
+            this.Size = new System.Drawing.Size(1198, 725);
             this.Load += new System.EventHandler(this.ReportViewerUC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CustomerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrderBindingSource)).EndInit();

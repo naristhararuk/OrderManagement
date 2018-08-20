@@ -54,7 +54,7 @@ namespace OrderManagement.User_Control
                 if(ds.Count > 0)
                 {
 
-                    txtbCustomerCitizenID.Text = ds[0].CitizenID.ToString();
+                    txtbCustomerCitizenID.Text = ds[0].CitizenID != null ? ds[0].CitizenID.ToString() : "";
                     txtbCustomerName.Text = ds[0].CustomerName;
                     txtbCustomerAbbr.Text = ds[0].CustomerAbbr;
                     comboCustomerZone.SelectedIndex = int.Parse(ds[0].Zone.ToString());

@@ -12,6 +12,7 @@ using System.Configuration;
 using OrderManagement.Class;
 using MetroFramework.Controls;
 using OrderManagement.Entity;
+using OrderManagement.User_Control;
 
 namespace OrderManagement.User_Control
 {
@@ -150,7 +151,11 @@ namespace OrderManagement.User_Control
                 if (RptDatePicker.Text != "")
                 {
                     //DateTime pickdate = RptDatePicker.Value;
-                    sql2 = " AND CONVERT(DATE, o.[OrderDate]) = '" + RptDatePicker.Value.ToString("yyyy-MM-dd") + "'";
+                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                    System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+                    DateTime currentdate = Convert.ToDateTime(RptDatePicker.Value, culture);
+
+                    sql2 = " AND CONVERT(DATE, o.[OrderDate]) = '" + currentdate.ToString("yyyy-MM-dd") + "'";
                     sql += sql2;
                 }
                 else
@@ -258,10 +263,11 @@ namespace OrderManagement.User_Control
         private void PrepareReport(string reporttype, DateTime date, int cusid)
         {
             //set variable in user control
-            ReportServiceUC.date = date;
-            ReportServiceUC.customerid = cusid;
-            ReportServiceUC.reporttype = reporttype;
-
+            ReportServiceUC report = new ReportServiceUC();
+            report.date = date;
+            report.customerid = cusid;
+            report.reporttype = reporttype;
+          
             //call popup from parent Form
             Form1 frm = this.FindForm() as Form1;
             frm.callControlPopup("ReportServiceUC");

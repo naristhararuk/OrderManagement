@@ -15,7 +15,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>D:\N-Project\Public\OrderManagement\</PublishUrl>
+    <PublishUrl>D:\Project\OrderManagement\Public\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,7 +25,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -147,6 +148,9 @@
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetCustomerSearch_Result.cs">
+      <DependentUpon>OrderEN.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GetCustomerTransportTofu_Result.cs">
       <DependentUpon>OrderEN.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\GetCustomerTransport_Result.cs">
@@ -349,6 +353,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Report\CustomerTransport.rdlc" />
     <EmbeddedResource Include="Report\Invoice.rdlc" />
+    <EmbeddedResource Include="Report\CustomerTransportTofu.rdlc" />
     <EmbeddedResource Include="Report\ProductTransport.rdlc" />
     <EmbeddedResource Include="Report\ReceiveWeekly.rdlc" />
     <EmbeddedResource Include="Report\ReceiveWeeklyPrice.rdlc" />
@@ -470,8 +475,6 @@
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRowChangeEvent.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS+vwCustomerDetailRowChangeEventHandler.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDS.datasource" />
-    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDSTableAdapters.GetOrderbyDayTableAdapter.datasource" />
-    <None Include="Properties\DataSources\OrderManagement.Dataset.ReportDSTableAdapters.vwCustomerDetailTableAdapter.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Customer.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.Order.datasource" />
     <None Include="Properties\DataSources\OrderManagement.Entity.OrderEntities.datasource" />

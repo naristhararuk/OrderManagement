@@ -50,5 +50,10 @@ namespace OrderManagement.User_Control
             pnlMainReport.Controls.Clear();
             pnlMainReport.Controls.Add(report);
         }
+
+        private void pnlMainReport_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

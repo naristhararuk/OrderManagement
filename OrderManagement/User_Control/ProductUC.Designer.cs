@@ -43,15 +43,15 @@
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
             this.ProductGrid = new MetroFramework.Controls.MetroGrid();
             this.pnlPager = new MetroFramework.Controls.MetroPanel();
+            this.lblRecordCount = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.ddlPageSize = new System.Windows.Forms.ComboBox();
             this.txtPage = new MetroFramework.Controls.MetroTextBox();
             this.btnPageLast = new MetroFramework.Controls.MetroTile();
             this.btnPagePrevious = new MetroFramework.Controls.MetroTile();
             this.btnPageNext = new MetroFramework.Controls.MetroTile();
             this.btnPageFirst = new MetroFramework.Controls.MetroTile();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.lblRecordCount = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProductGrid)).BeginInit();
             this.pnlPager.SuspendLayout();
@@ -213,7 +213,7 @@
             this.ProductGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.ProductGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.ProductGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProductGrid.Size = new System.Drawing.Size(1334, 500);
+            this.ProductGrid.Size = new System.Drawing.Size(1300, 350);
             this.ProductGrid.TabIndex = 60;
             this.ProductGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProductGrid_CellClick);
             // 
@@ -231,20 +231,52 @@
             this.pnlPager.HorizontalScrollbarBarColor = true;
             this.pnlPager.HorizontalScrollbarHighlightOnWheel = false;
             this.pnlPager.HorizontalScrollbarSize = 10;
-            this.pnlPager.Location = new System.Drawing.Point(16, 686);
+            this.pnlPager.Location = new System.Drawing.Point(16, 536);
             this.pnlPager.Name = "pnlPager";
-            this.pnlPager.Size = new System.Drawing.Size(1334, 40);
+            this.pnlPager.Size = new System.Drawing.Size(1300, 53);
             this.pnlPager.TabIndex = 62;
             this.pnlPager.VerticalScrollbarBarColor = true;
             this.pnlPager.VerticalScrollbarHighlightOnWheel = false;
             this.pnlPager.VerticalScrollbarSize = 10;
+            this.pnlPager.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPager_Paint);
+            // 
+            // lblRecordCount
+            // 
+            this.lblRecordCount.AutoSize = true;
+            this.lblRecordCount.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.lblRecordCount.Location = new System.Drawing.Point(176, 14);
+            this.lblRecordCount.Name = "lblRecordCount";
+            this.lblRecordCount.Size = new System.Drawing.Size(33, 25);
+            this.lblRecordCount.TabIndex = 72;
+            this.lblRecordCount.Text = "ชิ้น";
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel4.Location = new System.Drawing.Point(760, 14);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(88, 25);
+            this.metroLabel4.TabIndex = 66;
+            this.metroLabel4.Text = "แสดงข้อมูล";
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel5.Location = new System.Drawing.Point(3, 14);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(149, 25);
+            this.metroLabel5.TabIndex = 71;
+            this.metroLabel5.Text = "จำนวนข้อมูลทั้งหมด";
             // 
             // ddlPageSize
             // 
+            this.ddlPageSize.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.ddlPageSize.FormattingEnabled = true;
             this.ddlPageSize.Location = new System.Drawing.Point(866, 14);
             this.ddlPageSize.Name = "ddlPageSize";
-            this.ddlPageSize.Size = new System.Drawing.Size(45, 21);
+            this.ddlPageSize.Size = new System.Drawing.Size(45, 29);
             this.ddlPageSize.TabIndex = 63;
             this.ddlPageSize.SelectedIndexChanged += new System.EventHandler(this.ddlPageSize_SelectedIndexChanged);
             // 
@@ -254,15 +286,16 @@
             // 
             // 
             this.txtPage.CustomButton.Image = null;
-            this.txtPage.CustomButton.Location = new System.Drawing.Point(97, 1);
+            this.txtPage.CustomButton.Location = new System.Drawing.Point(91, 2);
             this.txtPage.CustomButton.Name = "";
-            this.txtPage.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtPage.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.txtPage.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtPage.CustomButton.TabIndex = 1;
             this.txtPage.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtPage.CustomButton.UseSelectable = true;
             this.txtPage.CustomButton.Visible = false;
             this.txtPage.Enabled = false;
+            this.txtPage.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.txtPage.Lines = new string[] {
         "metroTextBox1"};
             this.txtPage.Location = new System.Drawing.Point(487, 14);
@@ -274,7 +307,7 @@
             this.txtPage.SelectionLength = 0;
             this.txtPage.SelectionStart = 0;
             this.txtPage.ShortcutsEnabled = true;
-            this.txtPage.Size = new System.Drawing.Size(119, 23);
+            this.txtPage.Size = new System.Drawing.Size(119, 30);
             this.txtPage.TabIndex = 65;
             this.txtPage.Text = "metroTextBox1";
             this.txtPage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -342,33 +375,6 @@
             this.btnPageFirst.UseTileImage = true;
             this.btnPageFirst.Click += new System.EventHandler(this.btnPageFirst_Click);
             // 
-            // metroLabel4
-            // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(783, 14);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(68, 19);
-            this.metroLabel4.TabIndex = 66;
-            this.metroLabel4.Text = "แสดงข้อมูล";
-            // 
-            // lblRecordCount
-            // 
-            this.lblRecordCount.AutoSize = true;
-            this.lblRecordCount.Location = new System.Drawing.Point(115, 14);
-            this.lblRecordCount.Name = "lblRecordCount";
-            this.lblRecordCount.Size = new System.Drawing.Size(26, 19);
-            this.lblRecordCount.TabIndex = 72;
-            this.lblRecordCount.Text = "คน";
-            // 
-            // metroLabel5
-            // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(3, 14);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(116, 19);
-            this.metroLabel5.TabIndex = 71;
-            this.metroLabel5.Text = "จำนวนข้อมูลทั้งหมด";
-            // 
             // ProductUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,7 +386,7 @@
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroPanel1);
             this.Name = "ProductUC";
-            this.Size = new System.Drawing.Size(1370, 731);
+            this.Size = new System.Drawing.Size(1350, 731);
             this.Load += new System.EventHandler(this.ProductUC_Load);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();

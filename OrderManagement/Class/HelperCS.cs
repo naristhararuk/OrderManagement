@@ -44,6 +44,7 @@ namespace OrderManagement.Class
         public static string[] EditMode = { "", "", "", "", "", "", "" };
         public static string[] dayOrder = { "false", "false", "false", "false", "false", "false", "false" };
         public static string[] monthThai = { "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." };
+        public static string[] daythai = { "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัส", "วันศุกร์", "วันเสาร์" };
         public static bool[] WeekOrder = { false, false, false, false, false, false, false };
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #region DATATABLE
@@ -297,12 +298,18 @@ namespace OrderManagement.Class
             tableheadpanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableheadpanel.Font = HelperCS.SegoeUIFont12;
 
+            Label lblheadunit = new Label();
+            lblheadunit.Name = "lblheadunit";
+            lblheadunit.Text = "หน่วยยก";
+            lblheadunit.Width = 100;
+            lblheadunit.TextAlign = ContentAlignment.TopCenter;
             //set column Header
             tableheadpanel.Controls.Add(new Label() { Text = "ลบ" }, 0, 0);
             tableheadpanel.Controls.Add(new Label() { Text = "ProductID" }, 1, 0);
             tableheadpanel.Controls.Add(new Label() { Text = "ชื่อสินค้า" }, 2, 0);
             tableheadpanel.Controls.Add(new Label() { Text = "ราคา" }, 3, 0);
-            tableheadpanel.Controls.Add(new Label() { Text = "หน่วยยก" }, 4, 0);
+            //tableheadpanel.Controls.Add(new Label() { Text = "หน่วยยก" }, 4, 0);
+            tableheadpanel.Controls.Add(lblheadunit, 4, 0);
             tableheadpanel.Controls.Add(new Label() { Text = "จำนวน" }, 5, 0);
             tableheadpanel.Controls.Add(new Label() { Text = "ราคาทั้งหมด" }, 6, 0);
 
@@ -318,6 +325,8 @@ namespace OrderManagement.Class
             tablepanel.Dock = DockStyle.Fill;
             //tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tablepanel.Font = HelperCS.SegoeUIFont12;
+
+            
 
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
             tablepanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
@@ -374,7 +383,7 @@ namespace OrderManagement.Class
                         txtprice.Leave += new EventHandler(TextBoxPriceInput_Leave);
                         Panel pnlprice = new Panel();
                         pnlprice.BorderStyle = BorderStyle.Fixed3D;
-                        pnlprice.Width = 120;
+                        pnlprice.Width = 160;
                         pnlprice.Height = 25;
                         pnlprice.Padding = new Padding(5, 0, 5, 0);
                         pnlprice.Controls.Add(txtprice);
@@ -402,14 +411,35 @@ namespace OrderManagement.Class
                         //pnl.Dock = DockStyle.Fill;
                         pnl.Controls.Add(txtamount);
 
+                        Label lblproductid = new Label();
+                        lblproductid.Name = "productid";
+                        lblproductid.Text = dr["ProductID"].ToString();
+                        lblproductid.Width = 70;
+                        lblproductid.TextAlign = ContentAlignment.TopCenter;
+                        //lblproductid.Dock = DockStyle.Right;
+                        //lblproductid.Margin = new Padding(lblproductid.Margin.Left, lblproductid.Margin.Top + 5, lblproductid.Margin.Right, lblproductid.Margin.Bottom);
+
+                        Label lblproductname = new Label();
+                        lblproductname.Name = "productname";
+                        lblproductname.Text = dr["ProductName"].ToString();
+                        lblproductname.Width = 500;
+
+                        Label lblproductunit = new Label();
+                        lblproductunit.Name = "productunit";
+                        //lblproductunit.Text = dr["Unit"].ToString();
+                        lblproductunit.Text = dr["UnitText"].ToString();
+                        lblproductunit.Width = 100;
+                        lblproductunit.TextAlign = ContentAlignment.TopCenter;
+
                         //Add Control to cell table
                         tablepanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
                         tablepanel.Controls.Add(bt, 0, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(new Label() { Text = dr["ProductID"].ToString() }, 1, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(new Label() { Text = dr["ProductName"].ToString() }, 2, tablepanel.RowCount - 1);
+                        //tablepanel.Controls.Add(new Label() { Text = dr["ProductID"].ToString() }, 1, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(lblproductid, 1, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(lblproductname, 2, tablepanel.RowCount - 1);
                         //tablepanel.Controls.Add(new Label() { Text = dr["OrderPrice"].ToString() }, 3, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(pnlprice, 3, tablepanel.RowCount - 1);
-                        tablepanel.Controls.Add(new Label() { Text = dr["Unit"].ToString() }, 4, tablepanel.RowCount - 1);
+                        tablepanel.Controls.Add(lblproductunit, 4, tablepanel.RowCount - 1);
                         tablepanel.Controls.Add(pnl, 5, tablepanel.RowCount - 1);
 
                         decimal total = Convert.ToDecimal(dr["OrderPrice"].ToString()) * Convert.ToDecimal(dr["OrderAmount"].ToString());

@@ -829,9 +829,10 @@
                   </Style>
                 </TextRun>
                 <TextRun>
-                  <Value>=First(Fields!DocumentID.Value, "DataSet1")</Value>
+                  <Value>=Parameters!DocumentID.Value</Value>
                   <Style>
                     <FontWeight>Normal</FontWeight>
+                    <Format>d MMM yyyy</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1215,6 +1216,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BahtText">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DocumentID">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>

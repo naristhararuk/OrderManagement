@@ -16,7 +16,7 @@ namespace OrderManagement.User_Control
     public partial class OrderUC : UserControl
     {
         private int customerid = 0;
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         //private DateTime sundate, mondate, tuedate, weddate, thudate, fridate, satdate;
         public OrderUC()
         {
@@ -110,6 +110,7 @@ namespace OrderManagement.User_Control
         {
             btnOrderEdit.Visible = false;
             HelperCS.editmode = false;
+            HelperCS.editprice = false;
         }
 
         //private void BindGrid()
@@ -733,6 +734,8 @@ namespace OrderManagement.User_Control
         #region Event Click  
         private void btnOrderEdit_Click(object sender, EventArgs e)
         {
+
+            //log.Info("Helper:UpdateOrder user:" + userName + " customerid:" + customerid.ToString() + " productid:" + pid.ToString() + " price:" + pprice.ToString() + " orderprice:" + oprice.ToString() + " amount:" + oamount.ToString());
             lblEditmode.Text = "แก้ไขข้อมูล";
             HelperCS.editmode = true;
             CheckTabActive();
@@ -743,7 +746,38 @@ namespace OrderManagement.User_Control
             //CheckDate();
             CheckTabActive();
         }
+        private void btnEditPrice_Click(object sender, EventArgs e)
+        {
+            DialogResult res = InputBox.ShowDialog("กรุณาใส่รหัสเพื่อแก้ไขราคาสินค้า:",
+            "Authentication",   //Text message (mandatory), Title (optional)
+                InputBox.Icon.Exclamation, //Set icon type (default info)
+                InputBox.Buttons.OkCancel, //Set buttons (default ok)
+                InputBox.Type.TextBoxPassword, //Set type (default nothing)
+                new string[] { "Item1", "Item2", "Item3" }, //String field as ComboBox items (default null)
+                true, //Set visible in taskbar (default false)
+                new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Bold)); //Set font (default by system)
 
+            if (res == System.Windows.Forms.DialogResult.OK || res == System.Windows.Forms.DialogResult.Yes)
+            {
+                using (OrderEntities db = new OrderEntities())
+                {
+                    string passwd = InputBox.ResultValue != "" ? HelperCS.Encrypt(InputBox.ResultValue) : ""; //InputBox.ResultValue = textbox form dialogresult
+                    int rownum = db.Login.Where(a => a.UserName == "PRICE" && a.Password == passwd).Count();
+                    if (rownum > 0)
+                    {
+                        log.Info("OrderUC:Edit Price user:" + HelperCS.UserName + " customerid:" + ComboOrderCustomer.SelectedItem.ToString() + " day:" + HelperCS.daycheckbox.ToString());
+                        HelperCS.editprice = true;
+                        CheckTabActive();
+                    }
+                    else
+                    {
+                        log.Error("OrderUC:Edit Price Error user:" + HelperCS.UserName + " customerid:" + ComboOrderCustomer.SelectedItem.ToString() + " day:" + HelperCS.daycheckbox.ToString());
+                        Form frm = btnEditPrice.FindForm();
+                        MessageBox.Show(frm, "คุณไม่มีสิทธิ์แก้ไขข้อมูล ", "Authorization Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
         private void btnOrderSave_Click(object sender, EventArgs e)
         {
             MetroTile btn = (MetroTile)sender;
